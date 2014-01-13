@@ -1,0 +1,28 @@
+{
+  "name": "rangeSlider",
+  "title": "rangeSlider",
+  "description": "Simple Javascript/jQuery polyfill for HTML5 input[type=\"range\"] slider",
+  "version": "0.1.0",
+  "homepage": "https://github.com/andreruffert/range-slider",
+  "author": {
+    "name": "André Ruffert",
+    "url": "http://andreruffert.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreruffert/range-slider"
+  },
+  "bugs": {
+    "url": "https://github.com/andreruffert/range-slider/issues"
+  },
+  "licenses": "MIT",
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "keywords": [
+    "range",
+    "slider"
+  ]
+}
