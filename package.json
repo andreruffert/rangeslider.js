@@ -2,7 +2,7 @@
   "name": "rangeSlider",
   "title": "rangeSlider",
   "description": "Simple Javascript/jQuery polyfill for HTML5 input[type=\"range\"] slider",
-  "version": "0.2.0",
+  "version": "0.0.0",
   "homepage": "https://github.com/andreruffert/range-slider",
   "author": {
     "name": "André Ruffert",
