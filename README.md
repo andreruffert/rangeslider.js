@@ -11,3 +11,7 @@ Check out the [demo](http://andreruffert.github.io/rangeslider.js/).
 
 ##Browser Support
 * Tested in IE8+
+
+
+##Usage
+Check out [the website's section](http://andreruffert.github.io/rangeslider.js/#usage) on how to use rangeslider.js.
