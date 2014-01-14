@@ -14,19 +14,54 @@
             margin: 0 auto;
             max-width: 900px;
         }
+        header {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <div class="rangeslider">
-        <input type="range" name="rangeslider" value="300" min="0" max="1000" step="10">
-    </div>
+    <header>
+        <h1>rangeslider.js</h1>
+        <p>Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <code>&lt;input type="range"&gt;</code> element</p>
+        <div class="rangeslider">
+            <input type="range" min="10" max="1000" step="10" value="300">
+        </div>
+    </header>
+
+    <hr>
+
+    <section>
+        <h2>Installing rangeslider.js</h2>
+        <p>The easiest way to install the files is with <a href="http://bower.io/" target="_blank">Bower</a>.</p>
+        <code>bower install --save rangeslider.js</code>
+        <p>You can also do it the old school way and <a href="https://github.com/andreruffert/rangeslider.js/zipball/v0.1.3">download a zip file</a>.</p>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>Usage</h2>
+        <code>
+            &lt;div class="rangeslider"&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="range" min="10" max="1000" step="10" value="300"&gt;<br>
+            &lt;/div&gt;<br>
+            <br>
+            &lt;script&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;$('input[type="range"]').rangeslider();<br>
+            &lt;/script&gt;
+        </code>
+    </section>
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="bower_components/rangeslider/rangeslider.js"></script>
     <script>
         $(function() {
             $('input[type="range"]').rangeslider({
                 onSlide: function(position, value) {
-                    console.log(value);
+                    // do some stuff ...
+                },
+                onSlideEnd: function(position) {
+                    // do some stuff ...
                 }
             });
         });
