@@ -1,4 +1,4 @@
-/*! rangeslider - v0.1.2 | (c) 2014 @andreruffert | MIT license | http://github.com/andreruffert/rangeslider */
+/*! rangeslider.js - v0.1.3 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function ($, window, document, undefined) {
 
     'use strict';
@@ -10,7 +10,6 @@
     function supportsRange() {
         var input = document.createElement('input');
         input.setAttribute('type', 'range');
-        return false;
         return input.type !== 'text';
     }
 
