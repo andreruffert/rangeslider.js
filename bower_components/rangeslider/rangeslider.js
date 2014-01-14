@@ -1,4 +1,4 @@
-/*! rangeslider - v0.1.0 | (c) 2014 @andreruffert | MIT license | http://github.com/andreruffert/rangeslider */
+/*! rangeslider - v0.1.2 | (c) 2014 @andreruffert | MIT license | http://github.com/andreruffert/rangeslider */
 (function ($, window, document, undefined) {
 
     'use strict';
@@ -10,6 +10,7 @@
     function supportsRange() {
         var input = document.createElement('input');
         input.setAttribute('type', 'range');
+        return false;
         return input.type !== 'text';
     }
 
@@ -28,6 +29,7 @@
 
     var pluginName = 'rangeslider',
         touchevents = isTouchScreen(),
+        inputrange = supportsRange(),
         defaults = {
             baseClass: 'rangeslider',
             rangeClass: 'rangeslider__range',
@@ -81,7 +83,7 @@
      * @param {Object} options
      */
     function Plugin(element, options) {
-        //if (supportsRange()) { return false; }
+        if (inputrange) { return false; }
 
         this.$window    = $(window);
         this.$document  = $(document);
