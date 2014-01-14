@@ -17,16 +17,35 @@
         header {
             text-align: center;
         }
+        section {
+            margin: 30px 0;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>rangeslider.js</h1>
-        <p>Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <code>&lt;input type="range"&gt;</code> element</p>
+        <p>Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <code>&lt;input type="range"&gt;</code> slider element</p>
         <div class="rangeslider">
             <input type="range" min="10" max="1000" step="10" value="300">
         </div>
     </header>
+
+    <section>
+        <h2>Features</h2>
+        <ul>
+            <li>Touchscreen friendly</li>
+            <li>Recalculates `onresize` so suitable for use within responsive designs</li>
+            <li>Small and fast</li>
+        </ul>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>Browser Support</h2>
+        <p>Tested in IE8+</p>
+    </section>
 
     <hr>
 
@@ -34,7 +53,7 @@
         <h2>Installing rangeslider.js</h2>
         <p>The easiest way to install the files is with <a href="http://bower.io/" target="_blank">Bower</a>.</p>
         <code>bower install --save rangeslider.js</code>
-        <p>You can also do it the old school way and <a href="https://github.com/andreruffert/rangeslider.js/zipball/v0.1.3">download a zip file</a>.</p>
+        <p>You can also do it the old school way and <a href="https://github.com/andreruffert/rangeslider.js/zipball/v0.1.4">download a zip file</a>.</p>
     </section>
 
     <hr>
@@ -57,6 +76,7 @@
     <script>
         $(function() {
             $('input[type="range"]').rangeslider({
+                polyfill: false,
                 onSlide: function(position, value) {
                     // do some stuff ...
                 },
