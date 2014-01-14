@@ -1,4 +1,4 @@
-/*! rangeslider.js - v0.1.4 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v0.1.5 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function ($, window, document, undefined) {
 
     'use strict';
