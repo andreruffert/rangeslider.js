@@ -8,30 +8,60 @@
     <style>
         html {
             color: #404040;
-            font-family: arial;
+            font-family: Helvetica, arial, sans-serif;
         }
         body {
+            padding: 10px 20px;
             margin: 0 auto;
-            max-width: 900px;
+            max-width: 800px;
         }
+        a {
+            color: #000000;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            margin: 20px 0 10px;
+            -webkit-font-smoothing: antialiased;
+        }
+
         header {
             text-align: center;
         }
         section {
             margin: 30px 0;
         }
+
+        pre,
+        code {
+            background: #f8f8f8;
+            border-radius: 3px;
+        }
+
+        code {
+            border: 1px solid #eaeaea;
+            margin: 0 2px;
+            padding: 0 5px;
+            white-space: nowrap;
+        }
+
+        pre {
+            border: 1px solid #ddd;
+            font-size: 13px;
+            line-height: 19px;
+            overflow: auto;
+            padding: 6px 10px;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>rangeslider.js</h1>
-        <p>Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <code>&lt;input type="range"&gt;</code> slider element</p>
+        <p>Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <code>&lt;input type="range"&gt;</code> slider element.</p>
         <div class="rangeslider">
             <input type="range" min="10" max="1000" step="10" value="300">
         </div>
     </header>
 
-    <section>
+    <section id="features">
         <h2>Features</h2>
         <ul>
             <li>Touchscreen friendly</li>
@@ -40,35 +70,28 @@
         </ul>
     </section>
 
-    <hr>
-
-    <section>
+    <section id="browser-support">
         <h2>Browser Support</h2>
         <p>Tested in IE8+</p>
     </section>
 
-    <hr>
-
-    <section>
+    <section id="install">
         <h2>Installing rangeslider.js</h2>
         <p>The easiest way to install the files is with <a href="http://bower.io/" target="_blank">Bower</a>.</p>
-        <code>bower install --save rangeslider.js</code>
+        <pre>bower install --save rangeslider.js</pre>
         <p>You can also do it the old school way and <a href="https://github.com/andreruffert/rangeslider.js/zipball/v0.1.4">download a zip file</a>.</p>
     </section>
 
-    <hr>
-
-    <section>
+    <section id="usage">
         <h2>Usage</h2>
-        <code>
-            &lt;div class="rangeslider"&gt;<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="range" min="10" max="1000" step="10" value="300"&gt;<br>
-            &lt;/div&gt;<br>
-            <br>
-            &lt;script&gt;<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;$('input[type="range"]').rangeslider();<br>
-            &lt;/script&gt;
-        </code>
+<pre>
+&lt;div class="rangeslider"&gt;
+    &lt;input type="range" min="10" max="1000" step="10" value="300"&gt;
+&lt;/div&gt;
+&lt;script&gt;
+    $('input[type="range"]').rangeslider();
+&lt;/script&gt;
+</pre>
     </section>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
