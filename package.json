@@ -23,5 +23,15 @@
     "node": ">=0.8.0"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "load-grunt-tasks": "~0.2.1",
+    "time-grunt": "~0.2.7",
+    "grunt-contrib-watch": "~0.5.2",
+    "grunt-contrib-jshint": "~0.8.0",
+    "jshint-stylish": "~0.1.5",
+    "grunt-contrib-compass": "~0.7.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.7"
+  }
 }
