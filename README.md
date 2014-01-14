@@ -13,5 +13,9 @@ Check out the [demo](http://andreruffert.github.io/rangeslider.js/).
 * Tested in IE8+
 
 
+##Installing rangeslider.js
+``bower install --save rangeslider.js``
+
+
 ##Usage
 Check out the [website's section](http://andreruffert.github.io/rangeslider.js/#usage) on how to use rangeslider.js.
