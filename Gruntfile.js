@@ -15,7 +15,7 @@ module.exports = function (grunt) {
         meta: {
             banner: '/*! <%= pkg.name %> - v<%= pkg.version %> | ' +
             '(c) <%= grunt.template.today("yyyy") %> @andreruffert | ' +
-            'MIT license | http://github.com/andreruffert/rangeslider */\n'
+            '<%= pkg.license %> license | <%= pkg.homepage %> */\n'
         },
 
         // Watches files for changes and runs tasks based on the changed files
@@ -51,7 +51,7 @@ module.exports = function (grunt) {
             dist: {
                 options: {
                     banner: '<%= meta.banner %>',
-                    specify: 'src/<%= pkg.name %>.scss',
+                    specify: 'src/rangeslider.scss',
                     debugInfo: false,
                     noLineComments: true
                 }
@@ -64,8 +64,8 @@ module.exports = function (grunt) {
                 banner: '<%= meta.banner %>'
             },
             dist: {
-                src: ['src/<%= pkg.name %>.js'],
-                dest: '<%= pkg.name %>.js'
+                src: ['src/rangeslider.js'],
+                dest: 'rangeslider.js'
             }
         },
 
@@ -75,8 +75,8 @@ module.exports = function (grunt) {
                 banner: '<%= meta.banner %>'
             },
             dist: {
-                src: ['<%= pkg.name %>.js'],
-                dest: '<%= pkg.name %>.min.js'
+                src: ['rangeslider.js'],
+                dest: 'rangeslider.min.js'
             }
         }
     });

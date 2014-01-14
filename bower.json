@@ -1,8 +1,8 @@
 {
-  "name": "rangeslider",
+  "name": "rangeslider.js",
   "version": "0.1.3",
   "main": "src/rangeslider.js",
-  "homepage": "https://github.com/andreruffert/rangeslider",
+  "homepage": "https://github.com/andreruffert/rangeslider.js",
   "author": "André Ruffert",
   "license": "MIT",
   "keywords": [
