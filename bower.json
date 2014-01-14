@@ -1,6 +1,6 @@
 {
   "name": "rangeslider",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "src/rangeslider.js",
   "homepage": "https://github.com/andreruffert/rangeslider",
   "author": "André Ruffert",
@@ -14,7 +14,6 @@
     "src",
     "node_modules",
     "bower_components",
-    "bower.json",
     "Gruntfile.js",
     "package.json"
   ]
