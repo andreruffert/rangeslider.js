@@ -25,10 +25,9 @@
         return bool;
     }
 
-    if (supportsRange()) { return false; }
-
     var pluginName = 'rangeslider',
         touchevents = isTouchScreen(),
+        inputrange = supportsRange(),
         defaults = {
             baseClass: 'rangeslider',
             rangeClass: 'rangeslider__range',
@@ -82,6 +81,8 @@
      * @param {Object} options
      */
     function Plugin(element, options) {
+        if (inputrange) { return false; }
+
         this.$window    = $(window);
         this.$document  = $(document);
         this.$element   = $(element);
