@@ -5,7 +5,7 @@
     var isTouchScreen = isTouchScreen(),
         supportsRange = supportsRange();
 
-    var pluginName = 'rangeSlider',
+    var pluginName = 'rangeslider',
         defaults = {
             baseClass: 'range-slider',
             rangeClass: 'range-slider__range',
