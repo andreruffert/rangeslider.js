@@ -1,5 +1,5 @@
 #rangeslider.js
-Simple, small and fast JavaScript/jQuery polyfill for the HTML5 `<input type="range">` slider element.
+Simple, small and fast JavaScript/jQuery polyfill for the HTML5 `<input type="range">` slider element.            
 Check out the [demo](http://andreruffert.github.io/rangeslider.js/). 
 
 
@@ -14,4 +14,4 @@ Check out the [demo](http://andreruffert.github.io/rangeslider.js/).
 
 
 ##Usage
-Check out [the website's section](http://andreruffert.github.io/rangeslider.js/#usage) on how to use rangeslider.js.
+Check out the [website's section](http://andreruffert.github.io/rangeslider.js/#usage) on how to use rangeslider.js.
