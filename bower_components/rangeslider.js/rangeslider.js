@@ -1,4 +1,4 @@
-/*! rangeslider.js - v0.1.3 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v0.1.5 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function ($, window, document, undefined) {
 
     'use strict';
@@ -30,6 +30,7 @@
         touchevents = isTouchScreen(),
         inputrange = supportsRange(),
         defaults = {
+            polyfill: true,
             baseClass: 'rangeslider',
             rangeClass: 'rangeslider__range',
             fillClass: 'rangeslider__fill',
@@ -82,14 +83,22 @@
      * @param {Object} options
      */
     function Plugin(element, options) {
-        if (inputrange) { return false; }
-
         this.$window    = $(window);
         this.$document  = $(document);
         this.$element   = $(element);
         this.options    = $.extend( {}, defaults, options );
         this._defaults  = defaults;
         this._name      = pluginName;
+        this.polyfill   = this.options.polyfill;
+        this.onSlide    = this.options.onSlide;
+        this.onSlideEnd = this.options.onSlideEnd;
+
+        // Plugin should only be used as a polyfill
+        if (this.polyfill) {
+            // Input range support?
+            if (inputrange) { return false; }
+        }
+
         this.$range     = $('<div class="' + this.options.rangeClass + '" />');
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
@@ -98,8 +107,6 @@
         this.min        = parseInt(this.$element[0].getAttribute('min')) || 0;
         this.max        = parseInt(this.$element[0].getAttribute('max')) || 0;
         this.step       = parseInt(this.$element[0].getAttribute('step')) || 1;
-        this.onSlide    = this.options.onSlide;
-        this.onSlideEnd = this.options.onSlideEnd;
 
         // Store context
         this.handleDown = $.proxy(this.handleDown, this);
