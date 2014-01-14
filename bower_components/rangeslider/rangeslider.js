@@ -1,32 +1,7 @@
-;(function ($, window, document, undefined) {
+/*! rangeslider - v0.1.0 | (c) 2014 @andreruffert | MIT license | http://github.com/andreruffert/rangeslider */
+(function ($, window, document, undefined) {
 
     'use strict';
-
-    var isTouchScreen = isTouchScreen(),
-        supportsRange = supportsRange();
-
-    var pluginName = 'rangeSlider',
-        defaults = {
-            baseClass: 'range-slider',
-            rangeClass: 'range-slider__range',
-            fillClass: 'range-slider__fill',
-            handleClass: 'range-slider__handle',
-            startEvent: (!isTouchScreen) ? 'mousedown' : 'touchstart',
-            moveEvent: (!isTouchScreen) ? 'mousemove' : 'touchmove',
-            endEvent: (!isTouchScreen) ? 'mouseup' : 'touchend'
-        };
-
-    /**
-     * Touchscreen detection
-     * @return {Boolean}
-     */
-    function isTouchScreen() {
-        var bool = false;
-        if(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
-          bool = true;
-        }
-        return bool;
-    }
 
     /**
      * Range feature detection
@@ -37,6 +12,31 @@
         input.setAttribute('type', 'range');
         return input.type !== 'text';
     }
+
+    /**
+     * Touchscreen detection
+     * @return {Boolean}
+     */
+    function isTouchScreen() {
+        var bool = false,
+            DocumentTouch = DocumentTouch || {};
+        if(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
+            bool = true;
+        }
+        return bool;
+    }
+
+    var pluginName = 'rangeslider',
+        touchevents = isTouchScreen(),
+        defaults = {
+            baseClass: 'rangeslider',
+            rangeClass: 'rangeslider__range',
+            fillClass: 'rangeslider__fill',
+            handleClass: 'rangeslider__handle',
+            startEvent: (!touchevents) ? 'mousedown' : 'touchstart',
+            moveEvent: (!touchevents) ? 'mousemove' : 'touchmove',
+            endEvent: (!touchevents) ? 'mouseup' : 'touchend'
+        };
 
     /**
      * Delays a function for the given number of milliseconds, and then calls
@@ -81,6 +81,8 @@
      * @param {Object} options
      */
     function Plugin(element, options) {
+        //if (supportsRange()) { return false; }
+
         this.$window    = $(window);
         this.$document  = $(document);
         this.$element   = $(element);
@@ -163,15 +165,15 @@
     };
 
     Plugin.prototype.cap = function(pos, min, max) {
-        if (pos < min) return min;
-        if (pos > max) return max;
+        if (pos < min) { return min; }
+        if (pos > max) { return max; }
 
         return pos;
     };
 
     Plugin.prototype.setPosition = function(pos) {
         var left, value;
-        left = this.cap(pos, 0, this.maxHandleX)
+        left = this.cap(pos, 0, this.maxHandleX);
         value = this.getValueFromPosition(left);
 
         // Snap steps
