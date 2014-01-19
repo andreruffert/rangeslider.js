@@ -1,8 +1,7 @@
-/*! rangeslider - v0.1.0 | (c) 2014 @andreruffert | MIT license | http://github.com/andreruffert/rangeslider */
+/*! rangeslider.js - v0.1.5 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 
 .rangeslider {
   position: relative;
-  margin: 50px;
 }
 
 .rangeslider__range,

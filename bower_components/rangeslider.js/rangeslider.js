@@ -99,24 +99,26 @@
             if (inputrange) { return false; }
         }
 
+        this.value      = parseInt(this.$element[0].value) || 0;
+        this.min        = parseInt(this.$element[0].min) || 0;
+        this.max        = parseInt(this.$element[0].max) || 0;
+        this.step       = parseInt(this.$element[0].step) || 1;
         this.$range     = $('<div class="' + this.options.rangeClass + '" />');
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
-        this.$base      = this.$element.parent('.' + this.options.baseClass).prepend(this.$range, this.$fill, this.$handle);
-        this.value      = parseInt(this.$element[0].getAttribute('value')) || 0;
-        this.min        = parseInt(this.$element[0].getAttribute('min')) || 0;
-        this.max        = parseInt(this.$element[0].getAttribute('max')) || 0;
-        this.step       = parseInt(this.$element[0].getAttribute('step')) || 1;
+        this.$base      = $('<div class="' + this.options.baseClass + '" />').insertBefore(this.$element).prepend(this.$range, this.$fill, this.$handle, this.$element);
+
+        // IE8 doesn't allow to change the type attribute.
+        this._$element = $('<input type="hidden" />').attr('name', this.$element.attr('name'));
+        this.$element.after(this._$element).remove();
+        this.$element = this._$element;
 
         // Store context
         this.handleDown = $.proxy(this.handleDown, this);
         this.handleMove = $.proxy(this.handleMove, this);
         this.handleEnd  = $.proxy(this.handleEnd, this);
 
-        // IE8 doesn't allow to change the type attribute.
-        this._$element = $('<input type="hidden" />').attr('name', this.$element.attr('name'));
-        this.$element.after(this._$element).remove();
-        this.$element = this._$element;
+
 
         this.init();
 
