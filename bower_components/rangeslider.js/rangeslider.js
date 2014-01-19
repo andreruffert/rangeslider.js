@@ -1,4 +1,4 @@
-/*! rangeslider.js - v0.1.5 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v0.1.7 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function ($, window, document, undefined) {
 
     'use strict';
@@ -117,8 +117,6 @@
         this.handleDown = $.proxy(this.handleDown, this);
         this.handleMove = $.proxy(this.handleMove, this);
         this.handleEnd  = $.proxy(this.handleEnd, this);
-
-
 
         this.init();
 
