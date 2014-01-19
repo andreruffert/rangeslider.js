@@ -33,8 +33,9 @@
         header {
             text-align: center;
         }
+
         section {
-            margin: 30px 0;
+            margin: 30px 0 60px 0;
         }
 
         pre,
@@ -57,12 +58,66 @@
             overflow: auto;
             padding: 6px 10px;
         }
+        .button {
+            background: #e6e6e6;
+            background-image: linear-gradient(#fafafa, #eaeaea);
+            border: 1px solid #d4d4d4;
+            border-radius: 4px;
+            border-bottom-color: #bcbcbc;
+            color: #555;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 22px;
+            text-decoration: none;
+            text-align: center;
+            padding: 10px;
+            margin: 20px 0;
+        }
+        .button:hover {
+            background-image: linear-gradient(#eaeaea, #fafafa);
+        }
+
+        .img-circular {
+            margin: 0 auto;
+            position: relative;
+        }
+        .img-circular,
+        .img-circular:after,
+        .img-circular img {
+            width: 140px;
+            height: 140px;
+            -webkit-border-radius: 70px;
+            -moz-border-radius: 70px;
+            -ms-border-radius: 70px;
+            -o-border-radius: 70px;
+            border-radius: 70px;
+        }
+        .img-circular:after {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            -webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px inset;
+            -moz-box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px inset;
+            box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px inset;
+        }
+        footer {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>rangeslider.js</h1>
         <p>Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <code>&lt;input type="range"&gt;</code> slider element.</p>
+        <p><a href="https://github.com/andreruffert/rangeslider.js/archive/v0.1.6.zip" class="button">Download rangeslider.js</a></p>
+        <p>
+            This project is <a href="https://github.com/andreruffert/rangeslider.js">on GitHub</a>.<br>
+            <br>
+            <img src="images/GitHub-Mark-32px.png" alt="GitHub" width="32" height="32">
+        </p>
     </header>
 
     <section id="example">
@@ -104,9 +159,20 @@
     </section>
 
     <section>
+        <h2>Bug Reports & Feature Requests</h2>
+        <p>Feel free to submit a Pull Request or <a href="https://github.com/andreruffert/rangeslider.js/issues">open an issue</a> for further discussion.</p>
+    </section>
+
+    <footer>
         <h2>About</h2>
         <p>rangeslider.js is a project developed by <a href="https://github.com/andreruffert" target="_blank">André Ruffert</a>.</p>
-    </section>
+        <div class="img-circular">
+            <img src="https://pbs.twimg.com/profile_images/3645750784/a9398e0e936f7e96a1ded7763d64bed9.jpeg">
+        </div>
+        <br>
+        <a href="https://twitter.com/andreruffert" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @andreruffert</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </footer>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="bower_components/rangeslider.js/rangeslider.min.js"></script>
@@ -123,7 +189,6 @@
             });
         });
     </script>
-
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
