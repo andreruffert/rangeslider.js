@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>rangeslider.js</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../rangeslider.css">
+</head>
+<body>
+
+    <input type="range" min="10" max="1000" step="10" value="300">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../rangeslider.min.js"></script>
+    <script>
+        $(function() {
+            $('input[type="range"]').rangeslider({
+                polyfill: false,
+                onSlide: function(position, value) {
+                    // do some stuff ...
+                },
+                onSlideEnd: function(position) {
+                    // do some stuff ...
+                }
+            });
+        });
+    </script>
+</body>
+</html>
