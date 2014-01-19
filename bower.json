@@ -12,6 +12,7 @@
   "ignore": [
     "**/.*",
     "src",
+    "example",
     "node_modules",
     "bower_components",
     "bower.json",
