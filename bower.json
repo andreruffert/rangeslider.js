@@ -1,0 +1,7 @@
+{
+  "name": "rangeslider.js",
+  "version": "0.0.0",
+  "dependencies": {
+    "rangeslider.js": "~0.1.6"
+  }
+}
