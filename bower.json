@@ -6,8 +6,10 @@
   "author": "André Ruffert",
   "license": "MIT",
   "keywords": [
+    "input",
     "range",
-    "slider"
+    "slider",
+    "rangeslider"
   ],
   "ignore": [
     "**/.*",
