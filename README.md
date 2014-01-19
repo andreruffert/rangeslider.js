@@ -1,4 +1,4 @@
-#rangeslider.js
+#rangeslider.js [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 Simple, small and fast JavaScript/jQuery polyfill for the HTML5 `<input type="range">` slider element.            
 Check out the [demo](http://andreruffert.github.io/rangeslider.js/). 
 
