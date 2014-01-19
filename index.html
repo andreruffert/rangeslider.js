@@ -59,10 +59,13 @@
     <header>
         <h1>rangeslider.js</h1>
         <p>Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <code>&lt;input type="range"&gt;</code> slider element.</p>
+    </header>
+
+    <section id="example">
         <div class="rangeslider">
             <input type="range" min="10" max="1000" step="10" value="300">
         </div>
-    </header>
+    </section>
 
     <section id="features">
         <h2>Features</h2>
@@ -87,7 +90,13 @@
 
     <section id="usage">
         <h2>Usage</h2>
-        <pre>&lt;div class="rangeslider"&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="range" min="10" max="1000" step="10" value="300"&gt;<br>&lt;/div&gt;<br>&lt;script&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;$('input[type="range"]').rangeslider();<br>&lt;/script&gt;</pre>
+        <p>Using rangeslider.js is simple. Configuration over attributes.</p>
+        <pre>&lt;input type="range" min="10" max="1000" step="10" value="300"&gt;<br><br>&lt;script src="jquery.min.js"&gt;&lt;/script&gt;<br>&lt;script src="rangeslider.min.js"&gt;&lt;/script&gt;<br>&lt;script&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;$('input[type="range"]').rangeslider();<br>&lt;/script&gt;</pre>
+    </section>
+
+    <section id="options">
+        <h2>Options</h2>
+        <pre>&lt;script&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;$('input[type="range"]').rangeslider({<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;polyfill: true,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baseClass: 'rangeslider',<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rangeClass: 'rangeslider__range',<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fillClass: 'rangeslider__fill',<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handleClass: 'rangeslider__handle',<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onSlide: function(position, value) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log(position, value);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onSlideEnd: function(position, value) {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log(position, value);<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;});<br>&lt;/script&gt;</pre>
     </section>
 
     <section>
