@@ -13,7 +13,7 @@ Check out the [demo](http://andreruffert.github.io/rangeslider.js/).
 * Tested in IE8+
 
 
-##Installing rangeslider.js
+##Installation
 ``bower install --save rangeslider.js``
 
 
