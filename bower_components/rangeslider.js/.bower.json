@@ -26,6 +26,5 @@
   },
   "_source": "git://github.com/andreruffert/rangeslider.js.git",
   "_target": "~0.1.6",
-  "_originalSource": "rangeslider.js",
-  "_direct": true
+  "_originalSource": "rangeslider.js"
 }
