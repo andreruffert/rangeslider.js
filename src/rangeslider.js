@@ -117,8 +117,6 @@
         this.handleMove = $.proxy(this.handleMove, this);
         this.handleEnd  = $.proxy(this.handleEnd, this);
 
-
-
         this.init();
 
         // Attach Events
