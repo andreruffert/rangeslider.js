@@ -235,7 +235,7 @@
     };
 
     Plugin.prototype.setValue = function(value) {
-        this.$element.val(value);
+        this.$element.val(value).trigger('change');
     };
 
     // A really lightweight plugin wrapper around the constructor,
