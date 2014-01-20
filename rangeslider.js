@@ -108,10 +108,13 @@
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
         this.$base      = $('<div class="' + this.options.baseClass + '" />').insertBefore(this.$element).prepend(this.$range, this.$fill, this.$handle, this.$element);
 
-        // IE8 doesn't allow to change the type attribute.
-        this._$element = $('<input type="hidden" />').attr('name', this.$element.attr('name'));
-        this.$element.after(this._$element).remove();
-        this.$element = this._$element;
+        // visually hide the input
+        this.$element.css({
+            'position': 'absolute',
+            'width': '1px',
+            'height': '1px',
+            'overflow': 'hidden'
+        })
 
         // Store context
         this.handleDown = $.proxy(this.handleDown, this);
