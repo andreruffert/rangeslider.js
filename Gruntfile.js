@@ -10,6 +10,12 @@ module.exports = function (grunt) {
 
     // Project configuration.
     grunt.initConfig({
+
+        config: {
+            src: 'src',
+            dist: 'dist'
+        },
+
         pkg: require('./package'),
 
         meta: {
@@ -21,11 +27,11 @@ module.exports = function (grunt) {
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             compass: {
-                files: ['src/{,*/}*.{scss,sass}'],
+                files: ['<%= config.src %>/{,*/}*.{scss,sass}'],
                 tasks: ['compass:dist']
             },
             concat: {
-                files: 'src/{,*/}*.js',
+                files: '<%= config.src %>/{,*/}*.js',
                 tasks: ['concat:dist', 'uglify:dist']
             }
         },
@@ -38,7 +44,7 @@ module.exports = function (grunt) {
             },
             all: [
                 'Gruntfile.js',
-                'src/{,*/}*.js'
+                '<%= config.src %>/{,*/}*.js'
             ],
         },
 
@@ -46,12 +52,12 @@ module.exports = function (grunt) {
         compass: {
             options: {
                 sassDir: 'src',
-                cssDir: './'
+                cssDir: '<%= config.dist %>'
             },
             dist: {
                 options: {
                     banner: '<%= meta.banner %>',
-                    specify: 'src/rangeslider.scss',
+                    specify: '<%= config.src %>/rangeslider.scss',
                     debugInfo: false,
                     noLineComments: true
                 }
@@ -64,8 +70,8 @@ module.exports = function (grunt) {
                 banner: '<%= meta.banner %>'
             },
             dist: {
-                src: ['src/rangeslider.js'],
-                dest: 'rangeslider.js'
+                src: ['<%= config.src %>/rangeslider.js'],
+                dest: '<%= config.dist %>/rangeslider.js'
             }
         },
 
@@ -75,8 +81,8 @@ module.exports = function (grunt) {
                 banner: '<%= meta.banner %>'
             },
             dist: {
-                src: ['rangeslider.js'],
-                dest: 'rangeslider.min.js'
+                src: ['<%= config.dist %>/rangeslider.js'],
+                dest: '<%= config.dist %>/rangeslider.min.js'
             }
         }
     });
