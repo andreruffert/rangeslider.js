@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="bower_components/rangeslider.js/rangeslider.css">
+    <link rel="stylesheet" href="bower_components/rangeslider.js/dist/rangeslider.css">
 
     <!--[if lt IE 9]>
         <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
@@ -112,7 +112,7 @@
     <header>
         <h1>rangeslider.js</h1>
         <p>Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <code>&lt;input type="range"&gt;</code> slider element.</p>
-        <p><a href="https://github.com/andreruffert/rangeslider.js/archive/v0.1.7.zip" class="button">Download rangeslider.js</a></p>
+        <p><a href="https://github.com/andreruffert/rangeslider.js/archive/v0.1.8.zip" class="button">Download rangeslider.js</a></p>
         <p>
             This project is <a href="https://github.com/andreruffert/rangeslider.js">on GitHub</a>.<br>
             <br>
@@ -144,7 +144,7 @@
         <h2>Installation</h2>
         <p>The easiest way to install the files is with <a href="http://bower.io/" target="_blank">Bower</a>.</p>
         <pre>bower install --save rangeslider.js</pre>
-        <p>You can also do it the old school way and <a href="https://github.com/andreruffert/rangeslider.js/archive/v0.1.7.zip">download a zip file</a>.</p>
+        <p>You can also do it the old school way and <a href="https://github.com/andreruffert/rangeslider.js/archive/v0.1.8.zip">download a zip file</a>.</p>
     </section>
 
     <section id="usage">
@@ -175,14 +175,20 @@
     </footer>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="bower_components/rangeslider.js/rangeslider.min.js"></script>
+    <script src="bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
     <script>
         $(function() {
             $('input[type="range"]').rangeslider({
+
+                 // Deactivate the feature detection
                 polyfill: false,
+
+                // Callback function
                 onSlide: function(position, value) {
                     // do some stuff ...
                 },
+
+                // Callback function
                 onSlideEnd: function(position) {
                     // do some stuff ...
                 }

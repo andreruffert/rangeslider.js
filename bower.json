@@ -2,7 +2,7 @@
   "name": "rangeslider.js",
   "version": "0.0.0",
   "dependencies": {
-    "rangeslider.js": "~0.1.7",
+    "rangeslider.js": "~0.1.8",
     "html5shiv": "~3.7.0"
   }
 }
