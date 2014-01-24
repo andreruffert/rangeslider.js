@@ -7,11 +7,6 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="bower_components/rangeslider.js/dist/rangeslider.css">
-
-    <!--[if lt IE 9]>
-        <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
-    <![endif]-->
     <style>
         html {
             color: #404040;
@@ -38,6 +33,14 @@
             margin: 30px 0 60px 0;
         }
 
+        output {
+            display: block;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            margin: 30px 0;
+        }
+
         pre,
         code {
             background: #f8f8f8;
@@ -58,6 +61,7 @@
             overflow: auto;
             padding: 6px 10px;
         }
+
         .button {
             background: #e6e6e6;
             background-image: linear-gradient(#fafafa, #eaeaea);
@@ -107,6 +111,11 @@
             text-align: center;
         }
     </style>
+    <link rel="stylesheet" href="bower_components/rangeslider.js/dist/rangeslider.css">
+
+    <!--[if lt IE 9]>
+        <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
+    <![endif]-->
 </head>
 <body>
     <header>
@@ -123,6 +132,7 @@
     <section id="example">
         <div class="rangeslider">
             <input type="range" min="10" max="1000" step="10" value="300">
+            <output id="js-output"></output>
         </div>
     </section>
 
@@ -178,14 +188,16 @@
     <script src="bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
     <script>
         $(function() {
+            var $output = $('#js-output');
+
             $('input[type="range"]').rangeslider({
 
                  // Deactivate the feature detection
                 polyfill: false,
 
-                // Callback function
+                // Example callback function
                 onSlide: function(position, value) {
-                    // do some stuff ...
+                    $output[0].innerHTML = value;
                 },
 
                 // Callback function
