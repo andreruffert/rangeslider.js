@@ -1,6 +1,6 @@
 {
   "name": "rangeslider.js",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "src/rangeslider.js",
   "homepage": "https://github.com/andreruffert/rangeslider.js",
   "author": "André Ruffert",
