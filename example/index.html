@@ -7,22 +7,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="../dist/rangeslider.css">
+    <style>
+        html {
+            color: #404040;
+            font-family: Helvetica, arial, sans-serif;
+        }
+        body {
+            padding: 50px 20px;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+        output {
+            display: block;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            margin: 30px 0;
+        }
+    </style>
 </head>
 <body>
 
     <input type="range" min="10" max="1000" step="10" value="300">
+    <output id="js-output"></output>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="../dist/rangeslider.min.js"></script>
     <script>
         $(function() {
+            var $output = $('#js-output');
+
             $('input[type="range"]').rangeslider({
 
-                // deactivate the feature detection
+                // Deactivate the feature detection
                 polyfill: false,
 
-                // callback function
-                onSlide: function(position, value) {},
+                // Example callback function
+                onSlide: function(position, value) {
+                    $output[0].innerHTML = value;
+                },
 
                 // callback function
                 onSlideEnd: function(position) {}
