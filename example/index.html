@@ -17,13 +17,15 @@
     <script>
         $(function() {
             $('input[type="range"]').rangeslider({
+
+                // deactivate the feature detection
                 polyfill: false,
-                onSlide: function(position, value) {
-                    // do some stuff ...
-                },
-                onSlideEnd: function(position) {
-                    // do some stuff ...
-                }
+
+                // callback function
+                onSlide: function(position, value) {},
+
+                // callback function
+                onSlideEnd: function(position) {}
             });
         });
     </script>
