@@ -1,4 +1,12 @@
-(function ($, window, document, undefined) {
+(function (module) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], module);
+    } else {
+        // Browser globals
+        module(jQuery);
+    }
+})(function($, undefined) {
 
     'use strict';
 
@@ -250,4 +258,4 @@
         });
     };
 
-})(jQuery, window, document);
+});
