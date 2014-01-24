@@ -1,5 +1,13 @@
-/*! rangeslider.js - v0.1.7 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
-(function ($, window, document, undefined) {
+/*! rangeslider.js - v0.1.8 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+(function (module) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], module);
+    } else {
+        // Browser globals
+        module(jQuery);
+    }
+})(function($, undefined) {
 
     'use strict';
 
@@ -251,4 +259,4 @@
         });
     };
 
-})(jQuery, window, document);
+});

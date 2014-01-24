@@ -1,6 +1,6 @@
 {
   "name": "rangeslider.js",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "main": "src/rangeslider.js",
   "homepage": "https://github.com/andreruffert/rangeslider.js",
   "author": "André Ruffert",
@@ -21,13 +21,13 @@
     "Gruntfile.js",
     "package.json"
   ],
-  "_release": "0.1.8",
+  "_release": "0.1.9",
   "_resolution": {
     "type": "version",
-    "tag": "v0.1.8",
-    "commit": "5e7db7768169d432c5d55bcd5d20dd1a9520ec05"
+    "tag": "v0.1.9",
+    "commit": "a158d4c644f91dd19cb5fc48d2de2a351a9c1ef9"
   },
   "_source": "git://github.com/andreruffert/rangeslider.js.git",
-  "_target": "~0.1.8",
+  "_target": "~0.1.9",
   "_originalSource": "rangeslider.js"
 }
