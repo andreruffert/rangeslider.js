@@ -113,7 +113,7 @@
             'width': '1px',
             'height': '1px',
             'overflow': 'hidden'
-        })
+        });
 
         // Store context
         this.handleDown = $.proxy(this.handleDown, this);
