@@ -42,12 +42,15 @@
                 // Deactivate the feature detection
                 polyfill: false,
 
+                // Callback function
+                onInit: function() {},
+
                 // Example callback function
                 onSlide: function(position, value) {
                     $output[0].innerHTML = value;
                 },
 
-                // callback function
+                // Callback function
                 onSlideEnd: function(position) {}
             });
         });

@@ -97,6 +97,7 @@
         this._defaults  = defaults;
         this._name      = pluginName;
         this.polyfill   = this.options.polyfill;
+        this.onInit     = this.options.onInit;
         this.onSlide    = this.options.onSlide;
         this.onSlideEnd = this.options.onSlideEnd;
 
@@ -141,6 +142,10 @@
 
     Plugin.prototype.init = function() {
         this.update();
+
+        if (this.onInit && typeof this.onInit === 'function') {
+            this.onInit();
+        }
     };
 
     Plugin.prototype.update = function() {
