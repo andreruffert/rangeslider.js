@@ -140,13 +140,16 @@
     }
 
     Plugin.prototype.init = function() {
+        this.update();
+    };
+
+    Plugin.prototype.update = function() {
         this.handleWidth    = this.$handle.width();
         this.rangeWidth     = this.$range[0].offsetWidth;
         this.maxHandleX     = this.rangeWidth - this.handleWidth;
         this.grabX          = this.handleWidth / 2;
         this.position       = this.getPositionFromValue(this.value);
 
-        // Initial position
         this.setPosition(this.position);
     };
 
