@@ -56,8 +56,8 @@ module.exports = function (grunt) {
             },
             dist: {
                 options: {
-                    banner: '<%= meta.banner %>',
-                    specify: '<%= config.src %>/rangeslider.scss',
+                    //banner: '<%= meta.banner %>',
+                    //specify: '<%= config.src %>/rangeslider.scss',
                     debugInfo: false,
                     noLineComments: true
                 }
