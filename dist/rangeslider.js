@@ -1,4 +1,4 @@
-/*! rangeslider.js - v0.1.9 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v0.2.0 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function (module) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -122,7 +122,8 @@
             'position': 'absolute',
             'width': '1px',
             'height': '1px',
-            'overflow': 'hidden'
+            'overflow': 'hidden',
+            'visibility': 'hidden'
         });
 
         // Store context

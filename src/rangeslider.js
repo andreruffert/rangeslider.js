@@ -121,7 +121,8 @@
             'position': 'absolute',
             'width': '1px',
             'height': '1px',
-            'overflow': 'hidden'
+            'overflow': 'hidden',
+            'visibility': 'hidden'
         });
 
         // Store context
