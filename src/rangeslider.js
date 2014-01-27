@@ -42,9 +42,9 @@
             rangeClass: 'rangeslider__range',
             fillClass: 'rangeslider__fill',
             handleClass: 'rangeslider__handle',
-            startEvent: (!touchevents) ? 'mousedown' : 'touchstart',
-            moveEvent: (!touchevents) ? 'mousemove' : 'touchmove',
-            endEvent: (!touchevents) ? 'mouseup' : 'touchend'
+            startEvent: ((!touchevents) ? 'mousedown' : 'touchstart') + '.' + pluginName,
+            moveEvent: ((!touchevents) ? 'mousemove' : 'touchmove') + '.' + pluginName,
+            endEvent: ((!touchevents) ? 'mouseup' : 'touchend') + '.' + pluginName
         };
 
     /**
@@ -134,7 +134,7 @@
 
         // Attach Events
         var _this = this;
-        this.$window.on('resize', debounce(function() {
+        this.$window.on('resize' + '.' + pluginName, debounce(function() {
             // Simulate resizeEnd event.
             delay(function() { _this.update(); }, 300);
         }, 20));
