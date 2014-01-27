@@ -136,7 +136,7 @@
         var _this = this;
         this.$window.on('resize', debounce(function() {
             // Simulate resizeEnd event.
-            delay(function() { _this.init(); }, 300);
+            delay(function() { _this.update(); }, 300);
         }, 20));
         this.$document.on(this.options.startEvent, '.' + this.options.baseClass, this.handleDown);
     }

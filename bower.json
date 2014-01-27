@@ -20,5 +20,8 @@
     "bower.json",
     "Gruntfile.js",
     "package.json"
-  ]
+  ],
+  "dependencies": {
+    "rangeslider.js": "~0.2.0"
+  }
 }
