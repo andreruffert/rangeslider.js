@@ -1,4 +1,4 @@
-/*! rangeslider.js - v0.1.8 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v0.2.1 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function (module) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -98,6 +98,7 @@
         this._defaults  = defaults;
         this._name      = pluginName;
         this.polyfill   = this.options.polyfill;
+        this.onInit     = this.options.onInit;
         this.onSlide    = this.options.onSlide;
         this.onSlideEnd = this.options.onSlideEnd;
 
@@ -121,7 +122,8 @@
             'position': 'absolute',
             'width': '1px',
             'height': '1px',
-            'overflow': 'hidden'
+            'overflow': 'hidden',
+            'visibility': 'hidden'
         });
 
         // Store context
@@ -135,19 +137,26 @@
         var _this = this;
         this.$window.on('resize', debounce(function() {
             // Simulate resizeEnd event.
-            delay(function() { _this.init(); }, 300);
+            delay(function() { _this.update(); }, 300);
         }, 20));
         this.$document.on(this.options.startEvent, '.' + this.options.baseClass, this.handleDown);
     }
 
     Plugin.prototype.init = function() {
+        this.update();
+
+        if (this.onInit && typeof this.onInit === 'function') {
+            this.onInit();
+        }
+    };
+
+    Plugin.prototype.update = function() {
         this.handleWidth    = this.$handle.width();
         this.rangeWidth     = this.$range[0].offsetWidth;
         this.maxHandleX     = this.rangeWidth - this.handleWidth;
         this.grabX          = this.handleWidth / 2;
         this.position       = this.getPositionFromValue(this.value);
 
-        // Initial position
         this.setPosition(this.position);
     };
 
