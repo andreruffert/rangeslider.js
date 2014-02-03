@@ -35,9 +35,15 @@
     <script src="../dist/rangeslider.min.js"></script>
     <script>
         $(function() {
-            var $output = $('#js-output');
+            var $input  = $('input[type="range"]'),
+                $output = $('#js-output');
 
-            $('input[type="range"]').rangeslider({
+            $(document).on('change', $input, function() {
+                var value = $input[0].value;
+                $output[0].innerHTML = value;
+            });
+
+            $input.rangeslider({
 
                 // Deactivate the feature detection
                 polyfill: false,
@@ -45,10 +51,8 @@
                 // Callback function
                 onInit: function() {},
 
-                // Example callback function
-                onSlide: function(position, value) {
-                    $output[0].innerHTML = value;
-                },
+                // Callback function
+                onSlide: function(position, value) {},
 
                 // Callback function
                 onSlideEnd: function(position) {}
