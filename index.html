@@ -186,22 +186,27 @@
     <script src="bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
     <script>
         $(function() {
-            var $output = $('#js-output');
+            var $input  = $('input[type="range"]'),
+                $output = $('#js-output');
 
-            $('input[type="range"]').rangeslider({
+            $(document).on('change', $input, function() {
+                var value = $input[0].value;
+                $output[0].innerHTML = value;
+            });
 
-                 // Deactivate the feature detection
+            $input.rangeslider({
+
+                // Deactivate the feature detection
                 polyfill: false,
 
-                // Example callback function
-                onSlide: function(position, value) {
-                    $output[0].innerHTML = value;
-                },
+                // Callback function
+                onInit: function() {},
 
                 // Callback function
-                onSlideEnd: function(position) {
-                    // do some stuff ...
-                }
+                onSlide: function(position, value) {},
+
+                // Callback function
+                onSlideEnd: function(position) {}
             });
         });
     </script>
