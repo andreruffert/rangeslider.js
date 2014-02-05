@@ -108,9 +108,9 @@
         }
 
         this.value      = parseInt(this.$element[0].value) || 0;
-        this.min        = parseInt(this.$element[0].min) || 0;
-        this.max        = parseInt(this.$element[0].max) || 0;
-        this.step       = parseInt(this.$element[0].step) || 1;
+        this.min        = parseInt(this.$element[0].getAttribute('min')) || 0;
+        this.max        = parseInt(this.$element[0].getAttribute('max')) || 0;
+        this.step       = parseInt(this.$element[0].getAttribute('step')) || 1;
         this.$range     = $('<div class="' + this.options.rangeClass + '" />');
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
