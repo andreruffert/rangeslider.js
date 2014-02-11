@@ -27,19 +27,25 @@
     </style>
 </head>
 <body>
+    <input type="range" min="10" max="100" step="1" value="50" data-rangeslider>
 
-    <input type="range" min="10" max="1000" step="10" value="300">
+    <br>
+    <br>
+    <br>
+
+    <input type="range" min="10" max="1000" step="10" value="300" data-rangeslider>
     <output id="js-output"></output>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../dist/rangeslider.min.js"></script>
     <script>
         $(function() {
-            var $input  = $('input[type="range"]'),
-                $output = $('#js-output');
+            var selector    = '[data-rangeslider]',
+                $input      = $(selector),
+                $output     = $('#js-output');
 
-            $(document).on('change', $input, function() {
-                var value = $input[0].value;
+            $(document).on('change', selector, function(e) {
+                var value = e.target.value;
                 $output[0].innerHTML = value;
             });
 
