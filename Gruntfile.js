@@ -30,6 +30,12 @@ module.exports = function (grunt) {
                 files: ['<%= config.src %>/{,*/}*.{scss,sass}'],
                 tasks: ['compass:dist']
             },
+
+            jshint: {
+                files: '<%= config.src %>/{,*/}*.js',
+                tasks: ['jshint']
+            },
+
             concat: {
                 files: '<%= config.src %>/{,*/}*.js',
                 tasks: ['concat:dist', 'uglify:dist']
