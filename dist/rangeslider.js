@@ -108,6 +108,7 @@
             if (inputrange) { return false; }
         }
 
+        this.identifier = 'js-' + pluginName + '-' + +new Date();
         this.value      = parseInt(this.$element[0].value) || 0;
         this.min        = parseInt(this.$element[0].getAttribute('min')) || 0;
         this.max        = parseInt(this.$element[0].getAttribute('max')) || 0;
@@ -115,7 +116,7 @@
         this.$range     = $('<div class="' + this.options.rangeClass + '" />');
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
-        this.$base      = $('<div class="' + this.options.baseClass + '" />').insertBefore(this.$element).prepend(this.$range, this.$fill, this.$handle, this.$element);
+        this.$base      = $('<div class="' + this.options.baseClass + '" id="' + this.identifier + '" />').insertBefore(this.$element).prepend(this.$range, this.$fill, this.$handle, this.$element);
 
         // visually hide the input
         this.$element.css({
@@ -139,7 +140,7 @@
             // Simulate resizeEnd event.
             delay(function() { _this.update(); }, 300);
         }, 20));
-        this.$document.on(this.options.startEvent, '.' + this.options.baseClass, this.handleDown);
+        this.$document.on(this.options.startEvent, '#' + this.identifier, this.handleDown);
     }
 
     Plugin.prototype.init = function() {
