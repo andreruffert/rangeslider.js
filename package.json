@@ -6,8 +6,10 @@
   "homepage": "https://github.com/andreruffert/rangeslider.js",
   "license": "MIT",
   "keywords": [
+    "input",
     "range",
-    "slider"
+    "slider",
+    "rangeslider"
   ],
   "author": {
     "name": "André Ruffert",
