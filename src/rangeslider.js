@@ -107,7 +107,7 @@
             if (inputrange) { return false; }
         }
 
-        this.identifier = 'js-' + pluginName + '-' + +new Date();
+        this.identifier = 'js-' + pluginName + '-' +(+new Date());
         this.value      = parseInt(this.$element[0].value) || 0;
         this.min        = parseInt(this.$element[0].getAttribute('min')) || 0;
         this.max        = parseInt(this.$element[0].getAttribute('max')) || 0;
