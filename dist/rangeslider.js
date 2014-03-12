@@ -1,4 +1,6 @@
 /*! rangeslider.js - v0.2.3 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+'use strict';
+
 (function (module) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -8,8 +10,6 @@
         module(jQuery);
     }
 })(function($, undefined) {
-
-    'use strict';
 
     /**
      * Range feature detection

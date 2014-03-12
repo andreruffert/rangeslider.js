@@ -1,3 +1,5 @@
+'use strict';
+
 (function (module) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -7,8 +9,6 @@
         module(jQuery);
     }
 })(function($, undefined) {
-
-    'use strict';
 
     /**
      * Range feature detection
