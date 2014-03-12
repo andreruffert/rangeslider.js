@@ -1,4 +1,6 @@
 /*! rangeslider.js - v0.2.3 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+'use strict';
+
 (function (module) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
@@ -8,8 +10,6 @@
         module(jQuery);
     }
 })(function($, undefined) {
-
-    'use strict';
 
     /**
      * Range feature detection
@@ -108,7 +108,7 @@
             if (inputrange) { return false; }
         }
 
-        this.identifier = 'js-' + pluginName + '-' + +new Date();
+        this.identifier = 'js-' + pluginName + '-' +(+new Date());
         this.value      = parseInt(this.$element[0].value) || 0;
         this.min        = parseInt(this.$element[0].getAttribute('min')) || 0;
         this.max        = parseInt(this.$element[0].getAttribute('max')) || 0;
