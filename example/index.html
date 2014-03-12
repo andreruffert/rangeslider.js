@@ -27,26 +27,32 @@
     </style>
 </head>
 <body>
-    <input type="range" min="10" max="100" step="1" value="50" data-rangeslider>
+
+    <div>
+        <input type="range" min="10" max="100" step="1" value="50" data-rangeslider>
+        <output></output>
+    </div>
 
     <br>
     <br>
     <br>
 
-    <input type="range" min="10" max="1000" step="10" value="300" data-rangeslider>
-    <output id="js-output"></output>
+    <div>
+        <input type="range" min="10" max="1000" step="10" value="300" data-rangeslider>
+        <output></output>
+    </div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../dist/rangeslider.min.js"></script>
     <script>
         $(function() {
             var selector    = '[data-rangeslider]',
-                $input      = $(selector),
-                $output     = $('#js-output');
+                $input      = $(selector);
 
             $(document).on('change', selector, function(e) {
-                var value = e.target.value;
-                $output[0].innerHTML = value;
+                var value = e.target.value,
+                    output = e.target.parentNode.parentNode.getElementsByTagName('output')[0];
+                output.innerHTML = value;
             });
 
             $input.rangeslider({
