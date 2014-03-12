@@ -25,7 +25,7 @@
   "_resolution": {
     "type": "version",
     "tag": "v0.2.4",
-    "commit": "b91b9a076ef5a661b7b97f0b35055d1b6304deda"
+    "commit": "1c0b3f3e1e9f75bf16c205320236a7a6fc7bbdd3"
   },
   "_source": "git://github.com/andreruffert/rangeslider.js.git",
   "_target": "~0.2.4",
