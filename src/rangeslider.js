@@ -130,15 +130,13 @@
         this.handleDown = $.proxy(this.handleDown, this);
         this.handleMove = $.proxy(this.handleMove, this);
         this.handleEnd  = $.proxy(this.handleEnd, this);
+        this.handleResize = debounce($.proxy(delay, null, $.proxy(this.update, this), 300));
 
         this.init();
 
         // Attach Events
-        var _this = this;
-        this.$window.on('resize' + '.' + pluginName, debounce(function() {
-            // Simulate resizeEnd event.
-            delay(function() { _this.update(); }, 300);
-        }, 20));
+
+        this.$window.on('resize' + '.' + pluginName, this.handleResize);
         this.$document.on(this.options.startEvent, '#' + this.identifier, this.handleDown);
     }
 
@@ -148,6 +146,12 @@
         if (this.onInit && typeof this.onInit === 'function') {
             this.onInit();
         }
+    };
+
+    // Remove event handlers bound to global objects
+    Plugin.prototype.cleanup = function() {
+        this.$window.off('resize' + '.' + pluginName, this.handleResize);
+        this.$document.off(this.options.startEvent, '#' + this.identifier, this.handleDown);
     };
 
     Plugin.prototype.update = function() {
