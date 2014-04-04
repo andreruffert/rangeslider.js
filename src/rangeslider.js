@@ -163,6 +163,11 @@
         this.$document.on(this.options.moveEvent, this.handleMove);
         this.$document.on(this.options.endEvent, this.handleEnd);
 
+        // If we click on the handle don't set the new position
+        if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
+            return false;
+        }
+
         var posX = this.getRelativePosition(this.$range[0], e),
             handleX = this.getPositionFromNode(this.$handle[0]) - this.getPositionFromNode(this.$range[0]);
 
