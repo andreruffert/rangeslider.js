@@ -39,8 +39,7 @@
         inputrange = supportsRange(),
         defaults = {
             polyfill: true,
-            baseClass: 'rangeslider',
-            rangeClass: 'rangeslider__range',
+            rangeClass: 'rangeslider',
             fillClass: 'rangeslider__fill',
             handleClass: 'rangeslider__handle',
             startEvent: ((!touchevents) ? 'mousedown' : 'touchstart') + '.' + pluginName,
@@ -113,10 +112,9 @@
         this.min        = parseInt(this.$element[0].getAttribute('min')) || 0;
         this.max        = parseInt(this.$element[0].getAttribute('max')) || 0;
         this.step       = parseInt(this.$element[0].getAttribute('step')) || 1;
-        this.$range     = $('<div class="' + this.options.rangeClass + '" />');
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
-        this.$base      = $('<div class="' + this.options.baseClass + '" id="' + this.identifier + '" />').insertBefore(this.$element).prepend(this.$range, this.$fill, this.$handle, this.$element);
+        this.$range     = $('<div class="' + this.options.rangeClass + '" id="' + this.identifier + '" />').insertBefore(this.$element).prepend(this.$fill, this.$handle, this.$element);
 
         // visually hide the input
         this.$element.css({
@@ -166,8 +164,8 @@
         this.$document.on(this.options.moveEvent, this.handleMove);
         this.$document.on(this.options.endEvent, this.handleEnd);
 
-        var posX = this.getRelativePosition(this.$base[0], e),
-            handleX = this.getPositionFromNode(this.$handle[0]) - this.getPositionFromNode(this.$base[0]);
+        var posX = this.getRelativePosition(this.$range[0], e),
+            handleX = this.getPositionFromNode(this.$handle[0]) - this.getPositionFromNode(this.$range[0]);
 
         this.setPosition(posX - this.grabX);
 
@@ -178,7 +176,7 @@
 
     Plugin.prototype.handleMove = function(e) {
         e.preventDefault();
-        var posX = this.getRelativePosition(this.$base[0], e);
+        var posX = this.getRelativePosition(this.$range[0], e);
         this.setPosition(posX - this.grabX);
     };
 
@@ -187,7 +185,7 @@
         this.$document.off(this.options.moveEvent, this.handleMove);
         this.$document.off(this.options.endEvent, this.handleEnd);
 
-        var posX = this.getRelativePosition(this.$base[0], e);
+        var posX = this.getRelativePosition(this.$range[0], e);
         if (this.onSlideEnd && typeof this.onSlideEnd === 'function') {
             this.onSlideEnd(posX - this.grabX, this.value);
         }
