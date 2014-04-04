@@ -1,8 +1,4 @@
-.rangeslider {
-  position: relative;
-}
-
-.rangeslider__range,
+.rangeslider,
 .rangeslider__fill {
   background: #e6e6e6;
   border: none;
@@ -18,6 +14,10 @@
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   border-radius: 10px;
+}
+
+.rangeslider {
+  position: relative;
 }
 
 .rangeslider__fill {
