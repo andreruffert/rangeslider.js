@@ -110,7 +110,7 @@
         this.identifier = 'js-' + pluginName + '-' +(+new Date());
         this.value      = parseFloat(this.$element[0].value) || 0;
         this.min        = parseFloat(this.$element[0].getAttribute('min')) || 0;
-        this.max        = parseFloat(this.$element[0].getAttribute('max')) || 0;
+        this.max        = parseFloat(this.$element[0].getAttribute('max')) || 100;
         this.step       = parseFloat(this.$element[0].getAttribute('step')) || 1;
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
