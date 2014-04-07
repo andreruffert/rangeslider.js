@@ -205,15 +205,10 @@
     Plugin.prototype.setPosition = function(pos) {
         var left, value;
         left = this.cap(pos, 0, this.maxHandleX);
-        value = this.getValueFromPosition(left);
 
         // Snap steps
-        if (this.step > 1) {
-            value = Math.ceil((value) / this.step ) * this.step;
-            left = this.getPositionFromValue(value);
-        }
-
-        left = Math.ceil(left);
+        value = (this.getValueFromPosition(left) / this.step) * this.step;
+        left = this.getPositionFromValue(value);
 
         this.$fill[0].style.width = (left + this.handleWidth)  + 'px';
         this.$handle[0].style.left = left + 'px';
