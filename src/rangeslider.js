@@ -38,8 +38,7 @@
         inputrange = supportsRange(),
         defaults = {
             polyfill: true,
-            baseClass: 'rangeslider',
-            rangeClass: 'rangeslider__range',
+            rangeClass: 'rangeslider',
             fillClass: 'rangeslider__fill',
             handleClass: 'rangeslider__handle',
             startEvent: ((!touchevents) ? 'mousedown' : 'touchstart') + '.' + pluginName,
@@ -108,14 +107,13 @@
         }
 
         this.identifier = 'js-' + pluginName + '-' +(+new Date());
-        this.value      = parseInt(this.$element[0].value) || 0;
-        this.min        = parseInt(this.$element[0].getAttribute('min')) || 0;
-        this.max        = parseInt(this.$element[0].getAttribute('max')) || 0;
-        this.step       = parseInt(this.$element[0].getAttribute('step')) || 1;
-        this.$range     = $('<div class="' + this.options.rangeClass + '" />');
+        this.value      = parseFloat(this.$element[0].value) || 0;
+        this.min        = parseFloat(this.$element[0].getAttribute('min')) || 0;
+        this.max        = parseFloat(this.$element[0].getAttribute('max')) || 100;
+        this.step       = parseFloat(this.$element[0].getAttribute('step')) || 1;
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
-        this.$base      = $('<div class="' + this.options.baseClass + '" id="' + this.identifier + '" />').insertBefore(this.$element).prepend(this.$range, this.$fill, this.$handle, this.$element);
+        this.$range     = $('<div class="' + this.options.rangeClass + '" id="' + this.identifier + '" />').insertBefore(this.$element).prepend(this.$fill, this.$handle, this.$element);
 
         // visually hide the input
         this.$element.css({
@@ -135,11 +133,24 @@
 
         // Attach Events
         var _this = this;
+
         this.$window.on('resize' + '.' + pluginName, debounce(function() {
             // Simulate resizeEnd event.
             delay(function() { _this.update(); }, 300);
         }, 20));
+
         this.$document.on(this.options.startEvent, '#' + this.identifier, this.handleDown);
+
+        // Listen to programmatic value changes
+        this.$element.on('change' + '.' + pluginName, function(e, data) {
+            if (data && data.origin === pluginName) {
+                return;
+            }
+
+            var value = e.target.value,
+                pos = _this.getPositionFromValue(value);
+            _this.setPosition(pos);
+        });
     }
 
     Plugin.prototype.init = function() {
@@ -151,7 +162,7 @@
     };
 
     Plugin.prototype.update = function() {
-        this.handleWidth    = this.$handle.width();
+        this.handleWidth    = this.$handle[0].offsetWidth;
         this.rangeWidth     = this.$range[0].offsetWidth;
         this.maxHandleX     = this.rangeWidth - this.handleWidth;
         this.grabX          = this.handleWidth / 2;
@@ -165,8 +176,13 @@
         this.$document.on(this.options.moveEvent, this.handleMove);
         this.$document.on(this.options.endEvent, this.handleEnd);
 
-        var posX = this.getRelativePosition(this.$base[0], e),
-            handleX = this.getPositionFromNode(this.$handle[0]) - this.getPositionFromNode(this.$base[0]);
+        // If we click on the handle don't set the new position
+        if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
+            return false;
+        }
+
+        var posX = this.getRelativePosition(this.$range[0], e),
+            handleX = this.getPositionFromNode(this.$handle[0]) - this.getPositionFromNode(this.$range[0]);
 
         this.setPosition(posX - this.grabX);
 
@@ -177,7 +193,7 @@
 
     Plugin.prototype.handleMove = function(e) {
         e.preventDefault();
-        var posX = this.getRelativePosition(this.$base[0], e);
+        var posX = this.getRelativePosition(this.$range[0], e);
         this.setPosition(posX - this.grabX);
     };
 
@@ -186,7 +202,7 @@
         this.$document.off(this.options.moveEvent, this.handleMove);
         this.$document.off(this.options.endEvent, this.handleEnd);
 
-        var posX = this.getRelativePosition(this.$base[0], e);
+        var posX = this.getRelativePosition(this.$range[0], e);
         if (this.onSlideEnd && typeof this.onSlideEnd === 'function') {
             this.onSlideEnd(posX - this.grabX, this.value);
         }
@@ -202,17 +218,12 @@
     Plugin.prototype.setPosition = function(pos) {
         var left, value;
         left = this.cap(pos, 0, this.maxHandleX);
-        value = this.getValueFromPosition(left);
 
         // Snap steps
-        if (this.step > 1) {
-            value = Math.ceil((value) / this.step ) * this.step;
-            left = this.getPositionFromValue(value);
-        }
+        value = (this.getValueFromPosition(left) / this.step) * this.step;
+        left = this.getPositionFromValue(value);
 
-        left = Math.ceil(left);
-
-        this.$fill[0].style.width = (left + this.handleWidth)  + 'px';
+        this.$fill[0].style.width = (left + this.grabX)  + 'px';
         this.$handle[0].style.left = left + 'px';
         this.setValue(value);
 
@@ -235,27 +246,25 @@
     };
 
     Plugin.prototype.getRelativePosition = function(node, e) {
-        return (e.pageX || e.originalEvent.changedTouches[0].pageX || 0) - this.getPositionFromNode(node);
+        return (e.pageX || e.originalEvent.clientX || e.originalEvent.touches[0].clientX || e.currentPoint.x) - this.getPositionFromNode(node);
     };
 
     Plugin.prototype.getPositionFromValue = function(value) {
         var percentage, pos;
-        percentage = ((value - this.min) / (this.max - this.min)) * 100;
-        pos = (percentage/100) * this.maxHandleX;
-
+        percentage = (value - this.min)/(this.max - this.min);
+        pos = percentage * this.maxHandleX;
         return pos;
     };
 
     Plugin.prototype.getValueFromPosition = function(pos) {
         var percentage, value;
-        percentage = ((pos) / (this.maxHandleX)) * 100;
-        value = Math.ceil(((percentage/100) * (this.max - this.min)) + this.min);
-
+        percentage = (pos) / (this.maxHandleX);
+        value = this.step * Math.ceil((((percentage) * (this.max - this.min)) + this.min) / this.step);
         return value;
     };
 
     Plugin.prototype.setValue = function(value) {
-        this.$element.val(value).trigger('change');
+        this.$element.val(value).trigger('change', {origin: pluginName});
     };
 
     // A really lightweight plugin wrapper around the constructor,
