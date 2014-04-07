@@ -205,17 +205,12 @@
     Plugin.prototype.setPosition = function(pos) {
         var left, value;
         left = this.cap(pos, 0, this.maxHandleX);
-        value = this.getValueFromPosition(left);
 
         // Snap steps
-        if (this.step > 1) {
-            value = Math.ceil((value) / this.step ) * this.step;
-            left = this.getPositionFromValue(value);
-        }
+        value = (this.getValueFromPosition(left) / this.step) * this.step;
+        left = this.getPositionFromValue(value);
 
-        left = Math.ceil(left);
-
-        this.$fill[0].style.width = (left + this.handleWidth)  + 'px';
+        this.$fill[0].style.width = (left + this.grabX)  + 'px';
         this.$handle[0].style.left = left + 'px';
         this.setValue(value);
 
@@ -238,22 +233,20 @@
     };
 
     Plugin.prototype.getRelativePosition = function(node, e) {
-        return (e.pageX || e.originalEvent.changedTouches[0].pageX || 0) - this.getPositionFromNode(node);
+        return (e.pageX || e.originalEvent.clientX || e.originalEvent.touches[0].clientX || e.currentPoint.x) - this.getPositionFromNode(node);
     };
 
     Plugin.prototype.getPositionFromValue = function(value) {
         var percentage, pos;
-        percentage = ((value - this.min) / (this.max - this.min)) * 100;
-        pos = (percentage/100) * this.maxHandleX;
-
+        percentage = (value - this.min)/(this.max - this.min);
+        pos = percentage * this.maxHandleX;
         return pos;
     };
 
     Plugin.prototype.getValueFromPosition = function(pos) {
         var percentage, value;
-        percentage = ((pos) / (this.maxHandleX)) * 100;
-        value = Math.ceil(((percentage/100) * (this.max - this.min)) + this.min);
-
+        percentage = (pos) / (this.maxHandleX);
+        value = Math.ceil(((percentage) * (this.max - this.min)) + this.min);
         return value;
     };
 
