@@ -17,21 +17,27 @@
             margin: 0 auto;
             max-width: 800px;
         }
+
         output {
             display: block;
             font-size: 30px;
             font-weight: bold;
             text-align: center;
             margin: 30px 0;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <div>
+    <div id="js-example-change-value">
+        <h2>Programmatic value changes</h2>
         <input type="range" min="0" max="100" value="50" data-rangeslider>
         <output></output>
+        <input type="number" value="10"><button>Change value</button>
     </div>
 
+    <br>
+    <br>
     <br>
     <br>
 
@@ -52,10 +58,12 @@
     <script src="../dist/rangeslider.min.js"></script>
     <script>
         $(function() {
-            var selector    = '[data-rangeslider]',
+
+            var $document   = $(document),
+                selector    = '[data-rangeslider]',
                 $input      = $(selector);
 
-            $(document).on('change', selector, function(e) {
+            $document.on('change', selector, function(e) {
                 var value = e.target.value,
                     output = e.target.parentNode.parentNode.getElementsByTagName('output')[0];
                 output.innerHTML = value;
@@ -75,6 +83,16 @@
                 // Callback function
                 onSlideEnd: function(position) {}
             });
+
+
+            // Example functionality to demonstrate programmatic value changes
+            $document.on('click', '#js-example-change-value button', function(e) {
+                var $inputRange = $('input[type="range"]', e.target.parentNode),
+                    value = $('input[type="number"]', e.target.parentNode)[0].value;
+
+                $inputRange.val(value).change();
+            });
+
         });
     </script>
 </body>
