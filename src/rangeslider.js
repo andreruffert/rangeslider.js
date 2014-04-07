@@ -133,17 +133,22 @@
 
         // Attach Events
         var _this = this;
+
         this.$window.on('resize' + '.' + pluginName, debounce(function() {
             // Simulate resizeEnd event.
             delay(function() { _this.update(); }, 300);
         }, 20));
+
         this.$document.on(this.options.startEvent, '#' + this.identifier, this.handleDown);
+
+        // Listen to programmatic value changes
         this.$element.on('change' + '.' + pluginName, function(e, data) {
             if (data && data.origin === pluginName) {
                 return;
             }
-            var val = _this.cap($(e.target).val()),
-                pos = _this.getPositionFromValue(val);
+
+            var value = e.target.value,
+                pos = _this.getPositionFromValue(value);
             _this.setPosition(pos);
         });
     }
