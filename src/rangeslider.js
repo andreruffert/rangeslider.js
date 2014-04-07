@@ -210,7 +210,7 @@
         value = (this.getValueFromPosition(left) / this.step) * this.step;
         left = this.getPositionFromValue(value);
 
-        this.$fill[0].style.width = (left + this.handleWidth)  + 'px';
+        this.$fill[0].style.width = (left + this.grabX)  + 'px';
         this.$handle[0].style.left = left + 'px';
         this.setValue(value);
 
