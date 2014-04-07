@@ -238,17 +238,15 @@
 
     Plugin.prototype.getPositionFromValue = function(value) {
         var percentage, pos;
-        percentage = ((value - this.min) / (this.max - this.min)) * 100;
-        pos = (percentage/100) * this.maxHandleX;
-
+        percentage = (value - this.min)/(this.max - this.min);
+        pos = percentage * this.maxHandleX;
         return pos;
     };
 
     Plugin.prototype.getValueFromPosition = function(pos) {
         var percentage, value;
-        percentage = ((pos) / (this.maxHandleX)) * 100;
-        value = Math.ceil(((percentage/100) * (this.max - this.min)) + this.min);
-
+        percentage = (pos) / (this.maxHandleX);
+        value = Math.ceil(((percentage) * (this.max - this.min)) + this.min);
         return value;
     };
 
