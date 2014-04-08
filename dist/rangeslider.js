@@ -179,7 +179,7 @@
 
         // If we click on the handle don't set the new position
         if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
-            return false;
+            return;
         }
 
         var posX = this.getRelativePosition(this.$range[0], e),
@@ -212,7 +212,6 @@
     Plugin.prototype.cap = function(pos, min, max) {
         if (pos < min) { return min; }
         if (pos > max) { return max; }
-
         return pos;
     };
 
@@ -220,10 +219,11 @@
         var left, value;
         left = this.cap(pos, 0, this.maxHandleX);
 
-        // Snap steps
+        // Snapping steps
         value = (this.getValueFromPosition(left) / this.step) * this.step;
         left = this.getPositionFromValue(value);
 
+        // Update ui
         this.$fill[0].style.width = (left + this.grabX)  + 'px';
         this.$handle[0].style.left = left + 'px';
         this.setValue(value);
@@ -261,7 +261,7 @@
         var percentage, value;
         percentage = (pos) / (this.maxHandleX);
         value = this.step * Math.ceil((((percentage) * (this.max - this.min)) + this.min) / this.step);
-        return value;
+        return Number((value).toFixed(2));
     };
 
     Plugin.prototype.setValue = function(value) {
