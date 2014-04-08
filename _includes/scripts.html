@@ -2,16 +2,28 @@
 <script src="bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
 <script>
     $(function() {
-        var $input  = $('input[type="range"]'),
-            $output = $('#js-output');
+        var $document   = $(document),
+            selector    = '[data-rangeslider]',
+            $input      = $(selector);
 
-        $(document).on('change', $input, function() {
-            var value = $input[0].value;
-            $output[0].innerHTML = value;
+        // Normal change event to change the output's value
+        $document.on('change', selector, function(e) {
+            var value = e.target.value,
+                output = e.target.parentNode.parentNode.getElementsByTagName('output')[0];
+            output.innerHTML = value;
         });
 
+        // Initialize the elements
         $input.rangeslider({
-            polyfill: false
+            polyfill: false,
+        });
+
+        // Example functionality to demonstrate programmatic value changes
+        $document.on('click', '#js-example-change-value button', function(e) {
+            var $inputRange = $('input[type="range"]', e.target.parentNode),
+                value = $('input[type="number"]', e.target.parentNode)[0].value;
+
+            $inputRange.val(value).change();
         });
     });
 </script>
