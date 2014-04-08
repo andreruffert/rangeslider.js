@@ -1,221 +1,85 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>rangeslider.js</title>
-    <meta name="description" content="Simple, small and fast HTML5 input range slider element polyfill">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+---
+layout: default
+title: rangeslider.js
+---
 
-    <style>
-        html {
-            color: #404040;
-            font-family: Helvetica, arial, sans-serif;
-        }
-        body {
-            padding: 10px 20px;
-            margin: 0 auto;
-            max-width: 800px;
-        }
-        a {
-            color: #000000;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            margin: 20px 0 10px;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        header {
-            text-align: center;
-        }
-
-        section {
-            margin: 30px 0 60px 0;
-        }
-
-        output {
-            display: block;
-            font-size: 30px;
-            font-weight: bold;
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        pre,
-        code {
-            background: #f8f8f8;
-            border-radius: 3px;
-        }
-
-        code {
-            border: 1px solid #eaeaea;
-            margin: 0 2px;
-            padding: 0 5px;
-            white-space: nowrap;
-        }
-
-        pre {
-            border: 1px solid #ddd;
-            font-size: 13px;
-            line-height: 19px;
-            overflow: auto;
-            padding: 6px 10px;
-        }
-
-        .button {
-            background: #e6e6e6;
-            background-image: linear-gradient(#fafafa, #eaeaea);
-            border: 1px solid #d4d4d4;
-            border-radius: 4px;
-            border-bottom-color: #bcbcbc;
-            color: #555;
-            display: inline-block;
-            font-size: 16px;
-            font-weight: bold;
-            line-height: 22px;
-            text-decoration: none;
-            text-align: center;
-            padding: 10px;
-            margin: 20px 0;
-        }
-        .button:hover {
-            background-image: linear-gradient(#eaeaea, #fafafa);
-        }
-
-        .img-circular {
-            margin: 0 auto;
-            position: relative;
-        }
-        .img-circular,
-        .img-circular:after,
-        .img-circular img {
-            width: 140px;
-            height: 140px;
-            -webkit-border-radius: 70px;
-            -moz-border-radius: 70px;
-            -ms-border-radius: 70px;
-            -o-border-radius: 70px;
-            border-radius: 70px;
-        }
-        .img-circular:after {
-            content: "";
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            -webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px inset;
-            -moz-box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px inset;
-            box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px inset;
-        }
-        footer {
-            text-align: center;
-        }
-    </style>
-    <link rel="stylesheet" href="bower_components/rangeslider.js/dist/rangeslider.css">
-
-    <!--[if lt IE 9]>
-        <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
-    <![endif]-->
-</head>
-<body>
-    <header>
-        <h1>rangeslider.js</h1>
-        <p>Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <code>&lt;input type="range"&gt;</code> slider element.</p>
-        <p><a href="https://github.com/andreruffert/rangeslider.js/archive/v0.2.5.zip" class="button">Download rangeslider.js</a></p>
-        <p>
-            This project is <a href="https://github.com/andreruffert/rangeslider.js">on GitHub</a>.<br>
-            <br>
-            <img src="images/GitHub-Mark-32px.png" alt="GitHub" width="32" height="32">
-        </p>
-    </header>
-
-    <section id="example">
-        <input type="range" min="10" max="1000" step="10" value="300">
-        <output id="js-output"></output>
-    </section>
-
-    <section id="features">
-        <h2>Features</h2>
-        <ul>
-            <li>Touchscreen friendly</li>
-            <li>Recalculates `onresize` so suitable for use within responsive designs</li>
-            <li>Small and fast</li>
-        </ul>
-    </section>
-
-    <section id="browser-support">
-        <h2>Browser Support</h2>
-        <p>Tested in IE8+</p>
-    </section>
-
-    <section id="installation">
-        <h2>Installation</h2>
-        <p>The easiest way to install the files is with <a href="http://bower.io/" target="_blank">Bower</a>.</p>
-        <pre>bower install --save rangeslider.js</pre>
-        <p>You can also do it the old school way and <a href="https://github.com/andreruffert/rangeslider.js/archive/v0.2.5.zip">download a zip file</a>.</p>
-    </section>
-
-    <section id="usage">
-        <h2>Usage</h2>
-        <p>Using rangeslider.js is simple. Configuration over attributes.</p>
-        <pre>&lt;input type="range" min="10" max="1000" step="10" value="300"&gt;<br><br>&lt;script src="jquery.min.js"&gt;&lt;/script&gt;<br>&lt;script src="rangeslider.min.js"&gt;&lt;/script&gt;<br>&lt;script&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;$('input[type="range"]').rangeslider();<br>&lt;/script&gt;</pre>
-    </section>
-
-    <section id="options">
-        <h2>Options</h2>
-        <pre>&lt;script&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;$('input[type="range"]').rangeslider({<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Feature detection<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;polyfill: true,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// CSS classes<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rangeClass: 'rangeslider',<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fillClass: 'rangeslider__fill',<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handleClass: 'rangeslider__handle',<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Callback function<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onInit: function() {},<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Callback function<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onSlide: function(position, value) {},<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// Callback function<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onSlideEnd: function(position, value) {}<br>&nbsp;&nbsp;&nbsp;&nbsp;});<br>&lt;/script&gt;</pre>
-    </section>
-
-    <section>
-        <h2>Bug Reports & Feature Requests</h2>
-        <p>Feel free to submit a Pull Request or <a href="https://github.com/andreruffert/rangeslider.js/issues">open an issue</a> for further discussion.</p>
-    </section>
-
-    <footer>
-        <h2>About</h2>
-        <p>rangeslider.js is a project developed by <a href="https://github.com/andreruffert" target="_blank">André Ruffert</a>.</p>
-        <div class="img-circular">
-            <img src="https://pbs.twimg.com/profile_images/3645750784/a9398e0e936f7e96a1ded7763d64bed9.jpeg">
-        </div>
+<header>
+    <h1>rangeslider.js</h1>
+    <p>Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <code>&lt;input type="range"&gt;</code> slider element.</p>
+    <p><a href="{{ site.repository_url }}/archive/v{{ site.current_version }}.zip" class="button">Download rangeslider.js</a></p>
+    <p>
+        This project is <a href="{{ site.repository_url }}">on GitHub</a>.<br>
         <br>
-        <a href="https://twitter.com/andreruffert" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @andreruffert</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-    </footer>
+        <img src="images/GitHub-Mark-32px.png" alt="GitHub" width="32" height="32">
+    </p>
+</header>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
-    <script>
-        $(function() {
-            var $input  = $('input[type="range"]'),
-                $output = $('#js-output');
+<section id="example">
+    <input type="range" min="10" max="1000" step="10" value="300">
+    <output id="js-output"></output>
+</section>
 
-            $(document).on('change', $input, function() {
-                var value = $input[0].value;
-                $output[0].innerHTML = value;
-            });
+<section id="features">
+    <h2>Features</h2>
+    <ul>
+        <li>Touchscreen friendly</li>
+        <li>Recalculates `onresize` so suitable for use within responsive designs</li>
+        <li>Small and fast</li>
+    </ul>
+</section>
 
-            $input.rangeslider({
+<section id="browser-support">
+    <h2>Browser Support</h2>
+    <p>Tested in IE8+</p>
+</section>
 
-                // Deactivate the feature detection
-                polyfill: false,
+<section id="installation">
+    <h2>Installation</h2>
+    <p>The easiest way to install the files is with <a href="http://bower.io/" target="_blank">Bower</a>.</p>
+    <pre>bower install --save rangeslider.js</pre>
+    <p>You can also do it the old school way and <a href="{{ site.repository_url }}/archive/v{{ site.current_version }}.zip">download a zip file</a>.</p>
+</section>
 
-                // Callback function
-                onInit: function() {},
+<section id="usage">
+    <h2>Usage</h2>
+    <p>Using rangeslider.js is simple. Configuration over attributes.</p>
+{% highlight html %}
+<input type="range" min="10" max="1000" step="10" value="300">
 
-                // Callback function
-                onSlide: function(position, value) {},
+<script src="jquery.min.js"></script>
+<script src="rangeslider.min.js"></script>
+<script>
+    $('input[type="range"]').rangeslider();
+</script>
+{% endhighlight %}
+</section>
 
-                // Callback function
-                onSlideEnd: function(position) {}
-            });
-        });
-    </script>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-39140220-2');ga('send', 'pageview');
-    </script>
-</body>
-</html>
+<section id="options">
+    <h2>Options</h2>
+{% highlight js %}
+$('input[type="range"]').rangeslider({
+
+    // Feature detection
+    polyfill: true,
+
+    // CSS classes
+    rangeClass: 'rangeslider',
+    fillClass: 'rangeslider__fill',
+    handleClass: 'rangeslider__handle',
+
+    // Callback function
+    onInit: function() {},
+
+    // Callback function
+    onSlide: function(position, value) {},
+
+    // Callback function
+    onSlideEnd: function(position, value) {}
+});
+{% endhighlight %}
+</section>
+
+<section>
+    <h2>Bug Reports & Feature Requests</h2>
+    <p>Feel free to submit a Pull Request or <a href="{{ site.repository_url }}/issues">open an issue</a> for further discussion.</p>
+</section>
