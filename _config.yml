@@ -4,3 +4,8 @@ markdown: kramdown
 # Custom vars
 current_version: 0.2.5
 repository_url: https://github.com/andreruffert/rangeslider.js
+
+exclude:
+- "bower.json"
+- "Gemfile"
+- "README.md"
