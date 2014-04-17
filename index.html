@@ -65,6 +65,9 @@ title: rangeslider.js
 <script src="rangeslider.min.js"></script>
 <script>
     $('input[type="range"]').rangeslider();
+
+    // Destroy all plugin instances created from the e.g. $('input[type="range"]') elements.
+    $('input[type="range"]').rangeslider('destroy');
 </script>
 {% endhighlight %}
 </section>
