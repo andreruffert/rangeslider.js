@@ -34,6 +34,7 @@
     }
 
     var pluginName = 'rangeslider',
+        pluginInstances = [],
         touchevents = isTouchScreen(),
         inputrange = supportsRange(),
         defaults = {
@@ -133,7 +134,6 @@
 
         // Attach Events
         var _this = this;
-
         this.$window.on('resize' + '.' + pluginName, debounce(function() {
             // Simulate resizeEnd event.
             delay(function() { _this.update(); }, 300);
@@ -267,6 +267,25 @@
         this.$element.val(value).trigger('change', {origin: pluginName});
     };
 
+    Plugin.prototype.destroy = function() {
+        this.$document.off(this.options.startEvent, '#' + this.identifier, this.handleDown);
+        this.$element
+            .off('.' + pluginName)
+            .removeAttr('style')
+            .removeData('plugin_' + pluginName);
+
+        // Remove the generated markup
+        if (this.$range && this.$range.length) {
+            this.$range[0].parentNode.removeChild(this.$range[0]);
+        }
+
+        // Remove global events if there isn't any instance anymore.
+        pluginInstances.splice(pluginInstances.indexOf(this.$element[0]),1);
+        if (!pluginInstances.length) {
+            this.$window.off('.' + pluginName);
+        }
+    };
+
     // A really lightweight plugin wrapper around the constructor,
     // preventing against multiple instantiations
     $.fn[pluginName] = function(options) {
@@ -277,6 +296,7 @@
             // Create a new instance.
             if (!data) {
                 $this.data('plugin_' + pluginName, (data = new Plugin(this, options)));
+                pluginInstances.push(this);
             }
 
             // Make it possible to access methods from public.
