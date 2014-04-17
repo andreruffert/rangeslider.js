@@ -9,7 +9,7 @@
         // Normal change event to change the output's value
         $document.on('change', selector, function(e) {
             var value = e.target.value,
-                output = e.target.parentNode.parentNode.getElementsByTagName('output')[0];
+                output = e.target.parentNode.getElementsByTagName('output')[0];
             output.innerHTML = value;
         });
 
