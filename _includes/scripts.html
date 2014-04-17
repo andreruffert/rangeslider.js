@@ -25,6 +25,15 @@
 
             $inputRange.val(value).change();
         });
+
+        // Example functionality to demonstrate destroy functionality
+        $document
+            .on('click', '#js-example-destroy button[data-behaviour="destroy"]', function(e) {
+                $('input[type="range"]', e.target.parentNode).rangeslider('destroy');
+            })
+            .on('click', '#js-example-destroy button[data-behaviour="initialize"]', function(e) {
+                $('input[type="range"]', e.target.parentNode).rangeslider({ polyfill: false });
+            });
     });
 </script>
 <script>
