@@ -1,8 +1,6 @@
 .DS_Store
 node_modules
 .sass-cache
-Gemfile.lock
-_site
 
 # Ignore files beginning with a #
 \#*

@@ -35,7 +35,6 @@
     }
 
     var pluginName = 'rangeslider',
-        pluginInstances = [],
         touchevents = isTouchScreen(),
         inputrange = supportsRange(),
         defaults = {
@@ -115,7 +114,7 @@
         this.step       = parseFloat(this.$element[0].getAttribute('step')) || 1;
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
-        this.$range     = $('<div class="' + this.options.rangeClass + '" id="' + this.identifier + '" />').insertBefore(this.$element).prepend(this.$fill, this.$handle);
+        this.$range     = $('<div class="' + this.options.rangeClass + '" id="' + this.identifier + '" />').insertBefore(this.$element).prepend(this.$fill, this.$handle, this.$element);
 
         // visually hide the input
         this.$element.css({
@@ -135,6 +134,7 @@
 
         // Attach Events
         var _this = this;
+
         this.$window.on('resize' + '.' + pluginName, debounce(function() {
             // Simulate resizeEnd event.
             delay(function() { _this.update(); }, 300);
@@ -179,7 +179,7 @@
 
         // If we click on the handle don't set the new position
         if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
-            return;
+            return false;
         }
 
         var posX = this.getRelativePosition(this.$range[0], e),
@@ -212,6 +212,7 @@
     Plugin.prototype.cap = function(pos, min, max) {
         if (pos < min) { return min; }
         if (pos > max) { return max; }
+
         return pos;
     };
 
@@ -219,11 +220,10 @@
         var left, value;
         left = this.cap(pos, 0, this.maxHandleX);
 
-        // Snapping steps
+        // Snap steps
         value = (this.getValueFromPosition(left) / this.step) * this.step;
         left = this.getPositionFromValue(value);
 
-        // Update ui
         this.$fill[0].style.width = (left + this.grabX)  + 'px';
         this.$handle[0].style.left = left + 'px';
         this.setValue(value);
@@ -261,49 +261,19 @@
         var percentage, value;
         percentage = (pos) / (this.maxHandleX);
         value = this.step * Math.ceil((((percentage) * (this.max - this.min)) + this.min) / this.step);
-        return Number((value).toFixed(2));
+        return value;
     };
 
     Plugin.prototype.setValue = function(value) {
         this.$element.val(value).trigger('change', {origin: pluginName});
     };
 
-    Plugin.prototype.destroy = function() {
-        this.$document.off(this.options.startEvent, '#' + this.identifier, this.handleDown);
-        this.$element
-            .off('.' + pluginName)
-            .removeAttr('style')
-            .removeData('plugin_' + pluginName);
-
-        // Remove the generated markup
-        if (this.$range && this.$range.length) {
-            this.$range[0].parentNode.removeChild(this.$range[0]);
-        }
-
-        // Remove global events if there isn't any instance anymore.
-        pluginInstances.splice(pluginInstances.indexOf(this.$element[0]),1);
-        if (!pluginInstances.length) {
-            this.$window.off('.' + pluginName);
-        }
-    };
-
     // A really lightweight plugin wrapper around the constructor,
     // preventing against multiple instantiations
     $.fn[pluginName] = function(options) {
         return this.each(function() {
-            var $this = $(this),
-                data  = $this.data('plugin_' + pluginName);
-
-            // Create a new instance.
-            if (!data) {
-                $this.data('plugin_' + pluginName, (data = new Plugin(this, options)));
-                pluginInstances.push(this);
-            }
-
-            // Make it possible to access methods from public.
-            // e.g `$element.rangeslider('method');`
-            if (typeof options === 'string') {
-                data[options]();
+            if (!$.data(this, 'plugin_' + pluginName)) {
+                $.data(this, 'plugin_' + pluginName, new Plugin(this, options));
             }
         });
     };

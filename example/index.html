@@ -49,12 +49,9 @@
     <br>
     <br>
 
-    <div id="js-example-destroy">
-        <h2>Destroy a plugin instance</h2>
+    <div>
         <input type="range" min="10" max="1000" step="10" value="500" data-rangeslider>
         <output></output>
-        <button data-behaviour="destroy">Destroy</button>
-        <button data-behaviour="initialize">Initialize</button>
     </div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -68,7 +65,7 @@
 
             $document.on('change', selector, function(e) {
                 var value = e.target.value,
-                    output = e.target.parentNode.getElementsByTagName('output')[0];
+                    output = e.target.parentNode.parentNode.getElementsByTagName('output')[0];
                 output.innerHTML = value;
             });
 
@@ -81,13 +78,12 @@
                 onInit: function() {},
 
                 // Callback function
-                onSlide: function(position, value) {
-                    console.log(value);
-                },
+                onSlide: function(position, value) {},
 
                 // Callback function
                 onSlideEnd: function(position) {}
             });
+
 
             // Example functionality to demonstrate programmatic value changes
             $document.on('click', '#js-example-change-value button', function(e) {
@@ -96,15 +92,6 @@
 
                 $inputRange.val(value).change();
             });
-
-            // Example functionality to demonstrate destroy functionality
-            $document
-                .on('click', '#js-example-destroy button[data-behaviour="destroy"]', function(e) {
-                    $('input[type="range"]', e.target.parentNode).rangeslider('destroy');
-                })
-                .on('click', '#js-example-destroy button[data-behaviour="initialize"]', function(e) {
-                    $('input[type="range"]', e.target.parentNode).rangeslider({ polyfill: false });
-                });
 
         });
     </script>
