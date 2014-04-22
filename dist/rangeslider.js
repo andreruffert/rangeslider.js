@@ -1,4 +1,4 @@
-/*! rangeslider.js - v0.2.6 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v0.2.7 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 'use strict';
 
 (function (module) {
@@ -216,12 +216,14 @@
     };
 
     Plugin.prototype.setPosition = function(pos) {
-        var left, value;
-        left = this.cap(pos, 0, this.maxHandleX);
+        var left = this.cap(pos, 0, this.maxHandleX),
+            value = this.getValueFromPosition(left);
 
         // Snapping steps
-        value = (this.getValueFromPosition(left) / this.step) * this.step;
-        left = this.getPositionFromValue(value);
+        if (this.step !== 1) {
+            left = this.getPositionFromValue(value);
+            value = (this.getValueFromPosition(left) / this.step) * this.step;
+        }
 
         // Update ui
         this.$fill[0].style.width = (left + this.grabX)  + 'px';
