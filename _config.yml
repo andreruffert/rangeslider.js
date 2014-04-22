@@ -2,7 +2,7 @@
 markdown: kramdown
 
 # Custom vars
-current_version: 0.2.6
+current_version: 0.2.7
 repository_url: https://github.com/andreruffert/rangeslider.js
 
 exclude:
