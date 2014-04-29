@@ -5,6 +5,7 @@
   "homepage": "https://github.com/andreruffert/rangeslider.js",
   "author": "André Ruffert",
   "license": "MIT",
+  "description": "Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <input type=\"range\"> slider element",
   "keywords": [
     "input",
     "range",
