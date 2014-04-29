@@ -5,4 +5,4 @@ This is the source for [andreruffert.github.io/rangeslider.js](http://andreruffe
 ## Running site locally
     jekyll serve --watch
 
-The site should be available at [http://localhost:4000](http://localhost:4000)
+The site should be available at [http://0.0.0.0:4000](http://0.0.0.0:4000).
