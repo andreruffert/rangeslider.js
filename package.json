@@ -9,7 +9,9 @@
     "input",
     "range",
     "slider",
-    "rangeslider"
+    "rangeslider",
+    "rangeslider.js",
+    "polyfill"
   ],
   "author": {
     "name": "André Ruffert",

@@ -10,7 +10,9 @@
     "input",
     "range",
     "slider",
-    "rangeslider"
+    "rangeslider",
+    "rangeslider.js",
+    "polyfill"
   ],
   "ignore": [
     "**/.*",
