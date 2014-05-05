@@ -20,22 +20,8 @@
         return input.type !== 'text';
     }
 
-    /**
-     * Touchscreen detection
-     * @return {Boolean}
-     */
-    function isTouchScreen() {
-        var bool = false,
-            DocumentTouch = DocumentTouch || {};
-        if(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
-            bool = true;
-        }
-        return bool;
-    }
-
     var pluginName = 'rangeslider',
         pluginInstances = [],
-        touchevents = isTouchScreen(),
         inputrange = supportsRange(),
         defaults = {
             polyfill: true,
