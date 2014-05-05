@@ -42,9 +42,9 @@
             rangeClass: 'rangeslider',
             fillClass: 'rangeslider__fill',
             handleClass: 'rangeslider__handle',
-            startEvent: ((!touchevents) ? 'mousedown' : 'touchstart') + '.' + pluginName,
-            moveEvent: ((!touchevents) ? 'mousemove' : 'touchmove') + '.' + pluginName,
-            endEvent: ((!touchevents) ? 'mouseup' : 'touchend') + '.' + pluginName
+            startEvent: ['mousedown', 'touchstart', 'pointerdown'],
+            moveEvent: ['mousemove', 'touchmove', 'pointermove'],
+            endEvent: ['mouseup', 'touchend', 'pointerup']
         };
 
     /**
@@ -96,6 +96,9 @@
         this.options    = $.extend( {}, defaults, options );
         this._defaults  = defaults;
         this._name      = pluginName;
+        this.startEvent = this.options.startEvent.join('.' + pluginName + ' ') + '.' + pluginName;
+        this.moveEvent  = this.options.moveEvent.join('.' + pluginName + ' ') + '.' + pluginName;
+        this.endEvent   = this.options.endEvent.join('.' + pluginName + ' ') + '.' + pluginName;
         this.polyfill   = this.options.polyfill;
         this.onInit     = this.options.onInit;
         this.onSlide    = this.options.onSlide;
@@ -139,7 +142,7 @@
             delay(function() { _this.update(); }, 300);
         }, 20));
 
-        this.$document.on(this.options.startEvent, '#' + this.identifier, this.handleDown);
+        this.$document.on(this.startEvent, '#' + this.identifier, this.handleDown);
 
         // Listen to programmatic value changes
         this.$element.on('change' + '.' + pluginName, function(e, data) {
@@ -173,8 +176,8 @@
 
     Plugin.prototype.handleDown = function(e) {
         e.preventDefault();
-        this.$document.on(this.options.moveEvent, this.handleMove);
-        this.$document.on(this.options.endEvent, this.handleEnd);
+        this.$document.on(this.moveEvent, this.handleMove);
+        this.$document.on(this.endEvent, this.handleEnd);
 
         // If we click on the handle don't set the new position
         if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
@@ -199,8 +202,8 @@
 
     Plugin.prototype.handleEnd = function(e) {
         e.preventDefault();
-        this.$document.off(this.options.moveEvent, this.handleMove);
-        this.$document.off(this.options.endEvent, this.handleEnd);
+        this.$document.off(this.moveEvent, this.handleMove);
+        this.$document.off(this.endEvent, this.handleEnd);
 
         var posX = this.getRelativePosition(this.$range[0], e);
         if (this.onSlideEnd && typeof this.onSlideEnd === 'function') {
@@ -270,7 +273,7 @@
     };
 
     Plugin.prototype.destroy = function() {
-        this.$document.off(this.options.startEvent, '#' + this.identifier, this.handleDown);
+        this.$document.off(this.startEvent, '#' + this.identifier, this.handleDown);
         this.$element
             .off('.' + pluginName)
             .removeAttr('style')
