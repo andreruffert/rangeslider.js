@@ -10,7 +10,7 @@ Check out the [demo](http://andreruffert.github.io/rangeslider.js/).
 
 
 ##Browser Support
-* Tested in IE8+
+* Tested in IE8+ and all modern Browsers
 
 
 ##Installation
