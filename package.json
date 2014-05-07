@@ -2,7 +2,7 @@
   "name": "rangeslider.js",
   "title": "rangeslider.js",
   "description": "Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <input type=\"range\"> slider element",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "homepage": "https://github.com/andreruffert/rangeslider.js",
   "license": "MIT",
   "keywords": [
