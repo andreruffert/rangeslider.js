@@ -204,14 +204,11 @@
     };
 
     Plugin.prototype.setPosition = function(pos) {
-        var left = this.cap(pos, 0, this.maxHandleX),
-            value = this.getValueFromPosition(left);
+        var value, left;
 
         // Snapping steps
-        if (this.step !== 1) {
-            left = this.getPositionFromValue(value);
-            value = (this.getValueFromPosition(left) / this.step) * this.step;
-        }
+        value = (this.getValueFromPosition(this.cap(pos, 0, this.maxHandleX)) / this.step) * this.step;
+        left = this.getPositionFromValue(value);
 
         // Update ui
         this.$fill[0].style.width = (left + this.grabX)  + 'px';
