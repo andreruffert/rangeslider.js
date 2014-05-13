@@ -1,7 +1,11 @@
 'use strict';
 
 (function (module) {
-    if (typeof define === 'function' && define.amd) {
+    if (typeof module !== 'undefined' && module.exports) {
+        // CommonJS. Just export module.
+        module.exports = module;
+    }
+    else if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['jquery'], module);
     } else {
