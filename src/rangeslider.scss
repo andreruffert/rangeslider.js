@@ -1,7 +1,11 @@
 @import "compass/css3";
 
-.rangeslider,
-.rangeslider__fill {
+$rangeslider:           ".rangeslider";
+$rangeslider__fill:     ".rangeslider__fill";
+$rangeslider__handle:   ".rangeslider__handle";
+
+#{$rangeslider},
+#{$rangeslider__fill} {
     background: #e6e6e6;
     border: none;
     display: block;
@@ -11,17 +15,17 @@
     @include border-radius(10px);
 }
 
-.rangeslider {
+#{$rangeslider} {
     position: relative;
 }
 
-.rangeslider__fill {
+#{$rangeslider__fill} {
     background: #00ff00;
     position: absolute;
     top: 0;
 }
 
-.rangeslider__handle {
+#{$rangeslider__handle} {
     background: white;
     border: 1px solid #ccc;
     cursor: pointer;
