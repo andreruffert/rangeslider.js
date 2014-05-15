@@ -51,4 +51,10 @@ $rangeslider__handle:   ".rangeslider__handle";
         @include background-image(linear-gradient(rgba(black, .13), rgba(white, 0)));
         @include border-radius(50%);
     }
+
+    &:active {
+        @include background-image(linear-gradient(rgba(black, .10), rgba(black, .12)));
+
+    }
+}
 }
