@@ -35,7 +35,7 @@ $rangeslider__handle:   ".rangeslider__handle";
     top: -10px;
     @include background-image(linear-gradient(rgba(white, 0), rgba(black, .10)));
     @include box-shadow(1px 1px 8px rgba(black, .3));
-    @include border-radius(20px);
+    @include border-radius(50%);
 
     &:after {
         content: "";
@@ -49,6 +49,6 @@ $rangeslider__handle:   ".rangeslider__handle";
         bottom: 0;
         left: 0;
         @include background-image(linear-gradient(rgba(black, .13), rgba(white, 0)));
-        @include border-radius(20px);
+        @include border-radius(50%);
     }
 }
