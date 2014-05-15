@@ -107,7 +107,7 @@
         this.step       = parseFloat(this.$element[0].getAttribute('step')) || 1;
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
-        this.$range     = $('<div class="' + this.options.rangeClass + '" id="' + this.identifier + '" />').insertBefore(this.$element).prepend(this.$fill, this.$handle);
+        this.$range     = $('<div class="' + this.options.rangeClass + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
 
         // visually hide the input
         this.$element.css({
