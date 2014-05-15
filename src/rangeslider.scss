@@ -57,4 +57,7 @@ $rangeslider__handle:   ".rangeslider__handle";
 
     }
 }
+
+input[type="range"]:focus + #{$rangeslider} #{$rangeslider__handle} {
+    @include box-shadow(0 0 8px rgba(#ff00ff, .9));
 }
