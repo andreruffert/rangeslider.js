@@ -34,7 +34,7 @@ $rangeslider__handle:   ".rangeslider__handle";
     position: absolute;
     top: -10px;
     @include background-image(linear-gradient(rgba(white, 0), rgba(black, .10)));
-    @include box-shadow(1px 1px 8px rgba(black, .3));
+    @include box-shadow(0 0 8px rgba(black, .3));
     @include border-radius(50%);
 
     &:after {
