@@ -115,7 +115,7 @@
             'width': '1px',
             'height': '1px',
             'overflow': 'hidden',
-            'visibility': 'hidden'
+            'opacity': '0'
         });
 
         // Store context
