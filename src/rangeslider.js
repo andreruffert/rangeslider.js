@@ -1,14 +1,18 @@
 'use strict';
 
-(function (module) {
+(function(factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define(['jquery'], module);
+        define(['jquery'], factory);
+    }
+    else if (typeof exports === 'object') {
+        // CommonJS
+        factory(require('jquery'));
     } else {
         // Browser globals
-        module(jQuery);
+        factory(jQuery);
     }
-})(function($, undefined) {
+}(function($) {
 
     /**
      * Range feature detection
@@ -295,4 +299,4 @@
         });
     };
 
-});
+}));
