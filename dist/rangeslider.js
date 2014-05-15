@@ -1,19 +1,19 @@
 /*! rangeslider.js - v0.2.8 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 'use strict';
 
-(function (module) {
-    if (typeof module !== 'undefined' && module.exports) {
-        // CommonJS. Just export module.
-        module.exports = module;
-    }
-    else if (typeof define === 'function' && define.amd) {
+(function(factory) {
+    if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define(['jquery'], module);
+        define(['jquery'], factory);
+    }
+    else if (typeof exports === 'object') {
+        // CommonJS
+        factory(require('jquery'));
     } else {
         // Browser globals
-        module(jQuery);
+        factory(jQuery);
     }
-})(function($, undefined) {
+}(function($) {
 
     /**
      * Range feature detection
@@ -300,4 +300,4 @@
         });
     };
 
-});
+}));
