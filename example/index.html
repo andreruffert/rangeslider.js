@@ -97,7 +97,7 @@
                 selector    = '[data-rangeslider]',
                 $input      = $(selector);
 
-            $document.on('change', selector, function(e) {
+            $document.on('change', 'input[type="range"]', function(e) {
                 var value = e.target.value,
                     output = e.target.parentNode.getElementsByTagName('output')[0];
                 output.innerHTML = value;
