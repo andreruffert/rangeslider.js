@@ -1,14 +1,18 @@
 'use strict';
 
-(function (module) {
+(function(factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define(['jquery'], module);
+        define(['jquery'], factory);
+    }
+    else if (typeof exports === 'object') {
+        // CommonJS
+        factory(require('jquery'));
     } else {
         // Browser globals
-        module(jQuery);
+        factory(jQuery);
     }
-})(function($, undefined) {
+}(function($) {
 
     /**
      * Range feature detection
@@ -97,13 +101,13 @@
         }
 
         this.identifier = 'js-' + pluginName + '-' +(+new Date());
-        this.min        = parseFloat(this.$element[0].getAttribute('min')) || 0;
-        this.max        = parseFloat(this.$element[0].getAttribute('max')) || 100;
-        this.value      = parseFloat(this.$element[0].value) || this.min + (this.max-this.min)/2;
-        this.step       = parseFloat(this.$element[0].getAttribute('step')) || 1;
+        this.min        = parseFloat(this.$element[0].getAttribute('min') || 0);
+        this.max        = parseFloat(this.$element[0].getAttribute('max') || 100);
+        this.value      = parseFloat(this.$element[0].value || this.min + (this.max-this.min)/2);
+        this.step       = parseFloat(this.$element[0].getAttribute('step') || 1);
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
-        this.$range     = $('<div class="' + this.options.rangeClass + '" id="' + this.identifier + '" />').insertBefore(this.$element).prepend(this.$fill, this.$handle);
+        this.$range     = $('<div class="' + this.options.rangeClass + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
 
         // visually hide the input
         this.$element.css({
@@ -111,7 +115,7 @@
             'width': '1px',
             'height': '1px',
             'overflow': 'hidden',
-            'visibility': 'hidden'
+            'opacity': '0'
         });
 
         // Store context
@@ -246,7 +250,7 @@
 
     Plugin.prototype.getValueFromPosition = function(pos) {
         var percentage, value;
-        percentage = (pos) / (this.maxHandleX);
+        percentage = ((pos) / (this.maxHandleX || 1));
         value = this.step * Math.ceil((((percentage) * (this.max - this.min)) + this.min) / this.step);
         return Number((value).toFixed(2));
     };
@@ -295,4 +299,4 @@
         });
     };
 
-});
+}));
