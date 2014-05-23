@@ -2,6 +2,7 @@
 markdown: kramdown
 
 # Custom vars
+project_name: rangeslider.js
 current_version: 0.2.9
 repository_url: https://github.com/andreruffert/rangeslider.js
 
