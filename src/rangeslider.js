@@ -101,10 +101,10 @@
         }
 
         this.identifier = 'js-' + pluginName + '-' +(+new Date());
-        this.min        = parseFloat(this.$element[0].getAttribute('min')) || 0;
-        this.max        = parseFloat(this.$element[0].getAttribute('max')) || 100;
-        this.value      = parseFloat(this.$element[0].value) || this.min + (this.max-this.min)/2;
-        this.step       = parseFloat(this.$element[0].getAttribute('step')) || 1;
+        this.min        = parseFloat(this.$element[0].getAttribute('min') || 0);
+        this.max        = parseFloat(this.$element[0].getAttribute('max') || 100);
+        this.value      = parseFloat(this.$element[0].value || this.min + (this.max-this.min)/2);
+        this.step       = parseFloat(this.$element[0].getAttribute('step') || 1);
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
         this.$range     = $('<div class="' + this.options.rangeClass + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
