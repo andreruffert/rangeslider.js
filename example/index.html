@@ -42,8 +42,17 @@
     <br>
 
     <div>
-        <h2>Negative example</h2>
+        <h2>Negative attributes</h2>
         <input type="range" min="-20" max="20" data-rangeslider>
+        <output></output>
+    </div>
+
+    <br>
+    <br>
+
+    <div>
+        <h2>Floating point boundaries</h2>
+        <input type="range" min="10" max="11" step="0.1" value="10.2" data-rangeslider>
         <output></output>
     </div>
 
@@ -80,15 +89,6 @@
     <br>
     <br>
 
-    <div>
-        <h2>Floating point boundaries</h2>
-        <input type="range" min="10" max="11" step="0.1" value="10.2" data-rangeslider>
-        <output></output>
-    </div>
-
-    <br>
-    <br>
-
     <div id="js-example-destroy">
         <h2>Destroy a plugin instance</h2>
         <input type="range" min="10" max="1000" step="10" value="500" data-rangeslider>
@@ -100,51 +100,53 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="../dist/rangeslider.min.js"></script>
     <script>
-        $(function() {
+    $(function() {
 
-            var $document   = $(document),
-                selector    = '[data-rangeslider]',
-                $input      = $(selector);
+        var $document   = $(document),
+            selector    = '[data-rangeslider]',
+            $input      = $(selector);
 
-            $document.on('change', 'input[type="range"]', function(e) {
-                var value = e.target.value,
-                    output = e.target.parentNode.getElementsByTagName('output')[0];
-                output.innerHTML = value;
-            });
-
-            $input.rangeslider({
-
-                // Deactivate the feature detection
-                polyfill: false,
-
-                // Callback function
-                onInit: function() {},
-
-                // Callback function
-                onSlide: function(position, value) {},
-
-                // Callback function
-                onSlideEnd: function(position) {}
-            });
-
-            // Example functionality to demonstrate programmatic value changes
-            $document.on('click', '#js-example-change-value button', function(e) {
-                var $inputRange = $('input[type="range"]', e.target.parentNode),
-                    value = $('input[type="number"]', e.target.parentNode)[0].value;
-
-                $inputRange.val(value).change();
-            });
-
-            // Example functionality to demonstrate destroy functionality
-            $document
-                .on('click', '#js-example-destroy button[data-behaviour="destroy"]', function(e) {
-                    $('input[type="range"]', e.target.parentNode).rangeslider('destroy');
-                })
-                .on('click', '#js-example-destroy button[data-behaviour="initialize"]', function(e) {
-                    $('input[type="range"]', e.target.parentNode).rangeslider({ polyfill: false });
-                });
-
+        // Example functionality to demonstrate a value feedback
+        $document.on('change', 'input[type="range"]', function(e) {
+            var value = e.target.value,
+                output = e.target.parentNode.getElementsByTagName('output')[0];
+            output.innerHTML = value;
         });
+
+        // Example functionality to demonstrate programmatic value changes
+        $document.on('click', '#js-example-change-value button', function(e) {
+            var $inputRange = $('input[type="range"]', e.target.parentNode),
+                value = $('input[type="number"]', e.target.parentNode)[0].value;
+
+            $inputRange.val(value).change();
+        });
+
+        // Example functionality to demonstrate destroy functionality
+        $document
+            .on('click', '#js-example-destroy button[data-behaviour="destroy"]', function(e) {
+                $('input[type="range"]', e.target.parentNode).rangeslider('destroy');
+            })
+            .on('click', '#js-example-destroy button[data-behaviour="initialize"]', function(e) {
+                $('input[type="range"]', e.target.parentNode).rangeslider({ polyfill: false });
+            });
+
+        // Basic rangeslider initialization
+        $input.rangeslider({
+
+            // Deactivate the feature detection
+            polyfill: false,
+
+            // Callback function
+            onInit: function() {},
+
+            // Callback function
+            onSlide: function(position, value) {},
+
+            // Callback function
+            onSlideEnd: function(position) {}
+        });
+
+    });
     </script>
 </body>
 </html>
