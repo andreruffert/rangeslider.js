@@ -80,19 +80,20 @@
      * @param {Object} options
      */
     function Plugin(element, options) {
-        this.$window    = $(window);
-        this.$document  = $(document);
-        this.$element   = $(element);
-        this.options    = $.extend( {}, defaults, options );
-        this._defaults  = defaults;
-        this._name      = pluginName;
-        this.startEvent = this.options.startEvent.join('.' + pluginName + ' ') + '.' + pluginName;
-        this.moveEvent  = this.options.moveEvent.join('.' + pluginName + ' ') + '.' + pluginName;
-        this.endEvent   = this.options.endEvent.join('.' + pluginName + ' ') + '.' + pluginName;
-        this.polyfill   = this.options.polyfill;
-        this.onInit     = this.options.onInit;
-        this.onSlide    = this.options.onSlide;
-        this.onSlideEnd = this.options.onSlideEnd;
+        this.$window           = $(window);
+        this.$document         = $(document);
+        this.$element          = $(element);
+        this.options           = $.extend( {}, defaults, options );
+        this._defaults         = defaults;
+        this._name             = pluginName;
+        this.startEvent        = this.options.startEvent.join('.' + pluginName + ' ') + '.' + pluginName;
+        this.moveEvent         = this.options.moveEvent.join('.' + pluginName + ' ') + '.' + pluginName;
+        this.endEvent          = this.options.endEvent.join('.' + pluginName + ' ') + '.' + pluginName;
+        this.polyfill          = this.options.polyfill;
+        this.onInit            = this.options.onInit;
+        this.onSlide           = this.options.onSlide;
+        this.onSlideEnd        = this.options.onSlideEnd;
+        this.triggerOnValueSet = this.options.triggerOnValueSet;
 
         // Plugin should only be used as a polyfill
         if (this.polyfill) {
@@ -142,7 +143,7 @@
 
             var value = e.target.value,
                 pos = _this.getPositionFromValue(value);
-            _this.setPosition(pos);
+            _this.setPosition(pos, _this.triggerOnValueSet);
         });
     }
 
@@ -207,8 +208,10 @@
         return pos;
     };
 
-    Plugin.prototype.setPosition = function(pos) {
+    Plugin.prototype.setPosition = function(pos, triggerEvent) {
         var value, left;
+
+        triggerEvent = (triggerEvent === false) ? false : true;
 
         // Snapping steps
         value = (this.getValueFromPosition(this.cap(pos, 0, this.maxHandleX)) / this.step) * this.step;
@@ -223,7 +226,7 @@
         this.position = left;
         this.value = value;
 
-        if (this.onSlide && typeof this.onSlide === 'function') {
+        if (this.onSlide && typeof this.onSlide === 'function' && triggerEvent) {
             this.onSlide(left, value);
         }
     };
