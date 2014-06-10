@@ -243,15 +243,15 @@
 
     Plugin.prototype.getPositionFromValue = function(value) {
         var percentage, pos;
-        percentage = (value - this.min)/(this.max - this.min);
+        percentage = this.cap((value - this.min)/(this.max - this.min), 0, 1);
         pos = percentage * this.maxHandleX;
         return pos;
     };
 
     Plugin.prototype.getValueFromPosition = function(pos) {
         var percentage, value;
-        percentage = ((pos) / (this.maxHandleX || 1));
-        value = this.step * Math.ceil((((percentage) * (this.max - this.min)) + this.min) / this.step);
+        percentage = this.cap((pos) / (this.maxHandleX || 1), 0, 1);
+        value = this.cap(this.step * Math.round((((percentage) * (this.max - this.min)) + this.min) / this.step), this.min, this.max);
         return Number((value).toFixed(2));
     };
 
