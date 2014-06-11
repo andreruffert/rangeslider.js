@@ -148,11 +148,10 @@
     }
 
     Plugin.prototype.init = function() {
-        this.update();
-
         if (this.onInit && typeof this.onInit === 'function') {
             this.onInit();
         }
+        this.update();
     };
 
     Plugin.prototype.update = function() {
