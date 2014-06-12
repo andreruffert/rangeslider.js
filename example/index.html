@@ -104,13 +104,19 @@
 
         var $document   = $(document),
             selector    = '[data-rangeslider]',
-            $input      = $(selector);
+            $element    = $(selector);
 
         // Example functionality to demonstrate a value feedback
-        $document.on('change', 'input[type="range"]', function(e) {
-            var value = e.target.value,
-                output = e.target.parentNode.getElementsByTagName('output')[0];
+        function valueOutput(element) {
+            var value = element.value,
+                output = element.parentNode.getElementsByTagName('output')[0];
             output.innerHTML = value;
+        }
+        for (var i = $element.length - 1; i >= 0; i--) {
+            valueOutput($element[i]);
+        };
+        $document.on('change', 'input[type="range"]', function(e) {
+            valueOutput(e.target);
         });
 
         // Example functionality to demonstrate programmatic value changes
@@ -131,7 +137,7 @@
             });
 
         // Basic rangeslider initialization
-        $input.rangeslider({
+        $element.rangeslider({
 
             // Deactivate the feature detection
             polyfill: false,
