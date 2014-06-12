@@ -4,17 +4,24 @@
     $(function() {
         var $document   = $(document),
             selector    = '[data-rangeslider]',
-            $input      = $(selector);
+            $inputRange = $(selector);
 
-        // Normal change event to change the output's value
-        $document.on('change', selector, function(e) {
-            var value = e.target.value,
-                output = e.target.parentNode.getElementsByTagName('output')[0];
+        // Example functionality to demonstrate a value feedback
+        // and change the output's value.
+        function valueOutput(element) {
+            var value = element.value,
+                output = element.parentNode.getElementsByTagName('output')[0];
             output.innerHTML = value;
+        }
+        for (var i = $inputRange.length - 1; i >= 0; i--) {
+            valueOutput($inputRange[i]);
+        };
+        $document.on('change', selector, function(e) {
+            valueOutput(e.target);
         });
 
         // Initialize the elements
-        $input.rangeslider({
+        $inputRange.rangeslider({
             polyfill: false,
         });
 
