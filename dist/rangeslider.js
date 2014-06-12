@@ -257,7 +257,9 @@
     };
 
     Plugin.prototype.setValue = function(value) {
-        this.$element.val(value).trigger('change', {origin: pluginName});
+        if (value !== this.value) {
+            this.$element.val(value).trigger('change', {origin: pluginName});
+        }
     };
 
     Plugin.prototype.destroy = function() {
