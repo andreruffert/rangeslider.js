@@ -1,4 +1,4 @@
-/*! rangeslider.js - v0.2.9 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v0.3.0 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 'use strict';
 
 (function(factory) {
@@ -148,11 +148,10 @@
     }
 
     Plugin.prototype.init = function() {
-        this.update();
-
         if (this.onInit && typeof this.onInit === 'function') {
             this.onInit();
         }
+        this.update();
     };
 
     Plugin.prototype.update = function() {
@@ -257,7 +256,9 @@
     };
 
     Plugin.prototype.setValue = function(value) {
-        this.$element.val(value).trigger('change', {origin: pluginName});
+        if (value !== this.value) {
+            this.$element.val(value).trigger('change', {origin: pluginName});
+        }
     };
 
     Plugin.prototype.destroy = function() {

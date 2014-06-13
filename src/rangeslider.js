@@ -147,11 +147,10 @@
     }
 
     Plugin.prototype.init = function() {
-        this.update();
-
         if (this.onInit && typeof this.onInit === 'function') {
             this.onInit();
         }
+        this.update();
     };
 
     Plugin.prototype.update = function() {
@@ -256,7 +255,9 @@
     };
 
     Plugin.prototype.setValue = function(value) {
-        this.$element.val(value).trigger('change', {origin: pluginName});
+        if (value !== this.value) {
+            this.$element.val(value).trigger('change', {origin: pluginName});
+        }
     };
 
     Plugin.prototype.destroy = function() {
