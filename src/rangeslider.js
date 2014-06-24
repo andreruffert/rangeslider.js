@@ -30,6 +30,7 @@
         defaults = {
             polyfill: true,
             rangeClass: 'rangeslider',
+            disabledClass: 'rangeslider--disabled',
             fillClass: 'rangeslider__fill',
             handleClass: 'rangeslider__handle',
             startEvent: ['mousedown', 'touchstart', 'pointerdown'],
