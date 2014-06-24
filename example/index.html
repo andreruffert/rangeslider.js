@@ -129,6 +129,19 @@
             valueOutput(e.target);
         });
 
+        // Example functionality to demonstrate disabled functionality
+        $document .on('click', '#js-example-disabled button[data-behaviour="toggle"]', function(e) {
+            var $inputRange = $('input[type="range"]', e.target.parentNode);
+
+            if ($inputRange[0].disabled) {
+                $inputRange.prop("disabled", false);
+            }
+            else {
+                $inputRange.prop("disabled", true);
+            }
+            $inputRange.rangeslider('update');
+        });
+
         // Example functionality to demonstrate programmatic value changes
         $document.on('click', '#js-example-change-value button', function(e) {
             var $inputRange = $('input[type="range"]', e.target.parentNode),
