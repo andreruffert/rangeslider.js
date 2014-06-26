@@ -68,6 +68,16 @@
     <br>
     <br>
 
+    <div id="js-example-disabled">
+        <h2><code>disabled</code></h2>
+        <input type="range" min="10" max="100" data-rangeslider disabled>
+        <output></output>
+        <button data-behaviour="toggle">Toggle disabled state</button>
+    </div>
+
+    <br>
+    <br>
+
     <div>
         <h2><code>max="0"</code> disables slider</h2>
         <input type="range" max="0" data-rangeslider>
@@ -117,6 +127,19 @@
         };
         $document.on('change', 'input[type="range"]', function(e) {
             valueOutput(e.target);
+        });
+
+        // Example functionality to demonstrate disabled functionality
+        $document .on('click', '#js-example-disabled button[data-behaviour="toggle"]', function(e) {
+            var $inputRange = $('input[type="range"]', e.target.parentNode);
+
+            if ($inputRange[0].disabled) {
+                $inputRange.prop("disabled", false);
+            }
+            else {
+                $inputRange.prop("disabled", true);
+            }
+            $inputRange.rangeslider('update');
         });
 
         // Example functionality to demonstrate programmatic value changes

@@ -1,4 +1,4 @@
-/*! rangeslider.js - v0.3.0 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v0.3.1 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 'use strict';
 
 (function(factory) {
@@ -31,6 +31,7 @@
         defaults = {
             polyfill: true,
             rangeClass: 'rangeslider',
+            disabledClass: 'rangeslider--disabled',
             fillClass: 'rangeslider__fill',
             handleClass: 'rangeslider__handle',
             startEvent: ['mousedown', 'touchstart', 'pointerdown'],
@@ -133,7 +134,7 @@
             delay(function() { _this.update(); }, 300);
         }, 20));
 
-        this.$document.on(this.startEvent, '#' + this.identifier, this.handleDown);
+        this.$document.on(this.startEvent, '#' + this.identifier + ':not(.' + this.options.disabledClass + ')', this.handleDown);
 
         // Listen to programmatic value changes
         this.$element.on('change' + '.' + pluginName, function(e, data) {
@@ -160,6 +161,13 @@
         this.maxHandleX     = this.rangeWidth - this.handleWidth;
         this.grabX          = this.handleWidth / 2;
         this.position       = this.getPositionFromValue(this.value);
+
+        // Consider disabled state
+        if (this.$element[0].disabled) {
+            this.$range.addClass(this.options.disabledClass);
+        } else {
+            this.$range.removeClass(this.options.disabledClass);
+        }
 
         this.setPosition(this.position);
     };

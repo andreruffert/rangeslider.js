@@ -18,6 +18,10 @@ $rangeslider__handle:   ".rangeslider__handle";
     position: relative;
 }
 
+#{$rangeslider}--disabled {
+    @include opacity(.4);
+}
+
 #{$rangeslider__fill} {
     background: #00ff00;
     position: absolute;
@@ -54,7 +58,6 @@ $rangeslider__handle:   ".rangeslider__handle";
 
     &:active {
         @include background-image(linear-gradient(rgba(black, .10), rgba(black, .12)));
-
     }
 }
 
