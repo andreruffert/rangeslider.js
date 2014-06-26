@@ -18,6 +18,11 @@
   position: relative;
 }
 
+.rangeslider--disabled {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+  opacity: 0.4;
+}
+
 .rangeslider__fill {
   background: #00ff00;
   position: absolute;
