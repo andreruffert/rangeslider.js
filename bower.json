@@ -23,5 +23,8 @@
     "bower.json",
     "Gruntfile.js",
     "package.json"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "*"
+  }
 }
