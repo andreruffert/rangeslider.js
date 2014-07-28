@@ -1,11 +1,13 @@
 {
   "name": "rangeslider.js",
   "version": "0.3.1",
-  "main": "dist/rangeslider.js",
   "homepage": "https://github.com/andreruffert/rangeslider.js",
-  "author": "André Ruffert",
-  "license": "MIT",
+  "authors": [
+    "André Ruffert <andre@andreruffert.com>"
+  ],
   "description": "Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <input type=\"range\"> slider element",
+  "main": "dist/rangeslider.js",
+  "license": "MIT",
   "keywords": [
     "input",
     "range",
