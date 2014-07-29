@@ -1,4 +1,5 @@
 (function(factory) {
+    'use strict';
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['jquery'], factory);
@@ -100,7 +101,7 @@
             if (inputrange) { return false; }
         }
 
-        this.identifier = 'js-' + pluginName + '-' +(+new Date());
+        this.identifier = 'js-' + pluginName + '-' + new Date().valueOf();
         this.min        = parseFloat(this.$element[0].getAttribute('min') || 0);
         this.max        = parseFloat(this.$element[0].getAttribute('max') || 100);
         this.value      = parseFloat(this.$element[0].value || this.min + (this.max-this.min)/2);
