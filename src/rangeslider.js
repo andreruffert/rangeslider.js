@@ -203,9 +203,8 @@
         this.$document.off(this.moveEvent, this.handleMove);
         this.$document.off(this.endEvent, this.handleEnd);
 
-        var posX = this.getRelativePosition(this.$range[0], e);
         if (this.onSlideEnd && typeof this.onSlideEnd === 'function') {
-            this.onSlideEnd(posX - this.grabX, this.value);
+            this.onSlideEnd(this.position, this.value);
         }
     };
 
