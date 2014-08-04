@@ -1,7 +1,7 @@
 /*! rangeslider.js - v0.3.1 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
-'use strict';
-
 (function(factory) {
+    'use strict';
+
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['jquery'], factory);
@@ -14,6 +14,7 @@
         factory(jQuery);
     }
 }(function($) {
+    'use strict';
 
     /**
      * Range feature detection
@@ -203,9 +204,8 @@
         this.$document.off(this.moveEvent, this.handleMove);
         this.$document.off(this.endEvent, this.handleEnd);
 
-        var posX = this.getRelativePosition(this.$range[0], e);
         if (this.onSlideEnd && typeof this.onSlideEnd === 'function') {
-            this.onSlideEnd(posX - this.grabX, this.value);
+            this.onSlideEnd(this.position, this.value);
         }
     };
 
