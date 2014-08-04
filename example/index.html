@@ -169,10 +169,16 @@
             onInit: function() {},
 
             // Callback function
-            onSlide: function(position, value) {},
+            onSlide: function(position, value) {
+                console.log('onSlide');
+                console.log('position: ' + position, 'value: ' + value);
+            },
 
             // Callback function
-            onSlideEnd: function(position) {}
+            onSlideEnd: function(position, value) {
+                console.log('onSlideEnd');
+                console.log('position: ' + position, 'value: ' + value);
+            }
         });
 
     });
