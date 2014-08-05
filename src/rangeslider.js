@@ -93,6 +93,7 @@
         this.endEvent   = this.options.endEvent.join('.' + pluginName + ' ') + '.' + pluginName;
         this.polyfill   = this.options.polyfill;
         this.onInit     = this.options.onInit;
+        this.onSlideBegin = this.options.onSlideBegin;
         this.onSlide    = this.options.onSlide;
         this.onSlideEnd = this.options.onSlideEnd;
 
@@ -176,6 +177,10 @@
         e.preventDefault();
         this.$document.on(this.moveEvent, this.handleMove);
         this.$document.on(this.endEvent, this.handleEnd);
+
+        if (this.onSlideBegin && typeof this.onSlideBegin === 'function') {
+            this.onSlideBegin(this.position, this.value);
+        }
 
         // If we click on the handle don't set the new position
         if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
