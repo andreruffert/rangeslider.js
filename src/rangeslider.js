@@ -143,9 +143,9 @@
                 return;
             }
 
-            var value = e.target.value,
-                pos = _this.getPositionFromValue(value);
-            _this.setPosition(pos);
+            var value = e.target.value;
+            _this.value = value;
+            _this.update();
         });
     }
 
