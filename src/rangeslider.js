@@ -182,8 +182,9 @@
             return;
         }
 
-        var posX = this.getRelativePosition(this.$range[0], e),
-            handleX = this.getPositionFromNode(this.$handle[0]) - this.getPositionFromNode(this.$range[0]);
+        var posX    = this.getRelativePosition(e),
+            rangeX  = this.$range[0].getBoundingClientRect().left,
+            handleX = this.getPositionFromNode(this.$handle[0]) - rangeX;
 
         this.setPosition(posX - this.grabX);
 
@@ -194,7 +195,7 @@
 
     Plugin.prototype.handleMove = function(e) {
         e.preventDefault();
-        var posX = this.getRelativePosition(this.$range[0], e);
+        var posX = this.getRelativePosition(e);
         this.setPosition(posX - this.grabX);
     };
 
@@ -235,6 +236,7 @@
         }
     };
 
+    // Returns element position relative to the parent
     Plugin.prototype.getPositionFromNode = function(node) {
         var i = 0;
         while (node !== null) {
@@ -244,8 +246,10 @@
         return i;
     };
 
-    Plugin.prototype.getRelativePosition = function(node, e) {
-        return (e.pageX || e.originalEvent.clientX || e.originalEvent.touches[0].clientX || e.currentPoint.x) - this.getPositionFromNode(node);
+    Plugin.prototype.getRelativePosition = function(e) {
+        // Get the offset left relative to the viewport
+        var rangeX = this.$range[0].getBoundingClientRect().left;
+        return (e.pageX || e.originalEvent.clientX || e.originalEvent.touches[0].clientX || e.currentPoint.x) - rangeX;
     };
 
     Plugin.prototype.getPositionFromValue = function(value) {
