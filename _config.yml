@@ -10,3 +10,6 @@ exclude:
 - "bower.json"
 - "Gemfile"
 - "README.md"
+
+sass:
+    style: :compressed

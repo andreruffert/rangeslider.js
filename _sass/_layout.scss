@@ -1,0 +1,124 @@
+html {
+    color: #404040;
+    font-family: Helvetica, arial, sans-serif;
+    line-height: 1.4;
+}
+
+body {
+    padding: 10px 20px;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+a {
+    color: #000000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 20px 0 10px;
+    -webkit-font-smoothing: antialiased;
+}
+
+hr {
+    background: #ddd;
+    border: 0;
+    height: 1px;
+    margin: 40px 0;
+}
+
+header {
+    text-align: center;
+}
+
+section {
+    margin: 30px 0 60px 0;
+}
+
+output {
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: 30px 0;
+}
+
+.button {
+    background: #e6e6e6;
+    background-image: linear-gradient(#fafafa, #eaeaea);
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    border-bottom-color: #bcbcbc;
+    color: #555;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 22px;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px;
+    margin: 20px 0;
+}
+.button:hover {
+    background-image: linear-gradient(#eaeaea, #fafafa);
+}
+
+.img-circular {
+    margin: 0 auto;
+    position: relative;
+}
+.img-circular,
+.img-circular:after,
+.img-circular img {
+    width: 120px;
+    height: 120px;
+    -webkit-border-radius: 70px;
+    -moz-border-radius: 70px;
+    -ms-border-radius: 70px;
+    -o-border-radius: 70px;
+    border-radius: 70px;
+}
+.img-circular:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px inset;
+    -moz-box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px inset;
+    box-shadow: rgba(0, 0, 0, 0.6) 0 1px 6px inset;
+}
+footer {
+    text-align: center;
+}
+
+pre,
+code {
+    background: #f8f8f8;
+    border-radius: 3px;
+}
+
+pre {
+    border: 1px solid #ddd;
+    word-wrap: normal;
+    font-size: 13px;
+    line-height: 19px;
+    overflow: auto;
+    padding: 6px 10px;
+}
+
+code {
+    border: 1px solid #eaeaea;
+    margin: 0 2px;
+    padding: 0 5px;
+    white-space: nowrap;
+}
+
+pre code {
+    border: 0;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    white-space: pre-wrap;
+    background: transparent;
+    border-radius: 0;
+}
