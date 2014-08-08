@@ -245,7 +245,7 @@
     };
 
     Plugin.prototype.getRelativePosition = function(node, e) {
-        return (e.pageX || e.originalEvent.clientX || e.originalEvent.touches[0].clientX || e.currentPoint.x) - this.getPositionFromNode(node);
+        return (e.pageX || e.originalEvent.clientX || (e.originalEvent.touches && e.originalEvent.touches[0].clientX) || (e.currentPoint && e.currentPoint.x) || 0) - this.getPositionFromNode(node);
     };
 
     Plugin.prototype.getPositionFromValue = function(value) {
