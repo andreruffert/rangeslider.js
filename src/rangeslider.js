@@ -30,10 +30,12 @@
         inputrange = supportsRange(),
         defaults = {
             polyfill: true,
+            useTransition: true,
             rangeClass: 'rangeslider',
             disabledClass: 'rangeslider--disabled',
             fillClass: 'rangeslider__fill',
             handleClass: 'rangeslider__handle',
+            transitionClass: 'rangeslider__transition',
             startEvent: ['mousedown', 'touchstart', 'pointerdown'],
             moveEvent: ['mousemove', 'touchmove', 'pointermove'],
             endEvent: ['mouseup', 'touchend', 'pointerup']
@@ -179,9 +181,18 @@
 
         // If we click on the handle don't set the new position
         if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
+            // Remove transition class, since we don't need it while dragging handle, and it can slow down the dragging interaction.
+            if (this.options.useTransition) {
+                this.$range.removeClass(this.options.transitionClass);
+            }
             return;
         }
-
+        
+        // Only add transition class *after* above "return", so that if user is performing a "drag" on the handle we don't bother with the transition animation.
+        if (this.options.useTransition) {
+            this.$range.addClass(this.options.transitionClass);
+        }
+        
         var posX    = this.getRelativePosition(e),
             rangeX  = this.$range[0].getBoundingClientRect().left,
             handleX = this.getPositionFromNode(this.$handle[0]) - rangeX;
