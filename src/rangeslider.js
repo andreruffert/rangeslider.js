@@ -175,6 +175,11 @@
 
     Plugin.prototype.handleDown = function(e) {
         e.preventDefault();
+
+        if (this.$element.is('[readonly]')) {
+            return;
+        }
+
         this.$document.on(this.moveEvent, this.handleMove);
         this.$document.on(this.endEvent, this.handleEnd);
 
