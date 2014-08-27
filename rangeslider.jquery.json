@@ -4,6 +4,7 @@
   "description": "Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <input type=\"range\"> slider element",
   "version": "0.3.2",
   "homepage": "https://github.com/andreruffert/rangeslider.js",
+  "docs": "http://andreruffert.github.io/rangeslider.js/",
   "license": "MIT",
   "licenses": [
     {
