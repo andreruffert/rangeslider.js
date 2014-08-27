@@ -18,13 +18,12 @@
   ],
   "ignore": [
     "**/.*",
+    "*.json",
     "src",
     "example",
     "node_modules",
     "bower_components",
-    "bower.json",
-    "Gruntfile.js",
-    "package.json"
+    "Gruntfile.js"
   ],
   "dependencies": {
     "jquery": "*"
