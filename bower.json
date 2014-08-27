@@ -26,6 +26,6 @@
     "Gruntfile.js"
   ],
   "dependencies": {
-    "jquery": "*"
+    "jquery": ">= 1.9.0"
   }
 }
