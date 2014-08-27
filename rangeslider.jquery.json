@@ -1,5 +1,5 @@
 {
-  "name": "rangeslider.js",
+  "name": "rangeslider",
   "title": "rangeslider.js",
   "description": "Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <input type=\"range\"> slider element",
   "version": "0.3.3",
