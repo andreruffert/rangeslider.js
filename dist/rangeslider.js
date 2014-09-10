@@ -28,6 +28,7 @@
 
     var pluginName = 'rangeslider',
         pluginInstances = [],
+        pluginIdentifier = 0,
         inputrange = supportsRange(),
         defaults = {
             polyfill: true,
@@ -103,7 +104,7 @@
             if (inputrange) { return false; }
         }
 
-        this.identifier = 'js-' + pluginName + '-' +(+new Date());
+        this.identifier = 'js-' + pluginName + '-' +(pluginIdentifier++);
         this.min        = parseFloat(this.$element[0].getAttribute('min') || 0);
         this.max        = parseFloat(this.$element[0].getAttribute('max') || 100);
         this.value      = parseFloat(this.$element[0].value || this.min + (this.max-this.min)/2);
