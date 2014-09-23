@@ -106,6 +106,44 @@
         }
         return parents;
     }
+
+    /**
+     * Returns dimensions for an element even if it is not visible in the DOM.
+     *
+     * @param  {Element} element
+     * @param  {String}  key     (e.g. offsetWidth …)
+     * @return {Number}
+     */
+    function getDimension(element, key) {
+        var hiddenParentNodes       = getHiddenParentNodes(element),
+            hiddenParentNodesLength = hiddenParentNodes.length,
+            displayProperty         = [],
+            dimension               = element[key];
+
+        if (hiddenParentNodesLength) {
+            for (var i = 0; i < hiddenParentNodesLength; i++) {
+                // Cache the display property to restore it later.
+                displayProperty[i] = hiddenParentNodes[i].style.display;
+
+                hiddenParentNodes[i].style.display = 'block';
+                hiddenParentNodes[i].style.height = '0';
+                hiddenParentNodes[i].style.overflow = 'hidden';
+                hiddenParentNodes[i].style.visibility = 'hidden';
+            }
+
+            dimension = element[key];
+
+            for (var j = 0; j < hiddenParentNodesLength; j++) {
+                hiddenParentNodes[j].style.display = displayProperty[j];
+                hiddenParentNodes[j].style.height = '';
+                hiddenParentNodes[j].style.overflow = '';
+                hiddenParentNodes[j].style.visibility = '';
+            }
+        }
+        return dimension;
+    }
+
+    /**
      * Plugin
      * @param {String} element
      * @param {Object} options
