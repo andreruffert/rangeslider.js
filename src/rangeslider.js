@@ -78,6 +78,17 @@
     }
 
     /**
+     * Check if a `element` is visible in the DOM
+     *
+     * @param  {Element}  element
+     * @return {Boolean}
+     */
+    function isHidden(element) {
+        if (element.offsetWidth !== 0 || element.offsetHeight !== 0) {
+            return false;
+        }
+        return true;
+    }
      * Plugin
      * @param {String} element
      * @param {Object} options
