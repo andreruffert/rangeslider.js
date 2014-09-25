@@ -2,7 +2,7 @@
   "name": "rangeslider.js",
   "title": "rangeslider.js",
   "description": "Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <input type=\"range\"> slider element",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "homepage": "https://github.com/andreruffert/rangeslider.js",
   "license": "MIT",
   "keywords": [
@@ -29,14 +29,17 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "crayola": "0.0.1",
     "grunt": "~0.4.2",
-    "load-grunt-tasks": "~0.2.1",
-    "time-grunt": "~0.2.7",
-    "grunt-contrib-watch": "~0.5.2",
-    "grunt-contrib-jshint": "~0.8.0",
-    "jshint-stylish": "~0.1.5",
+    "grunt-bump": "0.0.15",
     "grunt-contrib-compass": "~0.7.0",
     "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-uglify": "~0.2.7"
-  }
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-watch": "~0.5.2",
+    "jshint-stylish": "~0.1.5",
+    "load-grunt-tasks": "~0.2.1",
+    "time-grunt": "~0.2.7"
+  },
+  "codename": "Red Orange"
 }
