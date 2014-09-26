@@ -90,9 +90,47 @@ module.exports = function (grunt) {
                 src: ['<%= config.dist %>/rangeslider.js'],
                 dest: '<%= config.dist %>/rangeslider.min.js'
             }
+        },
+
+        // Increment version
+        bump: {
+            options: {
+                files: [
+                    'bower.json',
+                    'package.json',
+                    'rangeslider.jquery.json'
+                ],
+                updateConfigs: ['pkg'],
+                commitMessage: 'chore(release): v%VERSION%',
+                commitFiles: [
+                    'bower.json',
+                    'package.json',
+                    'rangeslider.jquery.json',
+                    'dist'
+                ],
+                createTag: false
+            }
         }
+    });
+
+    // Generate codename
+    grunt.registerTask('codename', 'generate a fancy codename', function() {
+        var crayola = require('crayola');
+        var pkg = grunt.file.readJSON('./package.json');
+
+        pkg.codename = crayola().name;
+        grunt.log.write('The new codename is ' + pkg.codename);
+        grunt.file.write('./package.json', JSON.stringify(pkg, null, 2));
     });
 
     // Build task
     grunt.registerTask('build', ['compass:dist', 'jshint', 'concat:dist', 'uglify:dist']);
+
+    // Release task
+    grunt.registerTask('release', [
+        'bump-only',
+        'codename',
+        'build',
+        'bump-commit'
+    ]);
 };
