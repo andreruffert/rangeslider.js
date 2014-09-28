@@ -115,6 +115,18 @@
         <button data-behaviour="initialize">Initialize</button>
     </div>
 
+    <br>
+    <br>
+
+    <div id="js-example-hidden">
+        <h2>Consider initialization and update of hidden elements</h2>
+        <div style="display:none">
+            <input type="range" min="10" max="100" data-rangeslider>
+            <output></output>
+        </div>
+        <button data-behaviour="toggle">Toggle visibility</button>
+    </div>
+
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="../dist/rangeslider.min.js"></script>
     <script>
@@ -165,6 +177,13 @@
             })
             .on('click', '#js-example-destroy button[data-behaviour="initialize"]', function(e) {
                 $('input[type="range"]', e.target.parentNode).rangeslider({ polyfill: false });
+            });
+
+        // Example functionality to test initialisation on hidden elements
+        $document
+            .on('click', '#js-example-hidden button[data-behaviour="toggle"]', function(e) {
+                var $container = $(e.target.previousElementSibling);
+                $container.toggle();
             });
 
         // Basic rangeslider initialization
