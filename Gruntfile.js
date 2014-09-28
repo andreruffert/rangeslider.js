@@ -95,12 +95,17 @@ module.exports = function (grunt) {
         // Increment version
         bump: {
             options: {
-                files: ['bower.json', 'package.json'],
+                files: [
+                    'bower.json',
+                    'package.json',
+                    'rangeslider.jquery.json'
+                ],
                 updateConfigs: ['pkg'],
                 commitMessage: 'chore(release): v%VERSION%',
                 commitFiles: [
                     'bower.json',
                     'package.json',
+                    'rangeslider.jquery.json',
                     'dist'
                 ],
                 createTag: false

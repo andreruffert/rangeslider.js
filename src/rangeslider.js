@@ -78,6 +78,72 @@
     }
 
     /**
+     * Check if a `element` is visible in the DOM
+     *
+     * @param  {Element}  element
+     * @return {Boolean}
+     */
+    function isHidden(element) {
+        if (element.offsetWidth !== 0 || element.offsetHeight !== 0) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Get hidden parentNodes of an `element`
+     *
+     * @param  {Element} element
+     * @return {[type]}
+     */
+    function getHiddenParentNodes(element) {
+        var parents = [],
+            node    = element.parentNode;
+
+        while (isHidden(node)) {
+            parents.push(node);
+            node = node.parentNode;
+        }
+        return parents;
+    }
+
+    /**
+     * Returns dimensions for an element even if it is not visible in the DOM.
+     *
+     * @param  {Element} element
+     * @param  {String}  key     (e.g. offsetWidth …)
+     * @return {Number}
+     */
+    function getDimension(element, key) {
+        var hiddenParentNodes       = getHiddenParentNodes(element),
+            hiddenParentNodesLength = hiddenParentNodes.length,
+            displayProperty         = [],
+            dimension               = element[key];
+
+        if (hiddenParentNodesLength) {
+            for (var i = 0; i < hiddenParentNodesLength; i++) {
+                // Cache the display property to restore it later.
+                displayProperty[i] = hiddenParentNodes[i].style.display;
+
+                hiddenParentNodes[i].style.display = 'block';
+                hiddenParentNodes[i].style.height = '0';
+                hiddenParentNodes[i].style.overflow = 'hidden';
+                hiddenParentNodes[i].style.visibility = 'hidden';
+            }
+
+            dimension = element[key];
+
+            for (var j = 0; j < hiddenParentNodesLength; j++) {
+                hiddenParentNodes[j].style.display = displayProperty[j];
+                hiddenParentNodes[j].style.height = '';
+                hiddenParentNodes[j].style.overflow = '';
+                hiddenParentNodes[j].style.visibility = '';
+            }
+        }
+        return dimension;
+    }
+
+    /**
      * Plugin
      * @param {String} element
      * @param {Object} options
@@ -157,8 +223,8 @@
     };
 
     Plugin.prototype.update = function() {
-        this.handleWidth    = this.$handle[0].offsetWidth;
-        this.rangeWidth     = this.$range[0].offsetWidth;
+        this.handleWidth    = getDimension(this.$handle[0], 'offsetWidth');
+        this.rangeWidth     = getDimension(this.$range[0], 'offsetWidth');
         this.maxHandleX     = this.rangeWidth - this.handleWidth;
         this.grabX          = this.handleWidth / 2;
         this.position       = this.getPositionFromValue(this.value);
@@ -263,7 +329,7 @@
     Plugin.prototype.getValueFromPosition = function(pos) {
         var percentage, value;
         percentage = ((pos) / (this.maxHandleX || 1));
-        value = this.step * Math.ceil((((percentage) * (this.max - this.min)) + this.min) / this.step);
+        value = this.step * Math.round(percentage * (this.max - this.min) / this.step) + this.min;
         return Number((value).toFixed(2));
     };
 
