@@ -27,6 +27,9 @@
   "engines": {
     "node": ">=0.8.0"
   },
+  "scripts": {
+    "test": "grunt jshint"
+  },
   "dependencies": {},
   "devDependencies": {
     "crayola": "0.0.1",
