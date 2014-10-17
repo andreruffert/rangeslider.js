@@ -316,8 +316,20 @@
 
     Plugin.prototype.getRelativePosition = function(e) {
         // Get the offset left relative to the viewport
-        var rangeX = this.$range[0].getBoundingClientRect().left;
-        return (e.pageX || e.originalEvent.clientX || e.originalEvent.touches[0].clientX || e.currentPoint.x) - rangeX;
+        var rangeX = this.$range[0].getBoundingClientRect().left,
+            xVal;
+
+        if (typeof e.pageX !== 'undefined') {
+            xVal = e.pageX;
+        } else if (typeof e.originalEvent.clientX !== 'undefined') {
+            xVal = e.originalEvent.clientX;
+        } else if (e.originalEvent.touches && e.originalEvent.touches[0] && typeof e.originalEvent.touches[0].clientX !== 'undefined') {
+            xVal = e.originalEvent.touches[0].clientX;
+        } else {
+            xVal = e.currentPoint.x;
+        }
+
+        return xVal - rangeX;
     };
 
     Plugin.prototype.getPositionFromValue = function(value) {
