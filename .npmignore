@@ -1,0 +1,11 @@
+.editorconfig
+.gitattributes
+.gitignore
+.jshintrc
+.travis.yml
+
+bower.json
+Gruntfile.js
+rangeslider.jquery.json
+
+/example
