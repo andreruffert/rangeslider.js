@@ -3,16 +3,9 @@
   "title": "rangeslider.js",
   "description": "Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <input type=\"range\"> slider element",
   "version": "0.3.6",
+  "codename": "Periwinkle",
+  "main": "dist/rangeslider.js",
   "homepage": "https://github.com/andreruffert/rangeslider.js",
-  "license": "MIT",
-  "keywords": [
-    "input",
-    "range",
-    "slider",
-    "rangeslider",
-    "rangeslider.js",
-    "polyfill"
-  ],
   "author": {
     "name": "André Ruffert",
     "url": "http://andreruffert.com"
@@ -21,14 +14,24 @@
     "type": "git",
     "url": "https://github.com/andreruffert/rangeslider.js"
   },
+  "keywords": [
+    "input",
+    "range",
+    "slider",
+    "rangeslider",
+    "rangeslider.js",
+    "polyfill",
+    "browser"
+  ],
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/andreruffert/rangeslider.js/blob/master/LICENSE.md"
+  },
   "bugs": {
     "url": "https://github.com/andreruffert/rangeslider.js/issues"
   },
   "engines": {
     "node": ">=0.8.0"
-  },
-  "scripts": {
-    "test": "grunt jshint"
   },
   "dependencies": {},
   "devDependencies": {
@@ -44,5 +47,7 @@
     "load-grunt-tasks": "~0.2.1",
     "time-grunt": "~0.2.7"
   },
-  "codename": "Periwinkle"
+  "scripts": {
+    "test": "grunt jshint"
+  }
 }
