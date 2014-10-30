@@ -10,8 +10,11 @@ Check out the [examples](http://andreruffert.github.io/rangeslider.js/).
 * Supports all major browsers including IE8+
 
 ##Install
+Install with [Bower](http://bower.io/):
 ``bower install --save rangeslider.js``
 
+Install with [npm](https://www.npmjs.org/):
+``npm install --save rangeslider.js``
 
 ##Usage
 
