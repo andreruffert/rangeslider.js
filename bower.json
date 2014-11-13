@@ -14,7 +14,8 @@
     "slider",
     "rangeslider",
     "rangeslider.js",
-    "polyfill"
+    "polyfill",
+    "jquery-plugin"
   ],
   "ignore": [
     "**/.*",

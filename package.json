@@ -21,7 +21,8 @@
     "rangeslider",
     "rangeslider.js",
     "polyfill",
-    "browser"
+    "browser",
+    "jquery-plugin"
   ],
   "license": {
     "type": "MIT",
