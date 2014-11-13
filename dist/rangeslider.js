@@ -1,4 +1,4 @@
-/*! rangeslider.js - v0.3.6 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v0.3.6 | (c) 2014 @andreruffert | [object Object] license | https://github.com/andreruffert/rangeslider.js */
 (function(factory) {
     'use strict';
 
@@ -175,6 +175,7 @@
         this.max        = parseFloat(this.$element[0].getAttribute('max') || 100);
         this.value      = parseFloat(this.$element[0].value || this.min + (this.max-this.min)/2);
         this.step       = parseFloat(this.$element[0].getAttribute('step') || 1);
+        this.toFixed    = (this.step + '').replace('.', '').length - 1;
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
         this.$range     = $('<div class="' + this.options.rangeClass + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
@@ -287,7 +288,7 @@
         var value, left;
 
         // Snapping steps
-        value = (this.getValueFromPosition(this.cap(pos, 0, this.maxHandleX)) / this.step) * this.step;
+        value = this.getValueFromPosition(this.cap(pos, 0, this.maxHandleX));
         left = this.getPositionFromValue(value);
 
         // Update ui
@@ -346,7 +347,7 @@
         var percentage, value;
         percentage = ((pos) / (this.maxHandleX || 1));
         value = this.step * Math.round(percentage * (this.max - this.min) / this.step) + this.min;
-        return Number((value).toFixed(2));
+        return Number((value).toFixed(this.toFixed));
     };
 
     Plugin.prototype.setValue = function(value) {
