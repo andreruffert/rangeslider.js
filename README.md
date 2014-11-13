@@ -1,22 +1,32 @@
 #rangeslider.js [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/) [![rangeslider.js](http://img.shields.io/badge/rangeslider-.js-00ff00.svg)](http://andreruffert.github.io/rangeslider.js/) [![Build Status](https://travis-ci.org/andreruffert/rangeslider.js.svg?branch=develop)](https://travis-ci.org/andreruffert/rangeslider.js)
 
-Simple, small and fast JavaScript/jQuery polyfill for the HTML5 `<input type="range">` slider element.            
-Check out the [demo](http://andreruffert.github.io/rangeslider.js/). 
+>Simple, small and fast JavaScript/jQuery polyfill for the HTML5 `<input type="range">` slider element.
+            
+Check out the [examples](http://andreruffert.github.io/rangeslider.js/).
 
-
-##Features
 * Touchscreen friendly
 * Recalculates `onresize` so suitable for use within responsive designs
 * Small and fast
+* Supports all major browsers including IE8+
 
-
-##Browser Support
-* Tested in IE8+ and all modern Browsers
-
-
-##Installation
+##Install
+Install with [Bower](http://bower.io/):
 ``bower install --save rangeslider.js``
 
+Install with [npm](https://www.npmjs.org/):
+``npm install --save rangeslider.js``
 
 ##Usage
-Check out the [website's section](http://andreruffert.github.io/rangeslider.js/#usage) on how to use rangeslider.js.
+
+```
+// Initialize a new plugin instance for all
+// e.g. $('input[type="range"]') elements.
+
+$('input[type="range"]').rangeslider();
+```
+
+Check out the [website's section](http://andreruffert.github.io/rangeslider.js/#usage) for further informations on how to use rangeslider.js.
+
+
+## License
+MIT © [André Ruffert](http://andreruffert.com)
