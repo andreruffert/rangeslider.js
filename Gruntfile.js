@@ -21,7 +21,7 @@ module.exports = function (grunt) {
         meta: {
             banner: '/*! <%= pkg.name %> - v<%= pkg.version %> | ' +
             '(c) <%= grunt.template.today("yyyy") %> @andreruffert | ' +
-            '<%= pkg.license %> license | <%= pkg.homepage %> */\n'
+            '<%= pkg.license.type %> license | <%= pkg.homepage %> */\n'
         },
 
         // Watches files for changes and runs tasks based on the changed files
