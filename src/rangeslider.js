@@ -351,7 +351,10 @@
 
     Plugin.prototype.setValue = function(value) {
         if (value !== this.value) {
-            this.$element.val(value).trigger('change', {origin: pluginName});
+
+            // Round exponential float to one decimal representation
+            var roundedValue = Number(Math.round(value+'e1')+'e-1');
+            this.$element.val(roundedValue).trigger('change', {origin: pluginName});
         }
     };
 
