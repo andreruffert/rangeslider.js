@@ -203,7 +203,7 @@
 
         // Listen to programmatic value changes
         this.$element.on('change' + '.' + this.identifier, function(e, data) {
-            if (data && data.origin === this.identifier) {
+            if (data && data.origin === _this.identifier) {
                 return;
             }
 
