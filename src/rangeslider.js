@@ -357,7 +357,7 @@
         this.$window.off('.' + this.identifier);
 
         this.$element
-            .off('.' + pluginName)
+            .off('.' + this.identifier)
             .removeAttr('style')
             .removeData('plugin_' + pluginName);
 
