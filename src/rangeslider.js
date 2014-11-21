@@ -269,7 +269,7 @@
         this.__status = status;
     };
 
-    Plugin.prototype.getStatus = function(status) {
+    Plugin.prototype.getStatus = function() {
         return this.__status;
     };
 
