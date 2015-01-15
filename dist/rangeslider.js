@@ -167,7 +167,7 @@
         // Plugin should only be used as a polyfill
         if (this.polyfill) {
             // Input range support?
-            if (inputrange) { return false; }
+            if (!inputrange) { return false; }
         }
 
         this.identifier = 'js-' + pluginName + '-' +(pluginIdentifier++);
