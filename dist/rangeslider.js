@@ -1,4 +1,4 @@
-/*! rangeslider.js - v0.3.7 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v0.3.8 | (c) 2015 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function(factory) {
     'use strict';
 
@@ -85,10 +85,13 @@
      * @return {Boolean}
      */
     function isHidden(element) {
-        if (element.offsetWidth !== 0 || element.offsetHeight !== 0) {
-            return false;
+        if (element.offsetWidth === 0 ||
+            element.offsetHeight === 0 ||
+            // Also Consider native `<details>` elements.
+            element.open === false) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     /**
@@ -121,6 +124,13 @@
             displayProperty         = [],
             dimension               = element[key];
 
+        // Used for native `<details>` elements
+        function toggleOpenProperty(element) {
+            if (typeof element.open !== 'undefined') {
+                element.open = (element.open) ? false : true;
+            }
+        }
+
         if (hiddenParentNodesLength) {
             for (var i = 0; i < hiddenParentNodesLength; i++) {
                 // Cache the display property to restore it later.
@@ -130,11 +140,13 @@
                 hiddenParentNodes[i].style.height = '0';
                 hiddenParentNodes[i].style.overflow = 'hidden';
                 hiddenParentNodes[i].style.visibility = 'hidden';
+                toggleOpenProperty(hiddenParentNodes[i]);
             }
 
             dimension = element[key];
 
             for (var j = 0; j < hiddenParentNodesLength; j++) {
+                toggleOpenProperty(hiddenParentNodes[j]);
                 hiddenParentNodes[j].style.display = displayProperty[j];
                 hiddenParentNodes[j].style.height = '';
                 hiddenParentNodes[j].style.overflow = '';

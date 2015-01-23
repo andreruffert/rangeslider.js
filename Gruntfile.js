@@ -105,7 +105,6 @@ module.exports = function (grunt) {
                 commitFiles: [
                     'bower.json',
                     'package.json',
-                    'rangeslider.jquery.json',
                     'dist'
                 ],
                 createTag: false

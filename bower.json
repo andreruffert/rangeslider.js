@@ -1,6 +1,6 @@
 {
   "name": "rangeslider.js",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "homepage": "https://github.com/andreruffert/rangeslider.js",
   "authors": [
     "André Ruffert <andre@andreruffert.com>"
@@ -14,7 +14,8 @@
     "slider",
     "rangeslider",
     "rangeslider.js",
-    "polyfill"
+    "polyfill",
+    "jquery-plugin"
   ],
   "ignore": [
     "**/.*",
