@@ -362,9 +362,14 @@
     };
 
     Plugin.prototype.setValue = function(value) {
-        if (value !== this.value) {
-            this.$element.val(value).trigger('change', {origin: this.identifier});
+        if (value === this.value) {
+            return;
         }
+
+        // Set the new value and fire the `input` event
+        this.$element
+            .val(value)
+            .trigger('input', { origin: this.identifier });
     };
 
     Plugin.prototype.destroy = function() {
