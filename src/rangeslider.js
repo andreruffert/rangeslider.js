@@ -278,10 +278,6 @@
 
     Plugin.prototype.handleEnd = function(e) {
         e.preventDefault();
-
-        // Update value
-        this.setValue(this.value);
-
         this.$document.off(this.moveEvent, this.handleMove);
         this.$document.off(this.endEvent, this.handleEnd);
 
@@ -306,6 +302,7 @@
         // Update ui
         this.$fill[0].style.width = (left + this.grabX)  + 'px';
         this.$handle[0].style.left = left + 'px';
+        this.setValue(value);
 
         // Update globals
         this.position = left;
@@ -362,7 +359,7 @@
     };
 
     Plugin.prototype.setValue = function(value) {
-        if (this.$element[0].value !== this.value) {
+        if (value !== this.value) {
             this.$element.val(value).trigger('change', {origin: this.identifier});
         }
     };
