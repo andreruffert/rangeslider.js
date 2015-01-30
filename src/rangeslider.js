@@ -206,7 +206,7 @@
 
         // Attach Events
         var _this = this;
-        this.$window.on('resize' + '.' + this.identifier, debounce(function() {
+        this.$window.on('resize.' + this.identifier, debounce(function() {
             // Simulate resizeEnd event.
             delay(function() { _this.update(); }, 300);
         }, 20));
@@ -214,7 +214,7 @@
         this.$document.on(this.startEvent, '#' + this.identifier + ':not(.' + this.options.disabledClass + ')', this.handleDown);
 
         // Listen to programmatic value changes
-        this.$element.on('change' + '.' + this.identifier, function(e, data) {
+        this.$element.on('change.' + this.identifier, function(e, data) {
             if (data && data.origin === _this.identifier) {
                 return;
             }
