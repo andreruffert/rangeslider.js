@@ -390,6 +390,8 @@
     // A really lightweight plugin wrapper around the constructor,
     // preventing against multiple instantiations
     $.fn[pluginName] = function(options) {
+        var args = Array.prototype.slice.call(arguments, 1);
+
         return this.each(function() {
             var $this = $(this),
                 data  = $this.data('plugin_' + pluginName);
@@ -402,7 +404,7 @@
             // Make it possible to access methods from public.
             // e.g `$element.rangeslider('method');`
             if (typeof options === 'string') {
-                data[options]();
+                data[options].apply(data, args);
             }
         });
     };
