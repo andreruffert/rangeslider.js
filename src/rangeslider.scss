@@ -1,6 +1,7 @@
 @import "compass/css3";
 
 $rangeslider:           ".rangeslider";
+$rangeslider__vertical: ".rangeslider_vertical";
 $rangeslider__fill:     ".rangeslider__fill";
 $rangeslider__handle:   ".rangeslider__handle";
 
@@ -63,4 +64,20 @@ $rangeslider__handle:   ".rangeslider__handle";
 
 input[type="range"]:focus + #{$rangeslider} #{$rangeslider__handle} {
     @include box-shadow(0 0 8px rgba(#ff00ff, .9));
+}
+
+#{$rangeslider__vertical} {
+  width: 20px;
+  height: 300px;
+  
+  #{$rangeslider__fill} {
+    bottom: 0;
+    top: auto;
+  }
+  
+  #{$rangeslider__handle} {
+    bottom: -10px;
+    left: -10px;
+    top: auto;
+  }
 }
