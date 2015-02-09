@@ -361,14 +361,7 @@
     Plugin.prototype.getPositionFromNode = function(node) {
         var i = 0;
         while (node !== null) {
-        	if (this.vertical)
-        	{
-        		i += node.offsetTop;
-        	}
-        	else
-        	{
-        		i += node.offsetLeft;	
-        	}            
+        	i += node.offsetLeft;	          
             node = node.offsetParent;
         }
         return i;
