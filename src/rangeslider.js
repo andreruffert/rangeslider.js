@@ -193,8 +193,7 @@
 		
 		if (this.vertical)
 		{
-			this.$range.addClass(this.options.verticalClass);	
-		}			
+			this.$range.addClass(this.options.verticalClass);
 		
         // visually hide the input
         this.$element.css({
@@ -241,15 +240,15 @@
     };
 
     Plugin.prototype.update = function() {
-    	this.handleWidth    = getDimension(this.$handle[0], 'offsetWidth');
-    	this.handleHeight   = getDimension(this.$handle[0], 'offsetHeight'); 
-    	this.rangeWidth     = getDimension(this.$range[0], 'offsetWidth');
-    	this.rangeHeight 	= getDimension(this.$range[0], 'offsetHeight');
-        this.maxHandleX     = this.rangeWidth - this.handleWidth;
-        this.maxHandleY		= this.rangeHeight - this.handleHeight;
-        this.grabX          = this.handleWidth / 2;
-        this.grabY			= this.handleHeight / 2;
-        this.position       = this.getPositionFromValue(this.value);
+		this.handleWidth	= getDimension(this.$handle[0], 'offsetWidth');
+		this.handleHeight	= getDimension(this.$handle[0], 'offsetHeight'); 
+		this.rangeWidth		= getDimension(this.$range[0], 'offsetWidth');
+		this.rangeHeight	= getDimension(this.$range[0], 'offsetHeight');
+		this.maxHandleX		= this.rangeWidth - this.handleWidth;
+		this.maxHandleY		= this.rangeHeight - this.handleHeight;
+		this.grabX			= this.handleWidth / 2;
+		this.grabY			= this.handleHeight / 2;
+		this.position		= this.getPositionFromValue(this.value);
 		
         // Consider disabled state
         if (this.$element[0].disabled) {
@@ -274,7 +273,7 @@
         var pos    = this.getRelativePosition(e),
 			rangeX  = this.$range[0].getBoundingClientRect().left,
             handleX = this.getPositionFromNode(this.$handle[0]) - rangeX,
-            rangeY = this.$range[0].getBoundingClientRect.bottom, 
+            rangeY = this.$range[0].getBoundingClientRect.bottom,
             handleY = this.getPositionFromNode(this.$handle[0] - rangeY);
 
 		if (this.vertical)
@@ -287,7 +286,7 @@
 		else
 		{	
 			this.setPosition(pos - this.grabX);
-			if (pos >= handleX && pos < handleX + this.handleWidth) {
+						if (pos >= handleX && pos < handleX + this.handleWidth) {
 				this.grabX = pos - handleX;
 			}
 		}
@@ -338,8 +337,8 @@
         // Update ui
         if (this.vertical)
         {
-        	this.$fill[0].style.height = (bottom + this.grabY)  + 'px';
-        	this.$handle[0].style.bottom = bottom + 'px';
+			this.$fill[0].style.height = (bottom + this.grabY)  + 'px';
+			this.$handle[0].style.bottom = bottom + 'px';
         }
         else
         {
@@ -370,9 +369,9 @@
 
     Plugin.prototype.getRelativePosition = function(e) {
 		// Get the offset left relative to the viewport
-		var rangeX  = this.$range[0].getBoundingClientRect().left,
-			rangeY 	= this.$range[0].getBoundingClientRect().bottom,
-			pageX   = 0,
+		var rangeX	= this.$range[0].getBoundingClientRect().left,
+			rangeY	= this.$range[0].getBoundingClientRect().bottom,
+			pageX	= 0,
 			pageY	= 0,
 			page, range, pos;
 
