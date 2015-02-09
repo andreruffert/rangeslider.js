@@ -30,9 +30,11 @@
         inputrange = supportsRange(),
         defaults = {
             polyfill: true,
+            vertical: false,
             rangeClass: 'rangeslider',
             disabledClass: 'rangeslider--disabled',
             fillClass: 'rangeslider__fill',
+            verticalClass: 'rangeslider__vertical',
             handleClass: 'rangeslider__handle',
             startEvent: ['mousedown', 'touchstart', 'pointerdown'],
             moveEvent: ['mousemove', 'touchmove', 'pointermove'],
@@ -165,6 +167,7 @@
         this.$element   = $(element);
         this.options    = $.extend( {}, defaults, options );
         this.polyfill   = this.options.polyfill;
+        this.vertical	= this.options.vertical;
         this.onInit     = this.options.onInit;
         this.onSlide    = this.options.onSlide;
         this.onSlideEnd = this.options.onSlideEnd;
@@ -187,7 +190,11 @@
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
         this.$range     = $('<div class="' + this.options.rangeClass + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
-
+		
+		if (this.vertical)
+		{
+			this.$range.addClass(this.options.verticalClass);
+		
         // visually hide the input
         this.$element.css({
             'position': 'absolute',
@@ -233,12 +240,16 @@
     };
 
     Plugin.prototype.update = function() {
-        this.handleWidth    = getDimension(this.$handle[0], 'offsetWidth');
-        this.rangeWidth     = getDimension(this.$range[0], 'offsetWidth');
-        this.maxHandleX     = this.rangeWidth - this.handleWidth;
-        this.grabX          = this.handleWidth / 2;
-        this.position       = this.getPositionFromValue(this.value);
-
+		this.handleWidth	= getDimension(this.$handle[0], 'offsetWidth');
+		this.handleHeight	= getDimension(this.$handle[0], 'offsetHeight'); 
+		this.rangeWidth		= getDimension(this.$range[0], 'offsetWidth');
+		this.rangeHeight	= getDimension(this.$range[0], 'offsetHeight');
+		this.maxHandleX		= this.rangeWidth - this.handleWidth;
+		this.maxHandleY		= this.rangeHeight - this.handleHeight;
+		this.grabX			= this.handleWidth / 2;
+		this.grabY			= this.handleHeight / 2;
+		this.position		= this.getPositionFromValue(this.value);
+		
         // Consider disabled state
         if (this.$element[0].disabled) {
             this.$range.addClass(this.options.disabledClass);
@@ -259,21 +270,41 @@
             return;
         }
 
-        var posX    = this.getRelativePosition(e),
-            rangeX  = this.$range[0].getBoundingClientRect().left,
-            handleX = this.getPositionFromNode(this.$handle[0]) - rangeX;
+        var pos    = this.getRelativePosition(e),
+			rangeX  = this.$range[0].getBoundingClientRect().left,
+            handleX = this.getPositionFromNode(this.$handle[0]) - rangeX,
+            rangeY = this.$range[0].getBoundingClientRect.bottom,
+            handleY = this.getPositionFromNode(this.$handle[0] - rangeY);
 
-        this.setPosition(posX - this.grabX);
-
-        if (posX >= handleX && posX < handleX + this.handleWidth) {
-            this.grabX = posX - handleX;
-        }
-    };
+		if (this.vertical)
+		{
+			this.setPosition(pos - this.grabY);
+			if (pos >= handleY && pos < handleY + this.handleHeight) {
+				this.grabY = pos - handleY;
+			}
+		}
+		else
+		{	
+			this.setPosition(pos - this.grabX);
+						if (pos >= handleX && pos < handleX + this.handleWidth) {
+				this.grabX = pos - handleX;
+			}
+		}
+	};
 
     Plugin.prototype.handleMove = function(e) {
         e.preventDefault();
-        var posX = this.getRelativePosition(e);
-        this.setPosition(posX - this.grabX);
+        
+		if (this.vertical)
+		{
+			var posY = this.getRelativePosition(e);
+			this.setPosition(posY - this.grabY);
+        }
+		else
+		{
+			var posX = this.getRelativePosition(e);
+			this.setPosition(posX - this.grabX);
+		}
     };
 
     Plugin.prototype.handleEnd = function(e) {
@@ -296,16 +327,26 @@
     };
 
     Plugin.prototype.setPosition = function(pos) {
-        var value, left;
-
+        var value, maxHandle, left, bottom;
+		maxHandle = this.vertical ? this.maxHandleY : this.maxHandleX;
         // Snapping steps
-        value = this.getValueFromPosition(this.cap(pos, 0, this.maxHandleX));
-        left = this.getPositionFromValue(value);
-
+        value	= this.getValueFromPosition(this.cap(pos, 0, maxHandle));
+        left	= this.getPositionFromValue(value);
+		bottom	= left;
+		
         // Update ui
-        this.$fill[0].style.width = (left + this.grabX)  + 'px';
-        this.$handle[0].style.left = left + 'px';
-        this.setValue(value);
+        if (this.vertical)
+        {
+			this.$fill[0].style.height = (bottom + this.grabY)  + 'px';
+			this.$handle[0].style.bottom = bottom + 'px';
+        }
+        else
+        {
+			this.$fill[0].style.width = (left + this.grabX)  + 'px';
+			this.$handle[0].style.left = left + 'px';
+		}
+        
+		this.setValue(value);
 
         // Update globals
         this.position = left;
@@ -320,43 +361,56 @@
     Plugin.prototype.getPositionFromNode = function(node) {
         var i = 0;
         while (node !== null) {
-            i += node.offsetLeft;
-            node = node.offsetParent;
+			i += node.offsetLeft;
+			node = node.offsetParent;
         }
         return i;
     };
 
     Plugin.prototype.getRelativePosition = function(e) {
-        // Get the offset left relative to the viewport
-        var rangeX  = this.$range[0].getBoundingClientRect().left,
-            pageX   = 0;
+		// Get the offset left relative to the viewport
+		var rangeX	= this.$range[0].getBoundingClientRect().left,
+			rangeY	= this.$range[0].getBoundingClientRect().bottom,
+			pageX	= 0,
+			pageY	= 0,
+			page, range, pos;
 
         if (typeof e.pageX !== 'undefined') {
             pageX = e.pageX;
+            pageY = e.pageY;
         }
         else if (typeof e.originalEvent.clientX !== 'undefined') {
             pageX = e.originalEvent.clientX;
+            pageY = e.originalEvent.clientY;
         }
         else if (e.originalEvent.touches && e.originalEvent.touches[0] && typeof e.originalEvent.touches[0].clientX !== 'undefined') {
             pageX = e.originalEvent.touches[0].clientX;
+            pageY = e.originalEvent.touches[0].clientY;
         }
         else if(e.currentPoint && typeof e.currentPoint.x !== 'undefined') {
             pageX = e.currentPoint.x;
+            pageY = e.currentPoint.x;
         }
 
-        return pageX - rangeX;
+		page = this.vertical ? pageY : pageX;
+		range = this.vertical ? rangeY : rangeX;
+		pos = this.vertical ? range - page : page - range;
+        
+        return pos;
     };
 
     Plugin.prototype.getPositionFromValue = function(value) {
-        var percentage, pos;
+        var percentage, pos, calcVal;
+        calcVal = this.vertical ? this.maxHandleY : this.maxHandleX;
         percentage = (value - this.min)/(this.max - this.min);
-        pos = percentage * this.maxHandleX;
+        pos = percentage * calcVal;
         return pos;
     };
 
     Plugin.prototype.getValueFromPosition = function(pos) {
-        var percentage, value;
-        percentage = ((pos) / (this.maxHandleX || 1));
+        var percentage, value, calcVal;
+        calcVal = this.vertical ? this.maxHandleY : this.maxHandleX;
+        percentage = ((pos) / (calcVal || 1));
         value = this.step * Math.round(percentage * (this.max - this.min) / this.step) + this.min;
         return Number((value).toFixed(this.toFixed));
     };
