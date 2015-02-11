@@ -1,4 +1,4 @@
-/*! rangeslider.js - v0.3.9 | (c) 2015 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v1.0.0 | (c) 2015 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function(factory) {
     'use strict';
 
@@ -207,7 +207,7 @@
 
         // Attach Events
         var _this = this;
-        this.$window.on('resize' + '.' + this.identifier, debounce(function() {
+        this.$window.on('resize.' + this.identifier, debounce(function() {
             // Simulate resizeEnd event.
             delay(function() { _this.update(); }, 300);
         }, 20));
@@ -215,7 +215,7 @@
         this.$document.on(this.startEvent, '#' + this.identifier + ':not(.' + this.options.disabledClass + ')', this.handleDown);
 
         // Listen to programmatic value changes
-        this.$element.on('change' + '.' + this.identifier, function(e, data) {
+        this.$element.on('change.' + this.identifier, function(e, data) {
             if (data && data.origin === _this.identifier) {
                 return;
             }
@@ -281,6 +281,9 @@
         e.preventDefault();
         this.$document.off(this.moveEvent, this.handleMove);
         this.$document.off(this.endEvent, this.handleEnd);
+
+        // Ok we're done fire the change event
+        this.$element.trigger('change', { origin: this.identifier });
 
         if (this.onSlideEnd && typeof this.onSlideEnd === 'function') {
             this.onSlideEnd(this.position, this.value);
@@ -360,9 +363,14 @@
     };
 
     Plugin.prototype.setValue = function(value) {
-        if (value !== this.value) {
-            this.$element.val(value).trigger('change', {origin: this.identifier});
+        if (value === this.value) {
+            return;
         }
+
+        // Set the new value and fire the `input` event
+        this.$element
+            .val(value)
+            .trigger('input', { origin: this.identifier });
     };
 
     Plugin.prototype.destroy = function() {
