@@ -16,7 +16,7 @@
         for (var i = $inputRange.length - 1; i >= 0; i--) {
             valueOutput($inputRange[i]);
         };
-        $document.on('change', selector, function(e) {
+        $document.on('input', selector, function(e) {
             valueOutput(e.target);
         });
 
