@@ -1,0 +1,37 @@
+---
+layout: default
+title: rangeslider.js
+---
+
+<header>
+    <h1><a href="/">rangeslider.js</a></h1>
+    <p>Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <code>&lt;input type="range"&gt;</code> slider element.</p>
+</header>
+
+<hr>
+
+<section id="update-to-v1.0.0">
+    <h2>Update to <i>v1.0.0</i></h2>
+    <p>Release <i>v1.0.0</i> is a MAJOR update with tiny incompatible API changes.</p>
+
+    <p>Before this release rangeslider.js fired a <a href="https://developer.mozilla.org/en-US/docs/Web/Events/change" target="_blank"><code>change</code></a> event everytime the handle was moved. With <i>v1.0.0</i> we made some <a href="{{ site.repository_url }}/pull/121">changes</a> to fire the <a href="https://developer.mozilla.org/en-US/docs/Web/Events/change" target="_blank"><code>change</code></a> event only on handle release and a <a href="https://developer.mozilla.org/en-US/docs/Web/Events/input"><code>input</code></a> event if the handle is moving. The functionality is now like the native Browser implementation for <code>&lt;input type="range"&gt;</code> elements.</p>
+
+    <h3>Ok! What do I have to do that everything works like before?</h3>
+    <p>Basically you only have to do some changes in your code if you are listening to a <code>change</code> event to immediately update e.g. an value output etc.</p>
+    <p>If so simply replace the <code>change</code> event with an <code>input</code> event. That's it!</p>
+
+{% highlight js %}
+$document.on('change', 'input[type="range"]', function(e) {
+    // Do something on handle release.
+});
+{% endhighlight%}
+
+{% highlight js %}
+$document.on('input', 'input[type="range"]', function(e) {
+    // Do something if the handle is moving.
+});
+{% endhighlight %}
+<br>
+<p>If you still have questions feel free to visit the <a target="_blank" href="https://gitter.im/andreruffert/rangeslider.js">gitter room</a> for support.</p>
+</section>
+
