@@ -1,5 +1,5 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
+<script src="{{ site.baseurl }}bower_components/rangeslider.js/dist/rangeslider.min.js"></script>
 <script>
     $(function() {
         var $document   = $(document),
@@ -22,7 +22,7 @@
 
         // Initialize the elements
         $inputRange.rangeslider({
-            polyfill: false,
+            polyfill: false
         });
 
         // Example functionality to demonstrate programmatic value changes
