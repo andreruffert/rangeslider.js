@@ -122,3 +122,11 @@ pre code {
     background: transparent;
     border-radius: 0;
 }
+
+.notification {
+    background: rgba(0, 255, 0, .1);
+    border: 1px solid rgba(0, 255, 0, .4);
+    border-radius: 3px;
+    padding: 14px;
+    text-align: center;
+}
