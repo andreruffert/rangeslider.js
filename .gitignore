@@ -4,3 +4,15 @@ node_modules
 .bower.json
 Gemfile.lock
 _site
+
+assets/html5shiv/*
+!assets/html5shiv/dist
+assets/html5shiv/dist/*
+!assets/html5shiv/dist/html5shiv.min.js
+
+assets/rangeslider.js/*
+!assets/rangeslider.js/dist
+assets/rangeslider.js/dist/*
+!assets/rangeslider.js/dist/rangeslider.min.js
+!assets/rangeslider.js/dist/rangeslider.css
+
