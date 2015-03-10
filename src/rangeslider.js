@@ -132,7 +132,11 @@
         if (hiddenParentNodesLength) {
             for (var i = 0; i < hiddenParentNodesLength; i++) {
                 // Cache the display property to restore it later.
-                displayProperty[i] = hiddenParentNodes[i].style.display;
+                displayProperty[i] = {};
+                displayProperty[i]["display"] = hiddenParentNodes[i].style.display;
+                displayProperty[i]["height"] = hiddenParentNodes[i].style.height;
+                displayProperty[i]["overflow"] = hiddenParentNodes[i].style.overflow;
+                displayProperty[i]["visibility"] = hiddenParentNodes[i].style.visibility;
 
                 hiddenParentNodes[i].style.display = 'block';
                 hiddenParentNodes[i].style.height = '0';
@@ -145,10 +149,10 @@
 
             for (var j = 0; j < hiddenParentNodesLength; j++) {
                 toggleOpenProperty(hiddenParentNodes[j]);
-                hiddenParentNodes[j].style.display = displayProperty[j];
-                hiddenParentNodes[j].style.height = '';
-                hiddenParentNodes[j].style.overflow = '';
-                hiddenParentNodes[j].style.visibility = '';
+                hiddenParentNodes[j].style.display = displayProperty[j]["display"];
+                hiddenParentNodes[j].style.height = displayProperty[j]["height"];
+                hiddenParentNodes[j].style.overflow = displayProperty[j]["overflow"];
+                hiddenParentNodes[j].style.visibility = displayProperty[j]["visibility"];
             }
         }
         return dimension;
