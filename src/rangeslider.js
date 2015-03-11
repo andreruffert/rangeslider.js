@@ -119,7 +119,7 @@
     function getDimension(element, key) {
         var hiddenParentNodes       = getHiddenParentNodes(element),
             hiddenParentNodesLength = hiddenParentNodes.length,
-            displayProperty         = [],
+            inlineStyle             = [],
             dimension               = element[key];
 
         // Used for native `<details>` elements
@@ -131,24 +131,22 @@
 
         if (hiddenParentNodesLength) {
             for (var i = 0; i < hiddenParentNodesLength; i++) {
-                // Cache the display property to restore it later.
-                displayProperty[i] = hiddenParentNodes[i].style.display;
+                // Cache style attribute to restore it later.
+                inlineStyle[i] = hiddenParentNodes[i].style.cssText;
 
+                // visually hide
                 hiddenParentNodes[i].style.display = 'block';
                 hiddenParentNodes[i].style.height = '0';
                 hiddenParentNodes[i].style.overflow = 'hidden';
                 hiddenParentNodes[i].style.visibility = 'hidden';
                 toggleOpenProperty(hiddenParentNodes[i]);
-            }
 
-            dimension = element[key];
+                // Update dimensions
+                dimension = element[key];
 
-            for (var j = 0; j < hiddenParentNodesLength; j++) {
-                toggleOpenProperty(hiddenParentNodes[j]);
-                hiddenParentNodes[j].style.display = displayProperty[j];
-                hiddenParentNodes[j].style.height = '';
-                hiddenParentNodes[j].style.overflow = '';
-                hiddenParentNodes[j].style.visibility = '';
+                // Restore the style attribute
+                hiddenParentNodes[i].style.cssText = inlineStyle[i];
+                toggleOpenProperty(hiddenParentNodes[i]);
             }
         }
         return dimension;
