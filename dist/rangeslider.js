@@ -148,6 +148,7 @@
             dimension = element[key];
 
             for (var j = 0; j < hiddenParentNodesLength; j++) {
+
                 // Restore the style attribute
                 hiddenParentNodes[j].style.cssText = inlineStyle[j];
                 toggleOpenProperty(hiddenParentNodes[j]);
