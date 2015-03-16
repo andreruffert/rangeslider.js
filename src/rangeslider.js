@@ -131,6 +131,7 @@
 
         if (hiddenParentNodesLength) {
             for (var i = 0; i < hiddenParentNodesLength; i++) {
+
                 // Cache style attribute to restore it later.
                 inlineStyle[i] = hiddenParentNodes[i].style.cssText;
 
@@ -140,13 +141,16 @@
                 hiddenParentNodes[i].style.overflow = 'hidden';
                 hiddenParentNodes[i].style.visibility = 'hidden';
                 toggleOpenProperty(hiddenParentNodes[i]);
+            }
 
-                // Update dimensions
-                dimension = element[key];
+            // Update dimension
+            dimension = element[key];
+
+            for (var j = 0; j < hiddenParentNodesLength; j++) {
 
                 // Restore the style attribute
-                hiddenParentNodes[i].style.cssText = inlineStyle[i];
-                toggleOpenProperty(hiddenParentNodes[i]);
+                hiddenParentNodes[j].style.cssText = inlineStyle[j];
+                toggleOpenProperty(hiddenParentNodes[j]);
             }
         }
         return dimension;
@@ -301,7 +305,7 @@
         left = this.getPositionFromValue(value);
 
         // Update ui
-        this.$fill[0].style.width = (left + this.grabX)  + 'px';
+        this.$fill[0].style.width = (left + this.grabX) + 'px';
         this.$handle[0].style.left = left + 'px';
         this.setValue(value);
 
