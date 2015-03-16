@@ -2,8 +2,8 @@
   "name": "rangeslider.js",
   "title": "rangeslider.js",
   "description": "Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <input type=\"range\"> slider element",
-  "version": "1.0.0",
-  "codename": "Peach",
+  "version": "1.1.0",
+  "codename": "Pacific Blue",
   "main": "dist/rangeslider.js",
   "homepage": "https://github.com/andreruffert/rangeslider.js",
   "author": {
