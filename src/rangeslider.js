@@ -168,6 +168,7 @@
         this.options    = $.extend( {}, defaults, options );
         this.polyfill   = this.options.polyfill;
         this.onInit     = this.options.onInit;
+        this.onSlideBegin = this.options.onSlideBegin;
         this.onSlide    = this.options.onSlide;
         this.onSlideEnd = this.options.onSlideEnd;
 
@@ -221,9 +222,9 @@
                 return;
             }
 
-            var value = e.target.value,
-                pos = _this.getPositionFromValue(value);
-            _this.setPosition(pos);
+            var value = e.target.value;
+            _this.value = value;
+            _this.update();
         });
     }
 
@@ -253,8 +254,17 @@
 
     Plugin.prototype.handleDown = function(e) {
         e.preventDefault();
+
+        if (this.$element.is('[readonly]')) {
+            return;
+        }
+
         this.$document.on(this.moveEvent, this.handleMove);
         this.$document.on(this.endEvent, this.handleEnd);
+
+        if (this.onSlideBegin && typeof this.onSlideBegin === 'function') {
+            this.onSlideBegin(this.position, this.value);
+        }
 
         // If we click on the handle don't set the new position
         if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
