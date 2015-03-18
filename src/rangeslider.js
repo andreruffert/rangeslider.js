@@ -234,6 +234,10 @@
         this.update();
     };
 
+    Plugin.prototype.setMax = function(value) {
+        this.max = value;
+    };
+
     Plugin.prototype.update = function() {
         this.handleWidth    = getDimension(this.$handle[0], 'offsetWidth');
         this.rangeWidth     = getDimension(this.$range[0], 'offsetWidth');
@@ -272,16 +276,26 @@
         }
     };
 
+    Plugin.prototype.setStatus = function(status) {
+        this.__status = status;
+    };
+
+    Plugin.prototype.getStatus = function() {
+        return this.__status;
+    };
+
     Plugin.prototype.handleMove = function(e) {
         e.preventDefault();
         var posX = this.getRelativePosition(e);
         this.setPosition(posX - this.grabX);
+        this.setStatus('MOVE');
     };
 
     Plugin.prototype.handleEnd = function(e) {
         e.preventDefault();
         this.$document.off(this.moveEvent, this.handleMove);
         this.$document.off(this.endEvent, this.handleEnd);
+        this.setStatus(void 0);
 
         // Ok we're done fire the change event
         this.$element.trigger('change', { origin: this.identifier });
@@ -333,7 +347,9 @@
         var rangeX  = this.$range[0].getBoundingClientRect().left,
             pageX   = 0;
 
-        if (typeof e.pageX !== 'undefined') {
+        e.originalEvent = e.originalEvent || e;
+
+        if (typeof e.pageX !== 'undefined' && e.pageX !== 0) {
             pageX = e.pageX;
         }
         else if (typeof e.originalEvent.clientX !== 'undefined') {
