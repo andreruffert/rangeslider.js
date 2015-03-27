@@ -1,3 +1,5 @@
+/*! rangeslider.js - v0.3.2 | (c) 2014 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/* with onSlideBegin handler by Dianemo */
 (function(factory) {
     'use strict';
 
@@ -29,9 +31,12 @@
         pluginInstances = [],
         inputrange = supportsRange(),
         defaults = {
+            touchHandleOnly: true,
+            handleHiddenUntilTouched: false,
             polyfill: true,
             rangeClass: 'rangeslider',
             disabledClass: 'rangeslider--disabled',
+            hiddenClass: 'rangeslider--hidden',
             fillClass: 'rangeslider__fill',
             handleClass: 'rangeslider__handle',
             startEvent: ['mousedown', 'touchstart', 'pointerdown'],
@@ -135,7 +140,8 @@
             delay(function() { _this.update(); }, 300);
         }, 20));
 
-        this.$document.on(this.startEvent, '#' + this.identifier + ':not(.' + this.options.disabledClass + ')', this.handleDown);
+        //this.$document.on(this.startEvent, '#' + this.identifier + ':not(.' + this.options.disabledClass + ')', this.handleDown);
+        this.$range.on(this.startEvent, this.handleDown);
 
         // Listen to programmatic value changes
         this.$element.on('change' + '.' + pluginName, function(e, data) {
@@ -153,6 +159,11 @@
         if (this.onInit && typeof this.onInit === 'function') {
             this.onInit();
         }
+
+        if (this.options.handleHiddenUntilTouched) {
+            this.$range.addClass(this.options.hiddenClass);
+        }
+
         this.update();
     };
 
@@ -174,11 +185,23 @@
     };
 
     Plugin.prototype.handleDown = function(e) {
-        e.preventDefault();
-
         if (this.$element.is('[readonly]')) {
             return;
         }
+
+        if (this.$range.hasClass(this.options.disabledClass)) {
+            return;
+        }
+
+        var handleTouched = ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1);
+        if (this.options.touchHandleOnly && !handleTouched) {
+            return;
+        }
+
+        this.$range.removeClass(this.options.hiddenClass);
+
+        e.preventDefault();
+        e.stopPropagation();
 
         this.$document.on(this.moveEvent, this.handleMove);
         this.$document.on(this.endEvent, this.handleEnd);
@@ -188,7 +211,7 @@
         }
 
         // If we click on the handle don't set the new position
-        if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
+        if (handleTouched) {
             return;
         }
 
@@ -204,14 +227,20 @@
 
     Plugin.prototype.handleMove = function(e) {
         e.preventDefault();
+        e.stopPropagation();
         var posX = this.getRelativePosition(this.$range[0], e);
         this.setPosition(posX - this.grabX);
     };
 
     Plugin.prototype.handleEnd = function(e) {
         e.preventDefault();
+        e.stopPropagation();
         this.$document.off(this.moveEvent, this.handleMove);
         this.$document.off(this.endEvent, this.handleEnd);
+
+        if (this.options.handleHiddenUntilTouched) {
+            this.$range.addClass(this.options.hiddenClass);
+        }
 
         if (this.onSlideEnd && typeof this.onSlideEnd === 'function') {
             this.onSlideEnd(this.position, this.value);
@@ -279,7 +308,8 @@
     };
 
     Plugin.prototype.destroy = function() {
-        this.$document.off(this.startEvent, '#' + this.identifier, this.handleDown);
+        //this.$document.off(this.startEvent, '#' + this.identifier, this.handleDown);
+        this.$range.off(this.startEvent, this.handleDown);
         this.$element
             .off('.' + pluginName)
             .removeAttr('style')
