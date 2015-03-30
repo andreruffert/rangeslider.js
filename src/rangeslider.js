@@ -275,12 +275,7 @@
     };
 
     Plugin.prototype.getPositionFromNode = function(node) {
-        var i = 0;
-        while (node !== null) {
-            i += node.offsetLeft;
-            node = node.offsetParent;
-        }
-        return i;
+        return node.getBoundingClientRect().left;
     };
 
     Plugin.prototype.getRelativePosition = function(node, e) {
