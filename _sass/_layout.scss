@@ -1,7 +1,14 @@
 html {
+    box-sizing: border-box;
     color: #404040;
     font-family: Helvetica, arial, sans-serif;
     line-height: 1.4;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 body {
@@ -49,6 +56,11 @@ output {
     margin: 30px 0;
 }
 
+input[type="text"],
+input[type="number"] {
+    padding: 4px 8px;
+}
+
 .button {
     background: #e6e6e6;
     background-image: linear-gradient(#fafafa, #eaeaea);
@@ -56,6 +68,7 @@ output {
     border-radius: 4px;
     border-bottom-color: #bcbcbc;
     color: #555;
+    cursor: pointer;
     display: inline-block;
     font-size: 16px;
     font-weight: bold;
@@ -67,6 +80,12 @@ output {
 }
 .button:hover {
     background-image: linear-gradient(#eaeaea, #fafafa);
+}
+.button--small {
+    font-size: .8em;
+    line-height: 1;
+    padding: 5px 8px;
+    margin: 0;
 }
 
 .img-circular {
