@@ -9,7 +9,7 @@ title: rangeslider.js
     <h1><a href="{{ site.baseurl }}">rangeslider.js</a></h1>
     <p>Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <code>&lt;input type="range"&gt;</code> slider element.</p>
     <p>
-        <a href="{{ site.repository_url }}/releases/download/v{{ site.current_version }}/{{ site.project_name }}-{{ site.current_version }}.zip" class="button">Download v{{ site.current_version }}</a>
+        <a href="{{ site.repository_url }}/releases/download/v{{ site.current_version }}/{{ site.project_name }}-{{ site.current_version }}.zip" class="button" title="Download rangeslider.js v{{ site.current_version }}" download>Download v{{ site.current_version }}</a>
     </p>
     <p>
         This project is <a href="{{ site.repository_url }}">on GitHub</a>.<br>
@@ -77,6 +77,11 @@ $('input[type="range"]').val(10).change();
     // Destroy all plugin instances created from the
     // e.g. $('input[type="range"]') elements.
     $('input[type="range"]').rangeslider('destroy');
+
+    // Update all rangeslider instances for all
+    // e.g. $('input[type="range"]') elements.
+    // Usefull if you changed some attributes e.g. `min` or `max` etc.
+    $('input[type="range"]').rangeslider('update', true);
 </script>
 {% endhighlight %}
 </section>
@@ -139,7 +144,22 @@ $('input[type="range"]').rangeslider({
         <br>
         <input type="range" min="0" max="100" value="50" data-rangeslider>
         <output></output>
-        <input type="number" value="10"><button>Change value</button>
+        <input type="number" value="10"> <button class="button button--small">Change value</button>
+    </div>
+
+    <hr>
+
+    <div id="js-example-change-attributes">
+        <h3>Programmatic attribute changes</h3>
+        <br>
+        <input type="range" min="10" max="100" step="5" data-rangeslider>
+        <output></output>
+        <label><input type="number" name="min" value="10"> <code>min</code></label><br>
+        <label><input type="number" name="max" value="100"> <code>max</code></label><br>
+        <label><input type="number" name="step" value="5"> <code>step</code></label>
+        <br>
+        <br>
+        <button class="button button--small">Change attributes</button>
     </div>
 
     <hr>
@@ -149,8 +169,8 @@ $('input[type="range"]').rangeslider({
         <br>
         <input type="range" min="10" max="1000" step="10" value="500" data-rangeslider>
         <output></output>
-        <button data-behaviour="destroy">Destroy</button>
-        <button data-behaviour="initialize">Initialize</button>
+        <button class="button button--small" data-behaviour="destroy">Destroy</button>
+        <button class="button button--small" data-behaviour="initialize">Initialize</button>
     </div>
 
     <hr>
