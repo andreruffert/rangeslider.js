@@ -12,11 +12,33 @@ title: rangeslider.js
 
 <hr>
 
+<section id="programmatic-attribute-changes">
+    <h2>Programmatic attribute changes</h2>
+    <p>Since release <a href="{{ site.repository_url }}/releases/tag/v1.2.0" target="_blank">v1.2.0</a> it's possible to react to attribute changes. Useful if you want to change e.g the <code>min</code> or <code>max</code> attribute etc.</p>
+
+{% highlight js %}
+// a `input[type="range"]` element
+var $inputRange = $('input[type="range"]');
+
+// update some attribute
+$inputRange.attr('min', 10);
+
+// by simply calling the `update` method
+// with argument `true` it will consider
+// the changed attributes and update the rangelider instance.
+$inputRange.rangeslider('update', true);
+{% endhighlight%}
+
+Check a working <a href="http://codepen.io/andreruffert/pen/qdWWZP" target="_blank">CodePen</a> example.
+</section>
+
+<hr>
+
 <section id="update-to-v1.0.0">
     <h2>Update to <i>v1.0.0</i></h2>
-    <p>Release <i>v1.0.0</i> is a MAJOR update with tiny incompatible API changes.</p>
+    <p>Release <a href="{{ site.repository_url }}/releases/tag/v1.0.0"><i>v1.0.0</i></a> is a MAJOR update with tiny incompatible API changes.</p>
 
-    <p>Before this release rangeslider.js fired a <a href="https://developer.mozilla.org/en-US/docs/Web/Events/change" target="_blank"><code>change</code></a> event everytime the handle was moved. With <i>v1.0.0</i> we made some <a href="{{ site.repository_url }}/pull/121">changes</a> to fire the <a href="https://developer.mozilla.org/en-US/docs/Web/Events/change" target="_blank"><code>change</code></a> event only on handle release and a <a href="https://developer.mozilla.org/en-US/docs/Web/Events/input"><code>input</code></a> event if the handle is moving. The functionality is now like the native Browser implementation for <code>&lt;input type="range"&gt;</code> elements.</p>
+    <p>Before this release rangeslider.js fired a <a href="https://developer.mozilla.org/en-US/docs/Web/Events/change" target="_blank"><code>change</code></a> event everytime the handle was moved. With <a href="{{ site.repository_url }}/releases/tag/v1.0.0" target="_blank"><i>v1.0.0</i></a> we made some <a href="{{ site.repository_url }}/pull/121" target="_blank">changes</a> to fire the <a href="https://developer.mozilla.org/en-US/docs/Web/Events/change" target="_blank"><code>change</code></a> event only on handle release and a <a href="https://developer.mozilla.org/en-US/docs/Web/Events/input"><code>input</code></a> event if the handle is moving. The functionality is now like the native Browser implementation for <code>&lt;input type="range"&gt;</code> elements.</p>
 
     <h3>Ok! What do I have to do that everything works like before?</h3>
     <p>Basically you only have to do some changes in your code if you are listening to a <code>change</code> event to immediately update e.g. an value output etc.</p>
