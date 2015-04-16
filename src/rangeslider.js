@@ -181,10 +181,6 @@
         this.startEvent = this.options.startEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.moveEvent  = this.options.moveEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.endEvent   = this.options.endEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
-        this.min        = parseFloat(this.$element[0].getAttribute('min') || 0);
-        this.max        = parseFloat(this.$element[0].getAttribute('max') || 100);
-        this.value      = parseFloat(this.$element[0].value || this.min + (this.max-this.min)/2);
-        this.step       = parseFloat(this.$element[0].getAttribute('step') || 1);
         this.toFixed    = (this.step + '').replace('.', '').length - 1;
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
@@ -228,13 +224,27 @@
     }
 
     Plugin.prototype.init = function() {
+        this.update(true);
+
+        // Set initial value just in case it is not set already.
+        // Prevents trouble if we call `update(true)`
+        this.$element[0].value = this.value;
+
         if (this.onInit && typeof this.onInit === 'function') {
             this.onInit();
         }
-        this.update();
     };
 
-    Plugin.prototype.update = function() {
+    Plugin.prototype.update = function(updateAttributes) {
+        updateAttributes = updateAttributes || false;
+
+        if (updateAttributes) {
+            this.min    = parseFloat(this.$element[0].getAttribute('min') || 0);
+            this.max    = parseFloat(this.$element[0].getAttribute('max') || 100);
+            this.value  = parseFloat(this.$element[0].value || this.min + (this.max-this.min)/2);
+            this.step   = parseFloat(this.$element[0].getAttribute('step') || 1);
+        }
+
         this.handleWidth    = getDimension(this.$handle[0], 'offsetWidth');
         this.rangeWidth     = getDimension(this.$range[0], 'offsetWidth');
         this.maxHandleX     = this.rangeWidth - this.handleWidth;

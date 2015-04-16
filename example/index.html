@@ -117,6 +117,20 @@
 
     <br>
     <br>
+
+    <div id="js-example-change-attributes">
+        <h2>Programmatic attribute changes</h2>
+        <input type="range" min="10" max="100" step="5" data-rangeslider>
+        <output></output>
+        <label><input type="number" name="min" value="10"> <code>min</code></label><br>
+        <label><input type="number" name="max" value="100"> <code>max</code></label><br>
+        <label><input type="number" name="step" value="5"> <code>step</code></label>
+        <br><br>
+        <button>Change</button>
+    </div>
+
+    <br>
+    <br>
     <br>
     <br>
 
@@ -195,6 +209,19 @@
                 value = $('input[type="number"]', e.target.parentNode)[0].value;
 
             $inputRange.val(value).change();
+        });
+
+        // Example functionality to demonstrate programmatic attribute changes
+        $document.on('click', '#js-example-change-attributes button', function(e) {
+            var $inputRange = $('input[type="range"]', e.target.parentNode),
+                attributes = {
+                    min: $('input[name="min"]', e.target.parentNode)[0].value,
+                    max: $('input[name="max"]', e.target.parentNode)[0].value,
+                    step: $('input[name="step"]', e.target.parentNode)[0].value
+                };
+
+            $inputRange.attr(attributes);
+            $inputRange.rangeslider('update', true);
         });
 
         // Example functionality to demonstrate destroy functionality
