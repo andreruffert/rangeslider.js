@@ -84,13 +84,14 @@
      * @return {Boolean}
      */
     function isHidden(element) {
-        if (element.offsetWidth === 0 ||
-            element.offsetHeight === 0 ||
-            // Also Consider native `<details>` elements.
-            element.open === false) {
-            return true;
-        }
-        return false;
+        return (
+            element && (
+                element.offsetWidth === 0 ||
+                element.offsetHeight === 0 ||
+                // Also Consider native `<details>` elements.
+                element.open === false
+            )
+        );
     }
 
     /**
