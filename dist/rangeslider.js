@@ -1,4 +1,4 @@
-/*! rangeslider.js - v1.2.0 | (c) 2015 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v1.2.1 | (c) 2015 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function(factory) {
     'use strict';
 
@@ -84,13 +84,14 @@
      * @return {Boolean}
      */
     function isHidden(element) {
-        if (element.offsetWidth === 0 ||
-            element.offsetHeight === 0 ||
-            // Also Consider native `<details>` elements.
-            element.open === false) {
-            return true;
-        }
-        return false;
+        return (
+            element && (
+                element.offsetWidth === 0 ||
+                element.offsetHeight === 0 ||
+                // Also Consider native `<details>` elements.
+                element.open === false
+            )
+        );
     }
 
     /**
