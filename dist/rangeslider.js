@@ -16,6 +16,12 @@
 }(function($) {
     'use strict';
 
+    // Polyfill Number.isNaN(value)
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN
+    Number.isNaN = Number.isNaN || function(value) {
+        return typeof value === 'number' && value !== value;
+    };
+
     /**
      * Range feature detection
      * @return {Boolean}
@@ -159,6 +165,18 @@
     }
 
     /**
+     * Returns the parsed float or the default if it failed.
+     *
+     * @param  {String}  str
+     * @param  {Number}  defaultValue
+     * @return {Number}
+     */
+    function tryParseFloat(str, defaultValue) {
+        var value = parseFloat(str);
+        return Number.isNaN(value) ? defaultValue : value;
+    }
+
+    /**
      * Plugin
      * @param {String} element
      * @param {Object} options
@@ -241,10 +259,10 @@
         updateAttributes = updateAttributes || false;
 
         if (updateAttributes) {
-            this.min    = parseFloat(this.$element[0].getAttribute('min') || 0);
-            this.max    = parseFloat(this.$element[0].getAttribute('max') || 100);
-            this.value  = parseFloat(this.$element[0].value || this.min + (this.max-this.min)/2);
-            this.step   = parseFloat(this.$element[0].getAttribute('step') || 1);
+            this.min    = tryParseFloat(this.$element[0].getAttribute('min'), 0);
+            this.max    = tryParseFloat(this.$element[0].getAttribute('max'), 100);
+            this.value  = tryParseFloat(this.$element[0].value, this.min + (this.max-this.min)/2);
+            this.step   = tryParseFloat(this.$element[0].getAttribute('step'), 1);
         }
 
         this.handleWidth    = getDimension(this.$handle[0], 'offsetWidth');

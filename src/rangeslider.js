@@ -15,6 +15,12 @@
 }(function($) {
     'use strict';
 
+    // Polyfill Number.isNaN(value)
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN
+    Number.isNaN = Number.isNaN || function(value) {
+        return typeof value === 'number' && value !== value;
+    };
+
     /**
      * Range feature detection
      * @return {Boolean}
@@ -165,10 +171,10 @@
      * @return {Number}
      */
     function tryParseFloat(str, defaultValue) {
-        var rtn = parseFloat(str);
-        return isNaN(rtn) ?  defaultValue : rtn;
+        var value = parseFloat(str);
+        return Number.isNaN(value) ? defaultValue : value;
     }
-    
+
     /**
      * Plugin
      * @param {String} element
