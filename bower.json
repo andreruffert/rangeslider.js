@@ -6,7 +6,10 @@
     "André Ruffert <andre@andreruffert.com>"
   ],
   "description": "Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <input type=\"range\"> slider element",
-  "main": "dist/rangeslider.js",
+  "main": [
+    "dist/rangeslider.js",
+    "dist/rangeslider.css"
+  ],
   "license": "MIT",
   "keywords": [
     "input",
