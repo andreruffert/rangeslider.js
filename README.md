@@ -26,7 +26,7 @@ Install with [npm](https://www.npmjs.org/):
 $('input[type="range"]').rangeslider();
 ```
 
-For more informations check out the [website's section](http://andreruffert.github.io/rangeslider.js/#usage). For support visit the [gitter room](https://gitter.im/andreruffert/rangeslider.js).
+For more information check out the [website's section](http://andreruffert.github.io/rangeslider.js/#usage). For support visit the [gitter room](https://gitter.im/andreruffert/rangeslider.js).
 
 
 ## License
