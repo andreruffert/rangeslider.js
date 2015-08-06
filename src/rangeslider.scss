@@ -37,6 +37,8 @@ $rangeslider__handle:   ".rangeslider__handle";
     height: 40px;
     position: absolute;
     top: -10px;
+    touch-action: pan-y;
+    -ms-touch-action: pan-y;
     @include background-image(linear-gradient(rgba(white, 0), rgba(black, .10)));
     @include box-shadow(0 0 8px rgba(black, .3));
     @include border-radius(50%);
