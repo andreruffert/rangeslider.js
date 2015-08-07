@@ -50,5 +50,8 @@
   },
   "scripts": {
     "test": "grunt jshint"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
