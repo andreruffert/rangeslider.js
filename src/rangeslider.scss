@@ -3,6 +3,10 @@
 $rangeslider:           ".rangeslider";
 $rangeslider__fill:     ".rangeslider__fill";
 $rangeslider__handle:   ".rangeslider__handle";
+$rangeslider__transition:   ".rangeslider__transition";
+$rangeslider__transition__use:   true; // Set to false to disable transition.
+$rangeslider__transition__speed:   ".3s";
+$rangeslider__transition__type:   "ease-in-out";
 
 #{$rangeslider},
 #{$rangeslider__fill} {
@@ -12,10 +16,22 @@ $rangeslider__handle:   ".rangeslider__handle";
     width: 100%;
     @include box-shadow(inset 0px 1px 3px rgba(0,0,0,0.3));
     @include border-radius(10px);
+    cursor: pointer;
 }
 
 #{$rangeslider} {
     position: relative;
+    
+    @if $rangeslider__transition__use {
+		&#{$rangeslider__transition} {
+			#{$rangeslider__fill} {
+				@include single-transition(width, #{$rangeslider__transition__speed}, #{$rangeslider__transition__type});
+			}
+			#{$rangeslider__handle} {
+				@include single-transition(left, #{$rangeslider__transition__speed}, #{$rangeslider__transition__type});
+			}
+		}
+	}
 }
 
 #{$rangeslider}--disabled {
@@ -31,7 +47,6 @@ $rangeslider__handle:   ".rangeslider__handle";
 #{$rangeslider__handle} {
     background: white;
     border: 1px solid #ccc;
-    cursor: pointer;
     display: inline-block;
     width: 40px;
     height: 40px;
