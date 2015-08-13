@@ -311,7 +311,7 @@
             this.$range.removeClass(this.options.disabledClass);
         }
 
-        this.setPosition(this.position);
+        this.setPosition(this.position, false);
     };
 
     Plugin.prototype.handleDown = function(e) {
@@ -362,7 +362,7 @@
         return pos;
     };
 
-    Plugin.prototype.setPosition = function(pos) {
+    Plugin.prototype.setPosition = function(pos, callCb) {
         var value, newPos;
 
         // Snapping steps
@@ -378,7 +378,7 @@
         this.position = newPos;
         this.value = value;
 
-        if (this.onSlide && typeof this.onSlide === 'function') {
+        if (this.onSlide && typeof this.onSlide === 'function' && typeof callCb === 'undefined') {
             this.onSlide(newPos, value);
         }
     };
