@@ -243,7 +243,7 @@
     }
 
     Plugin.prototype.init = function() {
-        this.update(true);
+        this.update(true, false);
 
         // Set initial value just in case it is not set already.
         // Prevents trouble if we call `update(true)`
@@ -254,7 +254,7 @@
         }
     };
 
-    Plugin.prototype.update = function(updateAttributes) {
+    Plugin.prototype.update = function(updateAttributes, triggerSlide) {
         updateAttributes = updateAttributes || false;
 
         if (updateAttributes) {
@@ -277,7 +277,7 @@
             this.$range.removeClass(this.options.disabledClass);
         }
 
-        this.setPosition(this.position, false);
+        this.setPosition(this.position, triggerSlide);
     };
 
     Plugin.prototype.handleDown = function(e) {
@@ -326,8 +326,12 @@
         return pos;
     };
 
-    Plugin.prototype.setPosition = function(pos, callCb) {
+    Plugin.prototype.setPosition = function(pos, triggerSlide) {
         var value, left;
+
+        if (triggerSlide === undefined) {
+            triggerSlide = true;
+        }
 
         // Snapping steps
         value = this.getValueFromPosition(this.cap(pos, 0, this.maxHandleX));
@@ -342,7 +346,7 @@
         this.position = left;
         this.value = value;
 
-        if (this.onSlide && typeof this.onSlide === 'function' && typeof callCb === 'undefined') {
+        if (triggerSlide && this.onSlide && typeof this.onSlide === 'function') {
             this.onSlide(left, value);
         }
     };
