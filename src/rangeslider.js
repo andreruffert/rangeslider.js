@@ -328,6 +328,8 @@
 
     Plugin.prototype.setPosition = function(pos, triggerSlide) {
         var value, left;
+        
+        if (this.$element[0].offsetParent === null) { return false; }
 
         if (triggerSlide === undefined) {
             triggerSlide = true;

@@ -329,6 +329,8 @@
 
     Plugin.prototype.setPosition = function(pos, callCb) {
         var value, left;
+        
+        if (this.$element[0].offsetParent === null) { return false; }
 
         // Snapping steps
         value = this.getValueFromPosition(this.cap(pos, 0, this.maxHandleX));
