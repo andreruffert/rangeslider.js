@@ -34,6 +34,23 @@
             margin: 30px 0;
             width: 100%;
         }
+
+        .u-left {
+            float: left;
+        }
+
+        .u-cf:before,
+        .u-cf:after {
+            content: "";
+            display: table;
+        }
+        .u-cf:after {
+            clear: both;
+        }
+
+        .u-text-left {
+            text-align: left;
+        }
     </style>
     <!--[if lt IE 9]>
         <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -75,6 +92,20 @@
             <input type="range" min="0.111" max="3.33" step="0.111" value="1.776" data-rangeslider>
             <output></output>
         </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="u-cf">
+        <h2><code>data-orientation="vertical"</code></h2>
+        <div class="u-left" style="height: 200px">
+            <input type="range" min="0" max="5" data-rangeslider data-orientation="vertical">
+        </div>
+        <div class="u-left" style="height: 200px">
+            <input type="range" min="0" max="5" style="-webkit-appearance: slider-vertical; min-height: 150px; max-height: 100%;">
+        </div>
+        <output class="u-text-left"></output>
     </div>
 
     <br>
@@ -180,7 +211,7 @@
         // Example functionality to demonstrate a value feedback
         function valueOutput(element) {
             var value = element.value,
-                output = element.parentNode.getElementsByTagName('output')[0];
+                output = element.parentNode.getElementsByTagName('output')[0] || element.parentNode.parentNode.getElementsByTagName('output')[0];
             output.innerHTML = value;
         }
         for (var i = $element.length - 1; i >= 0; i--) {

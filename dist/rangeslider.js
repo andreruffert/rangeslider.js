@@ -37,13 +37,32 @@
         inputrange = supportsRange(),
         defaults = {
             polyfill: true,
+            orientation: 'horizontal',
             rangeClass: 'rangeslider',
             disabledClass: 'rangeslider--disabled',
+            horizontalClass: 'rangeslider--horizontal',
+            verticalClass: 'rangeslider--vertical',
             fillClass: 'rangeslider__fill',
             handleClass: 'rangeslider__handle',
             startEvent: ['mousedown', 'touchstart', 'pointerdown'],
             moveEvent: ['mousemove', 'touchmove', 'pointermove'],
             endEvent: ['mouseup', 'touchend', 'pointerup']
+        },
+        constants = {
+            orientation: {
+                horizontal: {
+                    dimension: 'width',
+                    direction: 'left',
+                    directionStyle: 'left',
+                    coordinate: 'x'
+                },
+                vertical: {
+                    dimension: 'height',
+                    direction: 'top',
+                    directionStyle: 'bottom',
+                    coordinate: 'y'
+                }
+            }
         };
 
     /**
@@ -177,19 +196,34 @@
     }
 
     /**
+     * Capitalize the first letter of string
+     *
+     * @param  {String} str
+     * @return {String}
+     */
+    function ucfirst(str) {
+        return str.charAt(0).toUpperCase() + str.substr(1);
+    }
+
+    /**
      * Plugin
      * @param {String} element
      * @param {Object} options
      */
     function Plugin(element, options) {
-        this.$window    = $(window);
-        this.$document  = $(document);
-        this.$element   = $(element);
-        this.options    = $.extend( {}, defaults, options );
-        this.polyfill   = this.options.polyfill;
-        this.onInit     = this.options.onInit;
-        this.onSlide    = this.options.onSlide;
-        this.onSlideEnd = this.options.onSlideEnd;
+        this.$window            = $(window);
+        this.$document          = $(document);
+        this.$element           = $(element);
+        this.options            = $.extend( {}, defaults, options );
+        this.polyfill           = this.options.polyfill;
+        this.orientation        = this.$element[0].getAttribute('data-orientation') || this.options.orientation;
+        this.onInit             = this.options.onInit;
+        this.onSlide            = this.options.onSlide;
+        this.onSlideEnd         = this.options.onSlideEnd;
+        this.DIMENSION          = constants.orientation[this.orientation].dimension;
+        this.DIRECTION          = constants.orientation[this.orientation].direction;
+        this.DIRECTION_STYLE    = constants.orientation[this.orientation].directionStyle;
+        this.COORDINATE         = constants.orientation[this.orientation].coordinate;
 
         // Plugin should only be used as a polyfill
         if (this.polyfill) {
@@ -204,7 +238,7 @@
         this.toFixed    = (this.step + '').replace('.', '').length - 1;
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
-        this.$range     = $('<div class="' + this.options.rangeClass + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
+        this.$range     = $('<div class="' + this.options.rangeClass + ' ' + this.options[this.orientation + 'Class'] + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
 
         // visually hide the input
         this.$element.css({
@@ -265,11 +299,11 @@
             this.step   = tryParseFloat(this.$element[0].getAttribute('step'), 1);
         }
 
-        this.handleWidth    = getDimension(this.$handle[0], 'offsetWidth');
-        this.rangeWidth     = getDimension(this.$range[0], 'offsetWidth');
-        this.maxHandleX     = this.rangeWidth - this.handleWidth;
-        this.grabX          = this.handleWidth / 2;
-        this.position       = this.getPositionFromValue(this.value);
+        this.handleDimension    = getDimension(this.$handle[0], 'offset' + ucfirst(this.DIMENSION));
+        this.rangeDimension     = getDimension(this.$range[0], 'offset' + ucfirst(this.DIMENSION));
+        this.maxHandlePos       = this.rangeDimension - this.handleDimension;
+        this.grabPos            = this.handleDimension / 2;
+        this.position           = this.getPositionFromValue(this.value);
 
         // Consider disabled state
         if (this.$element[0].disabled) {
@@ -291,21 +325,23 @@
             return;
         }
 
-        var posX    = this.getRelativePosition(e),
-            rangeX  = this.$range[0].getBoundingClientRect().left,
-            handleX = this.getPositionFromNode(this.$handle[0]) - rangeX;
+        var pos         = this.getRelativePosition(e),
+            rangePos    = this.$range[0].getBoundingClientRect()[this.DIRECTION],
+            handlePos   = this.getPositionFromNode(this.$handle[0]) - rangePos,
+            setPos      = (this.orientation === 'vertical') ? (this.maxHandlePos - (pos - this.grabPos)) : (pos - this.grabPos);
 
-        this.setPosition(posX - this.grabX);
+        this.setPosition(setPos);
 
-        if (posX >= handleX && posX < handleX + this.handleWidth) {
-            this.grabX = posX - handleX;
+        if (pos >= handlePos && pos < handlePos + this.handleDimension) {
+            this.grabPos = pos - handlePos;
         }
     };
 
     Plugin.prototype.handleMove = function(e) {
         e.preventDefault();
-        var posX = this.getRelativePosition(e);
-        this.setPosition(posX - this.grabX);
+        var pos = this.getRelativePosition(e);
+        var setPos = (this.orientation === 'vertical') ? (this.maxHandlePos - (pos - this.grabPos)) : (pos - this.grabPos);
+        this.setPosition(setPos);
     };
 
     Plugin.prototype.handleEnd = function(e) {
@@ -328,23 +364,23 @@
     };
 
     Plugin.prototype.setPosition = function(pos) {
-        var value, left;
+        var value, newPos;
 
         // Snapping steps
-        value = this.getValueFromPosition(this.cap(pos, 0, this.maxHandleX));
-        left = this.getPositionFromValue(value);
+        value = this.getValueFromPosition(this.cap(pos, 0, this.maxHandlePos));
+        newPos = this.getPositionFromValue(value);
 
         // Update ui
-        this.$fill[0].style.width = (left + this.grabX) + 'px';
-        this.$handle[0].style.left = left + 'px';
+        this.$fill[0].style[this.DIMENSION] = (newPos + this.grabPos) + 'px';
+        this.$handle[0].style[this.DIRECTION_STYLE] = newPos + 'px';
         this.setValue(value);
 
         // Update globals
-        this.position = left;
+        this.position = newPos;
         this.value = value;
 
         if (this.onSlide && typeof this.onSlide === 'function') {
-            this.onSlide(left, value);
+            this.onSlide(newPos, value);
         }
     };
 
@@ -359,36 +395,37 @@
     };
 
     Plugin.prototype.getRelativePosition = function(e) {
-        // Get the offset left relative to the viewport
-        var rangeX  = this.$range[0].getBoundingClientRect().left,
-            pageX   = 0;
+        // Get the offset DIRECTION relative to the viewport and scroll position
+        var ucCoordinate = ucfirst(this.COORDINATE),
+            rangePos = this.$range[0].getBoundingClientRect()[this.DIRECTION] + window['scroll' + ucCoordinate],
+            pageCoordinate = 0;
 
-        if (typeof e.pageX !== 'undefined') {
-            pageX = e.pageX;
+        if (typeof e['page' + ucCoordinate] !== 'undefined') {
+            pageCoordinate = e['page' + ucCoordinate];
         }
-        else if (typeof e.originalEvent.clientX !== 'undefined') {
-            pageX = e.originalEvent.clientX;
+        else if (typeof e.originalEvent['client' + ucCoordinate] !== 'undefined') {
+            pageCoordinate = e.originalEvent['client' + ucCoordinate];
         }
-        else if (e.originalEvent.touches && e.originalEvent.touches[0] && typeof e.originalEvent.touches[0].clientX !== 'undefined') {
-            pageX = e.originalEvent.touches[0].clientX;
+        else if (e.originalEvent.touches && e.originalEvent.touches[0] && typeof e.originalEvent.touches[0]['client' + ucCoordinate] !== 'undefined') {
+            pageCoordinate = e.originalEvent.touches[0]['client' + ucCoordinate];
         }
-        else if(e.currentPoint && typeof e.currentPoint.x !== 'undefined') {
-            pageX = e.currentPoint.x;
+        else if(e.currentPoint && typeof e.currentPoint[this.COORDINATE] !== 'undefined') {
+            pageCoordinate = e.currentPoint[this.COORDINATE];
         }
 
-        return pageX - rangeX;
+        return pageCoordinate - rangePos;
     };
 
     Plugin.prototype.getPositionFromValue = function(value) {
         var percentage, pos;
         percentage = (value - this.min)/(this.max - this.min);
-        pos = percentage * this.maxHandleX;
+        pos = percentage * this.maxHandlePos;
         return pos;
     };
 
     Plugin.prototype.getValueFromPosition = function(pos) {
         var percentage, value;
-        percentage = ((pos) / (this.maxHandleX || 1));
+        percentage = ((pos) / (this.maxHandlePos || 1));
         value = this.step * Math.round(percentage * (this.max - this.min) / this.step) + this.min;
         return Number((value).toFixed(this.toFixed));
     };
