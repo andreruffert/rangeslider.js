@@ -15,3 +15,9 @@ exclude:
 sass:
     sass_dir: _includes/scss
     style: :compressed
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: false

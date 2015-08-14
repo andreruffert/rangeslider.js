@@ -25,32 +25,11 @@
     {% endcapture %}
     {{ include_to_scssify | scssify }}
     </style>
-    <link rel="stylesheet" href="{{ site.baseurl }}/assets/rangeslider.js/dist/rangeslider.css">
+    <script>
+        {% include js/loadCSS.js %}
+        loadCSS('{{ site.baseurl }}/assets/rangeslider.js/dist/rangeslider.css');
+    </script>
     <!--[if lt IE 9]>
         <script src="{{ site.baseurl }}/assets/html5shiv/dist/html5shiv.min.js"></script>
     <![endif]-->
 </head>
-
-<!--
-     ."".    ."",
-     |  |   /  /
-     |  |  /  /
-     |  | /  /
-     |  |/  ;-._
-     }  ` _/  / ;
-     |  /` ) /  /
-     | /  /_/\_/\
-     |/  /      |
-     (  ' \ '-  |
-      \    `.  /
-       |      |
-       |      |
-
-    Thanks for taking a look :)
-    It's always nice to see you.
-    Have a nice day!
-
-    <3
-
-    André
--->

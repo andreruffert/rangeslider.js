@@ -56,6 +56,10 @@ output {
     margin: 30px 0;
 }
 
+input[type="range"] {
+    visibility: hidden;
+}
+
 input[type="text"],
 input[type="number"] {
     padding: 4px 8px;
