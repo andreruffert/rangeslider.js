@@ -13,4 +13,5 @@ exclude:
 - "README.md"
 
 sass:
+    sass_dir: _includes/scss
     style: :compressed

@@ -2,11 +2,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>
-        {% if page.title == "rangeslider.js" %}
-            {{ page.title }}
-        {% else %}
-            {{ page.title }} &middot; rangeslider.js
-        {% endif %}
+    {% if page.title == "rangeslider.js" %}
+        {{ page.title }}
+    {% else %}
+        {{ page.title }} &middot; rangeslider.js
+    {% endif %}
     </title>
     <meta name="description" content="Simple, small and fast HTML5 input range slider element polyfill">
     <meta name="keywords" content="rangeslider.js, rangesliderjs, polyfill, html5, input type range, range, slider">
@@ -18,7 +18,13 @@
     <link rel="dns-prefetch" href="//secure.gravatar.com">
     <link rel="dns-prefetch" href="//platform.twitter.com">
     <link rel="dns-prefetch" href="//syndication.twitter.com">
-    <link rel="stylesheet" href="{{ site.baseurl }}/stylesheets/main.css">
+    <style>
+    {% capture include_to_scssify %}
+        {% include scss/_layout.scss %}
+        {% include scss/_highlight.scss %}
+    {% endcapture %}
+    {{ include_to_scssify | scssify }}
+    </style>
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/rangeslider.js/dist/rangeslider.css">
     <!--[if lt IE 9]>
         <script src="{{ site.baseurl }}/assets/html5shiv/dist/html5shiv.min.js"></script>
