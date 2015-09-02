@@ -33,7 +33,7 @@
 
     var pluginName = 'rangeslider',
         pluginIdentifier = 0,
-        inputrange = supportsRange(),
+        hasInputRangeSupport = supportsRange(),
         defaults = {
             polyfill: true,
             orientation: 'horizontal',
@@ -243,7 +243,7 @@
         // Plugin should only be used as a polyfill
         if (this.polyfill) {
             // Input range support?
-            if (inputrange) { return false; }
+            if (hasInputRangeSupport) { return false; }
         }
 
         this.identifier = 'js-' + pluginName + '-' +(pluginIdentifier++);
