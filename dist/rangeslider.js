@@ -206,6 +206,22 @@
     }
 
     /**
+     * Get cross-browser scroll position.
+     * https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollX
+     *
+     * @param  {String} coordinate x|y
+     * @param  {String} direction  top|left
+     * @return {Number}
+     */
+    function getScrollOffset(coordinate, direction) {
+        coordinate = ucfirst(coordinate);
+        if (window['page' + coordinate + 'Offset'] !== undefined) {
+            return window['page' + coordinate + 'Offset'];
+        }
+        return (document.documentElement || document.body.parentNode || document.body)['scroll' + ucfirst(direction)];
+    }
+
+    /**
      * Plugin
      * @param {String} element
      * @param {Object} options
@@ -401,7 +417,7 @@
     Plugin.prototype.getRelativePosition = function(e) {
         // Get the offset DIRECTION relative to the viewport and scroll position
         var ucCoordinate = ucfirst(this.COORDINATE),
-            rangePos = this.$range[0].getBoundingClientRect()[this.DIRECTION] + window['scroll' + ucCoordinate],
+            rangePos = this.$range[0].getBoundingClientRect()[this.DIRECTION] + getScrollOffset(this.COORDINATE, this.DIRECTION),
             pageCoordinate = 0;
 
         if (typeof e['page' + ucCoordinate] !== 'undefined') {
