@@ -44,12 +44,20 @@
     "grunt-contrib-jshint": "~0.11.2",
     "grunt-contrib-uglify": "~0.9.1",
     "grunt-contrib-watch": "~0.6.1",
+    "http-server": "^0.8.0",
     "jshint-stylish": "~2.0.1",
+    "live-reload": "^1.1.0",
     "load-grunt-tasks": "~3.2.0",
+    "parallelshell": "^2.0.0",
     "time-grunt": "~1.2.1"
   },
   "scripts": {
-    "test": "grunt jshint"
+    "test": "grunt jshint",
+    "static-server": "http-server -p 8080 ./ -s -o",
+    "livereload": "live-reload --port 8081 dist/",
+    "serve": "parallelshell 'npm run static-server' 'npm run livereload' 'grunt watch'",
+    "start": "grunt build && npm run serve -s",
+    "build": "grunt build"
   },
   "files": [
     "dist"
