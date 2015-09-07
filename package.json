@@ -2,8 +2,8 @@
   "name": "rangeslider.js",
   "title": "rangeslider.js",
   "description": "Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <input type=\"range\"> slider element",
-  "version": "1.3.3",
-  "codename": "Fuzzy Wuzzy",
+  "version": "2.0.0",
+  "codename": "Atomic Tangerine",
   "main": "dist/rangeslider.js",
   "homepage": "https://github.com/andreruffert/rangeslider.js",
   "author": {
