@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>rangeslider.js</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link rel="stylesheet" href="../dist/rangeslider.css">
     <style>
         *,
@@ -33,6 +32,23 @@
             text-align: center;
             margin: 30px 0;
             width: 100%;
+        }
+
+        .u-left {
+            float: left;
+        }
+
+        .u-cf:before,
+        .u-cf:after {
+            content: "";
+            display: table;
+        }
+        .u-cf:after {
+            clear: both;
+        }
+
+        .u-text-left {
+            text-align: left;
         }
     </style>
     <!--[if lt IE 9]>
@@ -75,6 +91,20 @@
             <input type="range" min="0.111" max="3.33" step="0.111" value="1.776" data-rangeslider>
             <output></output>
         </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="u-cf">
+        <h2><code>data-orientation="vertical"</code></h2>
+        <div class="u-left" style="height: 200px">
+            <input type="range" min="0" max="5" data-rangeslider data-orientation="vertical">
+        </div>
+        <div class="u-left" style="height: 200px">
+            <input type="range" min="0" max="5" style="-webkit-appearance: slider-vertical; min-height: 150px; max-height: 100%;">
+        </div>
+        <output class="u-text-left"></output>
     </div>
 
     <br>
@@ -168,31 +198,33 @@
         </details>
     </div>
 
+    <script src="//localhost:8081"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="../dist/rangeslider.min.js"></script>
+    <script src="../dist/rangeslider.js"></script>
     <script>
     $(function() {
 
-        var $document   = $(document),
-            selector    = '[data-rangeslider]',
-            $element    = $(selector);
+        var $document = $(document);
+        var selector = '[data-rangeslider]';
+        var $element = $(selector);
+
+        // For ie8 support
+        var textContent = ('textContent' in document) ? 'textContent' : 'innerText';
 
         // Example functionality to demonstrate a value feedback
         function valueOutput(element) {
-            var value = element.value,
-                output = element.parentNode.getElementsByTagName('output')[0];
-            output.innerHTML = value;
+            var value = element.value;
+            var output = element.parentNode.getElementsByTagName('output')[0] || element.parentNode.parentNode.getElementsByTagName('output')[0];
+            output[textContent] = value;
         }
-        for (var i = $element.length - 1; i >= 0; i--) {
-            valueOutput($element[i]);
-        };
-        $document.on('input', 'input[type="range"]', function(e) {
+
+        $document.on('input', selector, function(e) {
             valueOutput(e.target);
         });
 
         // Example functionality to demonstrate disabled functionality
         $document .on('click', '#js-example-disabled button[data-behaviour="toggle"]', function(e) {
-            var $inputRange = $('input[type="range"]', e.target.parentNode);
+            var $inputRange = $(selector, e.target.parentNode);
 
             if ($inputRange[0].disabled) {
                 $inputRange.prop("disabled", false);
@@ -205,16 +237,16 @@
 
         // Example functionality to demonstrate programmatic value changes
         $document.on('click', '#js-example-change-value button', function(e) {
-            var $inputRange = $('input[type="range"]', e.target.parentNode),
-                value = $('input[type="number"]', e.target.parentNode)[0].value;
+            var $inputRange = $(selector, e.target.parentNode);
+            var value = $('input[type="number"]', e.target.parentNode)[0].value;
 
             $inputRange.val(value).change();
         });
 
         // Example functionality to demonstrate programmatic attribute changes
         $document.on('click', '#js-example-change-attributes button', function(e) {
-            var $inputRange = $('input[type="range"]', e.target.parentNode),
-                attributes = {
+            var $inputRange = $(selector, e.target.parentNode);
+            var attributes = {
                     min: $('input[name="min"]', e.target.parentNode)[0].value,
                     max: $('input[name="max"]', e.target.parentNode)[0].value,
                     step: $('input[name="step"]', e.target.parentNode)[0].value
@@ -227,10 +259,10 @@
         // Example functionality to demonstrate destroy functionality
         $document
             .on('click', '#js-example-destroy button[data-behaviour="destroy"]', function(e) {
-                $('input[type="range"]', e.target.parentNode).rangeslider('destroy');
+                $(selector, e.target.parentNode).rangeslider('destroy');
             })
             .on('click', '#js-example-destroy button[data-behaviour="initialize"]', function(e) {
-                $('input[type="range"]', e.target.parentNode).rangeslider({ polyfill: false });
+                $(selector, e.target.parentNode).rangeslider({ polyfill: false });
             });
 
         // Example functionality to test initialisation on hidden elements
@@ -247,7 +279,9 @@
             polyfill: false,
 
             // Callback function
-            onInit: function() {},
+            onInit: function() {
+                valueOutput(this.$element[0]);
+            },
 
             // Callback function
             onSlide: function(position, value) {

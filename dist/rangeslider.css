@@ -1,9 +1,6 @@
 .rangeslider,
 .rangeslider__fill {
-  background: #e6e6e6;
   display: block;
-  height: 20px;
-  width: 100%;
   -moz-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
   box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.3);
@@ -13,7 +10,19 @@
 }
 
 .rangeslider {
+  background: #e6e6e6;
   position: relative;
+}
+
+.rangeslider--horizontal {
+  height: 20px;
+  width: 100%;
+}
+
+.rangeslider--vertical {
+  width: 20px;
+  min-height: 150px;
+  max-height: 100%;
 }
 
 .rangeslider--disabled {
@@ -24,7 +33,14 @@
 .rangeslider__fill {
   background: #00ff00;
   position: absolute;
+}
+.rangeslider--horizontal .rangeslider__fill {
   top: 0;
+  height: 100%;
+}
+.rangeslider--vertical .rangeslider__fill {
+  bottom: 0;
+  width: 100%;
 }
 
 .rangeslider__handle {
@@ -35,9 +51,6 @@
   width: 40px;
   height: 40px;
   position: absolute;
-  top: -10px;
-  touch-action: pan-y;
-  -ms-touch-action: pan-y;
   background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwLjAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC4xIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
   background-size: 100%;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, rgba(0, 0, 0, 0.1)));
@@ -79,6 +92,16 @@
   background-image: -moz-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
   background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
   background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.12));
+}
+.rangeslider--horizontal .rangeslider__handle {
+  top: -10px;
+  touch-action: pan-y;
+  -ms-touch-action: pan-y;
+}
+.rangeslider--vertical .rangeslider__handle {
+  left: -10px;
+  touch-action: pan-x;
+  -ms-touch-action: pan-x;
 }
 
 input[type="range"]:focus + .rangeslider .rangeslider__handle {

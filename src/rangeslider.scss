@@ -1,31 +1,52 @@
 @import "compass/css3";
 
-$rangeslider:           ".rangeslider";
-$rangeslider__fill:     ".rangeslider__fill";
-$rangeslider__handle:   ".rangeslider__handle";
+$rangeslider:               ".rangeslider";
+$rangeslider--horizontal:   ".rangeslider--horizontal";
+$rangeslider--vertical:     ".rangeslider--vertical";
+$rangeslider--disabled:     ".rangeslider--disabled";
+$rangeslider__fill:         ".rangeslider__fill";
+$rangeslider__handle:       ".rangeslider__handle";
 
 #{$rangeslider},
 #{$rangeslider__fill} {
-    background: #e6e6e6;
     display: block;
-    height: 20px;
-    width: 100%;
     @include box-shadow(inset 0px 1px 3px rgba(0,0,0,0.3));
     @include border-radius(10px);
 }
 
 #{$rangeslider} {
+    background: #e6e6e6;
     position: relative;
 }
 
-#{$rangeslider}--disabled {
+#{$rangeslider--horizontal} {
+    height: 20px;
+    width: 100%;
+}
+
+#{$rangeslider--vertical} {
+    width: 20px;
+    min-height: 150px;
+    max-height: 100%;
+}
+
+#{$rangeslider--disabled} {
     @include opacity(.4);
 }
 
 #{$rangeslider__fill} {
     background: #00ff00;
     position: absolute;
-    top: 0;
+
+    #{$rangeslider--horizontal} & {
+        top: 0;
+        height: 100%;
+    }
+
+    #{$rangeslider--vertical} & {
+        bottom: 0;
+        width: 100%;
+    }
 }
 
 #{$rangeslider__handle} {
@@ -36,9 +57,6 @@ $rangeslider__handle:   ".rangeslider__handle";
     width: 40px;
     height: 40px;
     position: absolute;
-    top: -10px;
-    touch-action: pan-y;
-    -ms-touch-action: pan-y;
     @include background-image(linear-gradient(rgba(white, 0), rgba(black, .10)));
     @include box-shadow(0 0 8px rgba(black, .3));
     @include border-radius(50%);
@@ -60,6 +78,18 @@ $rangeslider__handle:   ".rangeslider__handle";
 
     &:active {
         @include background-image(linear-gradient(rgba(black, .10), rgba(black, .12)));
+    }
+
+    #{$rangeslider--horizontal} & {
+        top: -10px;
+        touch-action: pan-y;
+        -ms-touch-action: pan-y;
+    }
+
+    #{$rangeslider--vertical} & {
+        left: -10px;
+        touch-action: pan-x;
+        -ms-touch-action: pan-x;
     }
 }
 
