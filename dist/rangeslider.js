@@ -438,8 +438,8 @@
 
     Plugin.prototype.getPositionFromValue = function(value) {
         var percentage, pos;
-        percentage = value && (value - this.min)/(this.max - this.min);
-        pos = percentage * this.maxHandlePos;
+        percentage = (value - this.min)/(this.max - this.min);
+        pos = (!Number.isNaN(percentage)) ? percentage * this.maxHandlePos : 0;
         return pos;
     };
 
