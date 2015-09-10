@@ -1,4 +1,4 @@
-/*! rangeslider.js - v2.0.0 | (c) 2015 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v2.0.1 | (c) 2015 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function(factory) {
     'use strict';
 
@@ -438,8 +438,8 @@
 
     Plugin.prototype.getPositionFromValue = function(value) {
         var percentage, pos;
-        percentage = value && (value - this.min)/(this.max - this.min);
-        pos = percentage * this.maxHandlePos;
+        percentage = (value - this.min)/(this.max - this.min);
+        pos = (!Number.isNaN(percentage)) ? percentage * this.maxHandlePos : 0;
         return pos;
     };
 
