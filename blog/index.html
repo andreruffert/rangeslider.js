@@ -15,8 +15,15 @@ title: rangeslider.js
 
 <section id="update-to-v2.0.0">
     <h2>Update to <i>v2.0.0</i></h2>
-    <p>Release <a href="{{ site.repository_url }}/releases/tag/v2.0.0"><i>v2.0.0</i></a> is a MAJOR update with tiny incompatible internal changes. For more informations check <a href="{{ site.repository_url }}/pull/165/files">this</a> before updating.</p>
-
+    <p>Release <a href="{{ site.repository_url }}/releases/tag/v2.0.0"><i>v2.0.0</i></a> is a MAJOR update with tiny incompatible internal changes.</p>
+    <p>You just have to update your JavaScript code if you use some internal defined variables in the callback functions (e.g. <code>onInit</code>):</p>
+{% highlight js %}
+this.handleWidth    =>    this.handleDimension
+this.rangeWidth     =>    this.rangeDimension
+this.maxHandleX     =>    this.maxHandlePos
+this.grabX          =>    this.grabPos
+{% endhighlight%}
+    <p>The CSS is backwards compatible, but if you want to use the new introduced orientation support make sure to update to the latest <a href="{{ site.repository_url }}/blob/v2.0.0/dist/rangeslider.css">CSS</a>. There are some new modifiers <code>.rangeslider--horizontal</code>& <code>.rangeslider--vertical</code>.</p>
 </section>
 
 <hr>
