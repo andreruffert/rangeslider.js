@@ -57,7 +57,7 @@ output {
 }
 
 input[type="range"] {
-    visibility: hidden;
+    opacity: 0;
 }
 
 input[type="text"],
