@@ -224,7 +224,7 @@
             output[textContent] = value;
         }
 
-        $document.on('input', selector, function(e) {
+        $document.on('input', 'input[type="range"], ' + selector, function(e) {
             valueOutput(e.target);
         });
 

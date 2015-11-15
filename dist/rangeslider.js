@@ -1,14 +1,13 @@
-/*! rangeslider.js - v2.0.2 | (c) 2015 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v2.0.3 | (c) 2015 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function(factory) {
     'use strict';
 
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(['jquery'], factory);
-    }
-    else if (typeof exports === 'object') {
+    } else if (typeof exports === 'object') {
         // CommonJS
-        factory(require('jquery'));
+        module.exports = factory(require('jquery'));
     } else {
         // Browser globals
         factory(jQuery);
@@ -316,7 +315,6 @@
     };
 
     Plugin.prototype.handleDown = function(e) {
-        e.preventDefault();
         this.$document.on(this.moveEvent, this.handleMove);
         this.$document.on(this.endEvent, this.handleEnd);
 
