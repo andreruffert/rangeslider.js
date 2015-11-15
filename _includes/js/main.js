@@ -39,7 +39,7 @@ $(function() {
      * Example functionality to demonstrate programmatic value changes
      */
     $document.on('click', '#js-example-change-value button', function(e) {
-        var $inputRange = $('input[type="range"]', e.target.parentNode);
+        var $inputRange = $('[data-rangeslider]', e.target.parentNode);
         var value = $('input[type="number"]', e.target.parentNode)[0].value;
 
         $inputRange
@@ -51,7 +51,7 @@ $(function() {
      * Example functionality to demonstrate programmatic attribute changes
      */
     $document.on('click', '#js-example-change-attributes button', function(e) {
-        var $inputRange = $('input[type="range"]', e.target.parentNode);
+        var $inputRange = $('[data-rangeslider]', e.target.parentNode);
         var attributes = {
             min: $('input[name="min"]', e.target.parentNode)[0].value,
             max: $('input[name="max"]', e.target.parentNode)[0].value,
