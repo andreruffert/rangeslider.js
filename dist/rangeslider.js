@@ -279,10 +279,6 @@
     Plugin.prototype.init = function() {
         this.update(true, false);
 
-        // Set initial value just in case it is not set already.
-        // Prevents trouble if we call `update(true)`
-        this.$element[0].value = this.value;
-
         if (this.onInit && typeof this.onInit === 'function') {
             this.onInit();
         }
@@ -294,7 +290,7 @@
         if (updateAttributes) {
             this.min    = tryParseFloat(this.$element[0].getAttribute('min'), 0);
             this.max    = tryParseFloat(this.$element[0].getAttribute('max'), 100);
-            this.value  = tryParseFloat(this.$element[0].value, this.min + (this.max-this.min)/2);
+            this.value  = tryParseFloat(this.$element[0].value, Math.round(this.min + (this.max-this.min)/2));
             this.step   = tryParseFloat(this.$element[0].getAttribute('step'), 1);
         }
 
@@ -433,7 +429,7 @@
     };
 
     Plugin.prototype.setValue = function(value) {
-        if (value === this.value) {
+        if (value === this.value && this.$element[0].value !== '') {
             return;
         }
 
