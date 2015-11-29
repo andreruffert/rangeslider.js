@@ -161,7 +161,11 @@
                 inlineStyle[i] = hiddenParentNodes[i].style.cssText;
 
                 // visually hide
-                hiddenParentNodes[i].style.display = 'block';
+                if (hiddenParentNodes[i].style.setProperty) {
+                    hiddenParentNodes[i].style.setProperty('display', 'block', 'important');
+                } else {
+                    hiddenParentNodes[i].style.cssText += ';display: block !important';
+                }
                 hiddenParentNodes[i].style.height = '0';
                 hiddenParentNodes[i].style.overflow = 'hidden';
                 hiddenParentNodes[i].style.visibility = 'hidden';
