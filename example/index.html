@@ -52,160 +52,52 @@
         }
     </style>
     <!--[if lt IE 9]>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
     <![endif]-->
 </head>
 <body>
+    <!--Select your state -->
     <div>
-        <h2>Comparison to native element</h2>
-        <input type="range" min="0" max="5" data-rangeslider>
+        <select id="stateSelect">
+            <option value="1">AZ</option>
+            <option value="2">CA</option>
+            <option value="3">CT</option>
+            <option value="4">DC</option>
+            <option value="5">HI</option>
+            <option value="6">MA</option>
+            <option value="7">MD</option>
+            <option value="8">NJ</option>
+            <option value="9">NM</option>
+            <option value="10">NV</option>
+            <option value="11">NY</option>
+            <option value="12">PA</option>
+            <option value="13">SC</option>
+        </select>
+    </div>
+
+    <!-- Based on State Selection, pick your power -->
+    <div id="powerSelect">
+
+    </div>
+    
+    <div>
+        <h2>What's your average monthly electric bill?</h2>
+        <input type="range" min="0" max="500" data-rangeslider>
         <br>
         <br>
-        <input type="range" min="0" max="5" style="width:100%;">
-        <output></output>
+        <output id="averageBill"></output>
     </div>
-
-    <br>
-    <br>
 
     <div>
-        <h2>Negative attributes</h2>
-        <div>
-            <input type="range" min="-10" max="0" data-rangeslider>
-            <output></output>
+        <!--Result * 2 -->
+        <div id="savings">           
         </div>
-        <div>
-            <input type="range" min="-20" max="20" value="-10" data-rangeslider>
-            <output></output>
-        </div>
+
     </div>
 
-    <br>
-    <br>
+    
 
-    <div>
-        <h2>Floating point boundaries</h2>
-        <div>
-            <input type="range" min="10" max="11" step="0.1" value="10.2" data-rangeslider>
-            <output></output>
-        </div>
-        <div>
-            <input type="range" min="0.1" max="3" step="0.1" value="0.5" data-rangeslider>
-            <output></output>
-        </div>
-        <div>
-            <input type="range" min="0.111" max="3.33" step="0.111" value="1.776" data-rangeslider>
-            <output></output>
-        </div>
-    </div>
-
-    <br>
-    <br>
-
-    <div class="u-cf">
-        <h2><code>data-orientation="vertical"</code></h2>
-        <div class="u-left" style="height: 200px">
-            <input type="range" min="0" max="5" data-rangeslider data-orientation="vertical">
-        </div>
-        <div class="u-left" style="height: 200px">
-            <input type="range" min="0" max="5" style="-webkit-appearance: slider-vertical; min-height: 150px; max-height: 100%;">
-        </div>
-        <output class="u-text-left"></output>
-    </div>
-
-    <br>
-    <br>
-
-    <div>
-        <h2><code>value="0"</code></h2>
-        <input type="range" value="0" data-rangeslider>
-        <output></output>
-    </div>
-
-    <br>
-    <br>
-
-    <div id="js-example-disabled">
-        <h2><code>disabled</code></h2>
-        <input type="range" min="10" max="100" data-rangeslider disabled>
-        <output></output>
-        <button data-behaviour="toggle">Toggle disabled state</button>
-    </div>
-
-    <br>
-    <br>
-
-    <div>
-        <h2><code>max="0"</code> disables slider</h2>
-        <input type="range" max="0" data-rangeslider>
-        <output></output>
-    </div>
-
-    <br>
-    <br>
-
-    <div id="js-example-change-value">
-        <h2>Programmatic value changes</h2>
-        <input type="range" min="10" max="100" data-rangeslider>
-        <output></output>
-        <input type="number" value="10"><button>Change value</button>
-    </div>
-
-    <br>
-    <br>
-
-    <div id="js-example-change-attributes">
-        <h2>Programmatic attribute changes</h2>
-        <input type="range" min="10" max="100" step="5" data-rangeslider>
-        <output></output>
-        <label><input type="number" name="min" value="10"> <code>min</code></label><br>
-        <label><input type="number" name="max" value="100"> <code>max</code></label><br>
-        <label><input type="number" name="step" value="5"> <code>step</code></label>
-        <br><br>
-        <button>Change</button>
-    </div>
-
-    <br>
-    <br>
-    <br>
-    <br>
-
-    <div id="js-example-destroy">
-        <h2>Destroy a plugin instance</h2>
-        <input type="range" min="10" max="1000" step="10" value="500" data-rangeslider>
-        <output></output>
-        <button data-behaviour="destroy">Destroy</button>
-        <button data-behaviour="initialize">Initialize</button>
-    </div>
-
-    <br>
-    <br>
-
-    <div id="js-example-hidden">
-        <h2>Consider initialization and update of hidden elements</h2>
-        <div style="display:none">
-            <input type="range" min="10" max="100" data-rangeslider>
-            <output></output>
-        </div>
-        <button data-behaviour="toggle">Toggle visibility</button>
-    </div>
-
-    <br>
-    <br>
-
-    <div id="js-example-hidden">
-        <h2>Combination with native <code>&lt;details&gt;</code> element</h2>
-        <details>
-            <summary>Toggle</summary>
-            <br>
-            <br>
-            <input type="range" min="10" max="100" value="20" data-rangeslider>
-            <output></output>
-        </details>
-    </div>
-
-    <script src="//localhost:8081"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="../dist/rangeslider.js"></script>
     <script>
     $(function() {
@@ -228,55 +120,56 @@
             valueOutput(e.target);
         });
 
-        // Example functionality to demonstrate disabled functionality
-        $document .on('click', '#js-example-disabled button[data-behaviour="toggle"]', function(e) {
-            var $inputRange = $(selector, e.target.parentNode);
-
-            if ($inputRange[0].disabled) {
-                $inputRange.prop("disabled", false);
+        /* Change power Options based on State Select */
+        $('#stateSelect').change(function(){
+            if($(this).val() == '1'){
+                $('#powerSelect').html(
+                    "<select><option value='1'>Arizona Public Service</option><option value='2'>Electrical District #3</option></select>");
             }
-            else {
-                $inputRange.prop("disabled", true);
+            else if($(this).val() == '2'){
+                $('#powerSelect').html(
+                    "<select><option value='1'>San Diego Gas & Electric</option><option value='2'>Imperial Irrigation District</option><option value='3'>LA Dept. of Water & Power</option><option value='4'>Lodi Electric</option><option value='5'>Edison</option><option value='6'>Modesto</option><option value='7'>Redding Electric Utility</option><option value='8'>Sacramento Municipal Utility District</option></select>");
             }
-            $inputRange.rangeslider('update');
+            else if($(this).val() == '3'){
+                $('#powerSelect').html(
+                    "<select><option value='1'>United Illuminating</option><option value='2'>Eversource (CL& P)</option></select>");
+            }
+            else if($(this).val() == '4'){
+                $('#powerSelect').html(
+                    "<select><option value='1'>Pepco DC</option></select>");
+            }
+            else if($(this).val() == '5'){
+                $('#powerSelect').html(
+                    "<select><option value='1'>Hawaii Electric</option><option value='2'>Maui Electric Light</option><option value='3'>Hawaiian Electric</select>");
+            }
+            else if($(this).val() == '6'){
+                $('#powerSelect').html(
+                    "<select><option value='1'>Eversoure (WMECO)</option><option value='2'>Unitil</option><option value='3'>Eversource (NSTAR)</option><option value='4'>National Grid MA</option></select>");
+            }
+            else if($(this).val() == '7'){
+                $('#powerSelect').html(
+                    "<select><option value='1'>Arizona Public Service</option><option value='2'>Electrical District #3</option></select>");
+            }
+            else if($(this).val() == '8'){
+                console.log("NY");
+            }
+            else if($(this).val() == '9'){
+                console.log("NY");
+            }
+            else if($(this).val() == '10'){
+                console.log("NY");
+            }
+            else if($(this).val() == '11'){
+                console.log("NY");
+            }
+            else if($(this).val() == '12'){
+                console.log("NY");
+            }
+            else if($(this).val() == '13'){
+                console.log("NY");
+            }
         });
-
-        // Example functionality to demonstrate programmatic value changes
-        $document.on('click', '#js-example-change-value button', function(e) {
-            var $inputRange = $(selector, e.target.parentNode);
-            var value = $('input[type="number"]', e.target.parentNode)[0].value;
-
-            $inputRange.val(value).change();
-        });
-
-        // Example functionality to demonstrate programmatic attribute changes
-        $document.on('click', '#js-example-change-attributes button', function(e) {
-            var $inputRange = $(selector, e.target.parentNode);
-            var attributes = {
-                    min: $('input[name="min"]', e.target.parentNode)[0].value,
-                    max: $('input[name="max"]', e.target.parentNode)[0].value,
-                    step: $('input[name="step"]', e.target.parentNode)[0].value
-                };
-
-            $inputRange.attr(attributes);
-            $inputRange.rangeslider('update', true);
-        });
-
-        // Example functionality to demonstrate destroy functionality
-        $document
-            .on('click', '#js-example-destroy button[data-behaviour="destroy"]', function(e) {
-                $(selector, e.target.parentNode).rangeslider('destroy');
-            })
-            .on('click', '#js-example-destroy button[data-behaviour="initialize"]', function(e) {
-                $(selector, e.target.parentNode).rangeslider({ polyfill: false });
-            });
-
-        // Example functionality to test initialisation on hidden elements
-        $document
-            .on('click', '#js-example-hidden button[data-behaviour="toggle"]', function(e) {
-                var $container = $(e.target.previousElementSibling);
-                $container.toggle();
-            });
+        
 
         // Basic rangeslider initialization
         $element.rangeslider({
@@ -293,6 +186,11 @@
             onSlide: function(position, value) {
                 console.log('onSlide');
                 console.log('position: ' + position, 'value: ' + value);
+
+                //my Work
+                var savings = value * 2;
+                console.log ("savings:" + savings);
+                $('#savings').html(savings);
             },
 
             // Callback function
