@@ -279,7 +279,7 @@
             _this.setPosition(pos);
         });
 		
-        this.$element.on('blur', function(e, data) {
+        this.$element.on('blur', function() {
             if (_this.onSlideEnd && typeof _this.onSlideEnd === 'function') {
 				_this.onSlideEnd(_this.position, _this.value);
 			}
