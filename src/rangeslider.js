@@ -268,7 +268,7 @@
         this.$document.on(this.startEvent, '#' + this.identifier + ':not(.' + this.options.disabledClass + ')', this.handleDown);
 
         // Listen to programmatic value changes
-        this.$element.on('change.' + this.identifier, function(e, data) {
+        this.$element.on('change.' + this.identifier + ' input.' + this.identifier, function(e, data) {
             if (data && data.origin === _this.identifier) {
                 return;
             }
@@ -319,6 +319,8 @@
 
         // If we click on the handle don't set the new position
         if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
+			this.$element.focus();
+			e.preventDefault();
             return;
         }
 
