@@ -1,3 +1,4 @@
+/*! rangeslider.js - v2.0.5 | (c) 2015 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function(factory) {
     'use strict';
 
@@ -276,6 +277,12 @@
             var value = e.target.value,
                 pos = _this.getPositionFromValue(value);
             _this.setPosition(pos);
+        });
+		
+        this.$element.on('blur', function(e, data) {
+            if (_this.onSlideEnd && typeof _this.onSlideEnd === 'function') {
+				_this.onSlideEnd(_this.position, _this.value);
+			}
         });
     }
 
