@@ -480,4 +480,6 @@
         });
     };
 
+    return 'rangeslider.js is available in jQuery context e.g $(selector).rangeslider(options);';
+
 }));
