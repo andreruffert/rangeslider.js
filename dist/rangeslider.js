@@ -1,4 +1,4 @@
-/*! rangeslider.js - v2.0.5 | (c) 2015 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v2.0.5 | (c) 2016 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function(factory) {
     'use strict';
 
@@ -263,7 +263,7 @@
         var _this = this;
         this.$window.on('resize.' + this.identifier, debounce(function() {
             // Simulate resizeEnd event.
-            delay(function() { _this.update(); }, 300);
+            delay(function() { _this.update(false, false); }, 300);
         }, 20));
 
         this.$document.on(this.startEvent, '#' + this.identifier + ':not(.' + this.options.disabledClass + ')', this.handleDown);

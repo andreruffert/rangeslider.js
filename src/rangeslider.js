@@ -262,7 +262,7 @@
         var _this = this;
         this.$window.on('resize.' + this.identifier, debounce(function() {
             // Simulate resizeEnd event.
-            delay(function() { _this.update(); }, 300);
+            delay(function() { _this.update(false, false); }, 300);
         }, 20));
 
         this.$document.on(this.startEvent, '#' + this.identifier + ':not(.' + this.options.disabledClass + ')', this.handleDown);
