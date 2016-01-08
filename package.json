@@ -2,8 +2,8 @@
   "name": "rangeslider.js",
   "title": "rangeslider.js",
   "description": "Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <input type=\"range\"> slider element",
-  "version": "2.0.5",
-  "codename": "Raw Umber",
+  "version": "2.1.0",
+  "codename": "Timberwolf",
   "main": "dist/rangeslider.js",
   "homepage": "https://github.com/andreruffert/rangeslider.js",
   "author": {
