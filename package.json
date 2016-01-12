@@ -2,8 +2,8 @@
   "name": "rangeslider.js",
   "title": "rangeslider.js",
   "description": "Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <input type=\"range\"> slider element",
-  "version": "2.1.0",
-  "codename": "Timberwolf",
+  "version": "2.1.1",
+  "codename": "Banana Mania",
   "main": "dist/rangeslider.js",
   "homepage": "https://github.com/andreruffert/rangeslider.js",
   "author": {
@@ -36,7 +36,7 @@
     "node": ">=0.8.0"
   },
   "dependencies": {
-    "jquery": "^1.9.0"
+    "jquery": ">=1.9.0"
   },
   "devDependencies": {
     "crayola": "0.0.1",
