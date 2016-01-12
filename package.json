@@ -36,7 +36,7 @@
     "node": ">=0.8.0"
   },
   "dependencies": {
-    "jquery": "^1.9.0"
+    "jquery": ">=1.9.0"
   },
   "devDependencies": {
     "crayola": "0.0.1",
