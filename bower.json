@@ -3,6 +3,6 @@
   "version": "0.0.0",
   "dependencies": {
     "html5shiv": "~3.7.3",
-    "rangeslider.js": "~2.1.0"
+    "rangeslider.js": "~2.1.1"
   }
 }
