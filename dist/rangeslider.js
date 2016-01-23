@@ -282,10 +282,14 @@
 
     Plugin.prototype.init = function() {
         this.update(true, false);
-
         if (this.onInit && typeof this.onInit === 'function') {
             this.onInit();
         }
+
+        var _this = this;
+        delay(function () {
+            _this.update(false, false);
+        }, 300); // same as resize event callback
     };
 
     Plugin.prototype.update = function(updateAttributes, triggerSlide) {

@@ -6,5 +6,6 @@ _site
 bower_components
 .idea
 
+*.log
 # Ignore files beginning with a #
 \#*
