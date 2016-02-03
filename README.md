@@ -18,7 +18,7 @@ Check out the [examples](http://andreruffert.github.io/rangeslider.js/).
 ## Further Reading
 - Understand how [rangeslider.js](http://andreruffert.github.io/rangeslider.js/) works in general.
 - File a [bug report](https://github.com/andreruffert/rangeslider.js/issues) for anything rangeslider.js related.
-- Ask a question such as "How do I …?": open a [StackOverflow](http://stackoverflow.com/search?q=rangeslider.js) question with rangeslider.js tag or ask in the [Gitter chat room](https://gitter.im/andreruffert/rangeslider.js).
+- Ask a question such as "How do I …?". Open a [StackOverflow](http://stackoverflow.com/search?q=rangeslider.js) question with rangeslider.js tag or ask in the [Gitter chat room](https://gitter.im/andreruffert/rangeslider.js).
 
 ## License
 MIT © [André Ruffert](http://andreruffert.com)
