@@ -5,7 +5,6 @@ markdown: kramdown
 project_name: rangeslider.js
 current_version: 2.1.1
 repository_url: https://github.com/andreruffert/rangeslider.js
-baseurl: ""
 url: "http://rangeslider.js.org"
 
 exclude:
