@@ -1,4 +1,4 @@
-# rangeslider.js 
+# <img src="http://andreruffert.github.io/rangeslider.js/rangeslider.js.png" width="50" valign="middle"> rangeslider.js
 
 [![npm downloads](https://img.shields.io/npm/dt/rangeslider.js.svg)](https://www.npmjs.com/package/rangeslider.js) [![Build Status](https://travis-ci.org/andreruffert/rangeslider.js.svg?branch=develop)](https://travis-ci.org/andreruffert/rangeslider.js) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/andreruffert/rangeslider.js)
 [![rangeslider.js](http://img.shields.io/badge/rangeslider-.js-00ff00.svg)](http://andreruffert.github.io/rangeslider.js/) [![npm version](https://img.shields.io/npm/v/rangeslider.js.svg)](https://www.npmjs.com/package/rangeslider.js)
