@@ -3,6 +3,9 @@ node_modules
 .sass-cache
 Gemfile.lock
 _site
+bower_components
+.idea
 
+*.log
 # Ignore files beginning with a #
 \#*
