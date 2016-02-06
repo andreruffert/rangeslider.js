@@ -10,7 +10,7 @@
     bundle install
 
 ## Running site locally
-    bundle exec jekyll serve --watch --baseurl ''
+    bundle exec jekyll serve --watch
 
 The site should be available at [http://0.0.0.0:4000](http://0.0.0.0:4000).
 
