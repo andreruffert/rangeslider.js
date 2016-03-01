@@ -239,7 +239,7 @@
         this.endEvent   = this.options.endEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.toFixed    = (this.step + '').replace('.', '').length - 1;
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
-        this.$handle    = $('<div class="' + this.options.handleClass + '" />');
+        this.$handle    = $('<div class="' + this.options.handleClass + '" role="slider" aria-orientation="' + this.orientation + '" />');
         this.$range     = $('<div class="' + this.options.rangeClass + ' ' + this.options[this.orientation + 'Class'] + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
 
         // visually hide the input
