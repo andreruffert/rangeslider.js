@@ -31,9 +31,9 @@ module.exports = function (grunt) {
                 tasks: ['compass:dist']
             },
 
-            jshint: {
+            eslint: {
                 files: '<%= config.src %>/{,*/}*.js',
-                tasks: ['jshint']
+                tasks: ['eslint']
             },
 
             concat: {
@@ -43,15 +43,11 @@ module.exports = function (grunt) {
         },
 
         // Make sure code styles are up to par and there are no obvious mistakes
-        jshint: {
-            options: {
-                jshintrc: '.jshintrc',
-                reporter: require('jshint-stylish')
-            },
+        eslint: {
             all: [
                 'Gruntfile.js',
                 '<%= config.src %>/{,*/}*.js'
-            ],
+            ]
         },
 
         // Compiles Sass to CSS and generates necessary files if requested
@@ -123,7 +119,7 @@ module.exports = function (grunt) {
     });
 
     // Build task
-    grunt.registerTask('build', ['compass:dist', 'jshint', 'concat:dist', 'uglify:dist']);
+    grunt.registerTask('build', ['compass:dist', 'eslint', 'concat:dist', 'uglify:dist']);
 
     // Release task
     grunt.registerTask('release', [
