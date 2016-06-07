@@ -3,36 +3,38 @@
 
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
-        define(['jquery'], factory);
+        define([], factory);
     } else if (typeof exports === 'object') {
         // CommonJS
-        module.exports = factory(require('jquery'));
+        module.exports = factory();
     } else {
         // Browser globals
-        factory(jQuery);
+        window.Rangeslider = factory();
     }
-}(function($) {
+}(function() {
     'use strict';
 
-    // Polyfill Number.isNaN(value)
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN
+    /**
+     * Polyfill Number.isNaN(value)
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN
+     */
     Number.isNaN = Number.isNaN || function(value) {
         return typeof value === 'number' && value !== value;
     };
 
     /**
      * Range feature detection
+     *
      * @return {Boolean}
      */
     function supportsRange() {
         var input = document.createElement('input');
+
         input.setAttribute('type', 'range');
         return input.type !== 'text';
     }
 
-    var pluginName = 'rangeslider',
-        pluginIdentifier = 0,
-        hasInputRangeSupport = supportsRange(),
+    var hasInputRangeSupport = supportsRange(),
         defaults = {
             polyfill: true,
             orientation: 'horizontal',
@@ -64,39 +66,113 @@
         };
 
     /**
-     * Delays a function for the given number of milliseconds, and then calls
-     * it with the arguments supplied.
-     *
-     * @param  {Function} fn   [description]
-     * @param  {Number}   wait [description]
-     * @return {Function}
+     * @param  {...Object} [out]
+     * @return {Object}
      */
-    function delay(fn, wait) {
-        var args = Array.prototype.slice.call(arguments, 2);
-        return setTimeout(function(){ return fn.apply(null, args); }, wait);
+    function extend(out) {
+        out = out === undefined ? {} : out;
+
+        for (var i = 1; i < arguments.length; i++) {
+            if (!arguments[i]) {
+                continue;
+            }
+
+            for (var key in arguments[i]) {
+                if (arguments[i].hasOwnProperty(key)) {
+                    out[key] = arguments[i][key];
+                }
+            }
+        }
+        return out;
+	}
+
+    /**
+     * Trigger a custom event, IE9+
+     *
+     * @param  {Element} el
+     * @param  {String}  eventName
+     * @param  {Object}  options
+     * @return {void}
+     */
+    function triggerEvent(el, eventName, options) {
+        var event;
+        if (window.CustomEvent) {
+            event = new CustomEvent(eventName, options);
+        } else {
+            event = document.createEvent('CustomEvent');
+            event.initCustomEvent(eventName, true, true, options);
+        }
+        el.dispatchEvent(event);
+    }
+
+    /**
+     * Add class to an `element`
+     *
+     * @param  {Element} el
+     * @param  {String}  className
+     * @return {void}
+     */
+    function addClass(el, className) {
+        if (el.classList) {
+            el.classList.add(className);
+        } else {
+            el.className += ' ' + className;
+        }
+    }
+
+    /**
+     * Remove class from an `element`
+     *
+     * @param  {Element} el
+     * @param  {String}  className
+     * @return {void}
+     */
+    function removeClass(el, className) {
+        if (el.classList) {
+            el.classList.remove(className);
+        } else {
+            el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+        }
+    }
+
+    /**
+     * Check if an `element` has a `className`
+     *
+     * @param  {Element} el
+     * @param  {String}  className
+     * @return {Boolean}
+     */
+    function hasClass(el, className) {
+        if (el.classList) {
+            return el.classList.contains(className);
+        } else {
+            return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+        }
     }
 
     /**
      * Returns a debounced function that will make sure the given
      * function is not triggered too much.
      *
-     * @param  {Function} fn Function to debounce.
-     * @param  {Number}   debounceDuration OPTIONAL. The amount of time in milliseconds for which we will debounce the function. (defaults to 100ms)
+     * @param  {Function} fn
+     * @param  {Number}   [wait=100] Function will be called after it stops being called for x milliseconds
      * @return {Function}
      */
-    function debounce(fn, debounceDuration) {
-        debounceDuration = debounceDuration || 100;
+    function debounce(fn, wait) {
+        wait = wait === undefined ? 100 : wait;
+
+        var timeout;
         return function() {
-            if (!fn.debouncing) {
-                var args = Array.prototype.slice.apply(arguments);
-                fn.lastReturnVal = fn.apply(window, args);
-                fn.debouncing = true;
-            }
-            clearTimeout(fn.debounceTimeout);
-            fn.debounceTimeout = setTimeout(function(){
-                fn.debouncing = false;
-            }, debounceDuration);
-            return fn.lastReturnVal;
+            var context = this,
+                args = arguments,
+                later;
+
+            later = function() {
+                timeout = null;
+                fn.apply(context, args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
         };
     }
 
@@ -111,7 +187,7 @@
             element && (
                 element.offsetWidth === 0 ||
                 element.offsetHeight === 0 ||
-                // Also Consider native `<details>` elements.
+                // Also consider native `<details>` elements.
                 element.open === false
             )
         );
@@ -121,7 +197,7 @@
      * Get hidden parentNodes of an `element`
      *
      * @param  {Element} element
-     * @return {[type]}
+     * @return {Array}
      */
     function getHiddenParentNodes(element) {
         var parents = [],
@@ -135,7 +211,7 @@
     }
 
     /**
-     * Returns dimensions for an element even if it is not visible in the DOM.
+     * Returns dimensions for an `element` even if it is not visible in the DOM.
      *
      * @param  {Element} element
      * @param  {String}  key     (e.g. offsetWidth …)
@@ -208,124 +284,194 @@
     }
 
     /**
-     * Plugin
-     * @param {String} element
-     * @param {Object} options
+     * Rangeslider constructor
+     *
+     * @param {Element} el
+     * @param {Object}  [options]
+     * @constructor
      */
-    function Plugin(element, options) {
-        this.$window            = $(window);
-        this.$document          = $(document);
-        this.$element           = $(element);
-        this.options            = $.extend( {}, defaults, options );
-        this.polyfill           = this.options.polyfill;
-        this.orientation        = this.$element[0].getAttribute('data-orientation') || this.options.orientation;
-        this.onInit             = this.options.onInit;
-        this.onSlide            = this.options.onSlide;
-        this.onSlideEnd         = this.options.onSlideEnd;
-        this.DIMENSION          = constants.orientation[this.orientation].dimension;
-        this.DIRECTION          = constants.orientation[this.orientation].direction;
-        this.DIRECTION_STYLE    = constants.orientation[this.orientation].directionStyle;
-        this.COORDINATE         = constants.orientation[this.orientation].coordinate;
+    function Rangeslider(el, options) {
+        options = options === undefined ? {} : options;
 
-        // Plugin should only be used as a polyfill
-        if (this.polyfill) {
-            // Input range support?
-            if (hasInputRangeSupport) { return false; }
+        this.dom = {
+            el: el,
+            range: null,
+            handle: null,
+            fill: null
+        };
+
+        this.options = extend({}, defaults, options);
+        if (this.dom.el.getAttribute('data-orientation')) {
+            this.options.orientation = this.dom.el.getAttribute('data-orientation');
         }
 
-        this.identifier = 'js-' + pluginName + '-' +(pluginIdentifier++);
-        this.startEvent = this.options.startEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
-        this.moveEvent  = this.options.moveEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
-        this.endEvent   = this.options.endEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
-        this.toFixed    = (this.step + '').replace('.', '').length - 1;
-        this.$fill      = $('<div class="' + this.options.fillClass + '" />');
-        this.$handle    = $('<div class="' + this.options.handleClass + '" />');
-        this.$range     = $('<div class="' + this.options.rangeClass + ' ' + this.options[this.orientation + 'Class'] + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
+        // Plugin should only be used as a polyfill
+        if (this.options.polyfill && hasInputRangeSupport) {
+            return this;
+        }
 
-        // visually hide the input
-        this.$element.css({
-            'position': 'absolute',
-            'width': '1px',
-            'height': '1px',
-            'overflow': 'hidden',
-            'opacity': '0'
-        });
+        this.DIMENSION          = constants.orientation[this.options.orientation].dimension;
+        this.DIRECTION          = constants.orientation[this.options.orientation].direction;
+        this.DIRECTION_STYLE    = constants.orientation[this.options.orientation].directionStyle;
+        this.COORDINATE         = constants.orientation[this.options.orientation].coordinate;
+
+        this.toFixed            = (this.step + '').replace('.', '').length - 1;
+        this.isDown             = false;
 
         // Store context
-        this.handleDown = $.proxy(this.handleDown, this);
-        this.handleMove = $.proxy(this.handleMove, this);
-        this.handleEnd  = $.proxy(this.handleEnd, this);
+        this.bind = {
+            start: this.handleDown.bind(this),
+            move: this.handleMove.bind(this),
+            end: this.handleEnd.bind(this),
+            resize: this.handleResize.bind(this)
+        };
 
         this.init();
 
-        // Attach Events
-        var _this = this;
-        this.$window.on('resize.' + this.identifier, debounce(function() {
-            // Simulate resizeEnd event.
-            delay(function() { _this.update(false, false); }, 300);
-        }, 20));
-
-        this.$document.on(this.startEvent, '#' + this.identifier + ':not(.' + this.options.disabledClass + ')', this.handleDown);
-
-        // Listen to programmatic value changes
-        this.$element.on('change.' + this.identifier, function(e, data) {
-            if (data && data.origin === _this.identifier) {
-                return;
-            }
-
-            var value = e.target.value,
-                pos = _this.getPositionFromValue(value);
-            _this.setPosition(pos);
-        });
+        return this;
     }
 
-    Plugin.prototype.init = function() {
+    /**
+     * Initialize `Rangeslider` instance
+     *
+     * @return {void}
+     */
+    Rangeslider.prototype.init = function() {
+        this.setup();
+        this.addEventListeners();
         this.update(true, false);
 
-        if (this.onInit && typeof this.onInit === 'function') {
-            this.onInit();
+        if (this.options.onInit && typeof this.options.onInit === 'function') {
+            this.options.onInit.call(this);
         }
     };
 
-    Plugin.prototype.update = function(updateAttributes, triggerSlide) {
-        updateAttributes = updateAttributes || false;
+    /**
+     * @return {void}
+     */
+    Rangeslider.prototype.setup = function() {
+        // Create HTML structure and insert after input
+        var elRange = document.createElement('div'),
+            elFill = document.createElement('div'),
+            elHandle = document.createElement('div');
 
-        if (updateAttributes) {
-            this.min    = tryParseFloat(this.$element[0].getAttribute('min'), 0);
-            this.max    = tryParseFloat(this.$element[0].getAttribute('max'), 100);
-            this.value  = tryParseFloat(this.$element[0].value, Math.round(this.min + (this.max-this.min)/2));
-            this.step   = tryParseFloat(this.$element[0].getAttribute('step'), 1);
+        elRange.className =
+            this.options.rangeClass + ' ' + this.options[this.options.orientation + 'Class'];
+        elFill.className = this.options.fillClass;
+        elHandle.className = this.options.handleClass;
+
+        elRange.appendChild(elFill);
+        elRange.appendChild(elHandle);
+
+        this.dom.el.parentNode.insertBefore(elRange, this.dom.el.nextSibling);
+
+        this.dom.range = elRange;
+        this.dom.fill = elFill;
+        this.dom.handle = elHandle;
+
+        // Hide the input element visually
+        this.dom.el.style.position = 'absolute';
+        this.dom.el.style.width = '1px';
+        this.dom.el.style.height = '1px';
+        this.dom.el.style.overflow = 'hidden';
+        this.dom.el.style.opacity = 0;
+    };
+
+    /**
+     * @return {void}
+     */
+    Rangeslider.prototype.addEventListeners = function() {
+        var i;
+
+        for (i = 0; i < this.options.startEvent.length; i++) {
+            this.dom.range.addEventListener(
+                this.options.startEvent[i], this.bind.start
+            );
         }
 
-        this.handleDimension    = getDimension(this.$handle[0], 'offset' + ucfirst(this.DIMENSION));
-        this.rangeDimension     = getDimension(this.$range[0], 'offset' + ucfirst(this.DIMENSION));
+        for (i = 0; i < this.options.moveEvent.length; i++) {
+            document.documentElement.addEventListener(
+                this.options.moveEvent[i], this.bind.move
+            );
+        }
+
+        for (i = 0; i < this.options.endEvent.length; i++) {
+            document.documentElement.addEventListener(
+                this.options.endEvent[i], this.bind.end
+            );
+        }
+
+        window.addEventListener('resize', debounce(this.bind.resize, 50));
+    };
+
+    /**
+     * Update properties, attributes and/or position
+     *
+     * @param  {Boolean} [updateAttributes=false]
+     * @param  {Boolean} [triggerSlide=false]
+     * @return {void}
+     */
+    Rangeslider.prototype.update = function(updateAttributes, triggerSlide) {
+        updateAttributes = updateAttributes === undefined ? false : updateAttributes;
+        triggerSlide = triggerSlide === undefined ? false : triggerSlide;
+
+        if (updateAttributes) {
+            this.min   = tryParseFloat(this.dom.el.getAttribute('min'), 0);
+            this.max   = tryParseFloat(this.dom.el.getAttribute('max'), 100);
+            this.value =
+                tryParseFloat(this.dom.el.value, Math.round(this.min + (this.max - this.min) / 2));
+            this.step  = tryParseFloat(this.dom.el.getAttribute('step'), 1);
+        }
+
+        this.handleDimension    = getDimension(this.dom.handle, 'offset' + ucfirst(this.DIMENSION));
+        this.rangeDimension     = getDimension(this.dom.range, 'offset' + ucfirst(this.DIMENSION));
         this.maxHandlePos       = this.rangeDimension - this.handleDimension;
         this.grabPos            = this.handleDimension / 2;
         this.position           = this.getPositionFromValue(this.value);
 
-        // Consider disabled state
-        if (this.$element[0].disabled) {
-            this.$range.addClass(this.options.disabledClass);
+        // Check disabled state
+        if (this.dom.el.disabled) {
+            addClass(this.dom.range, this.options.disabledClass);
         } else {
-            this.$range.removeClass(this.options.disabledClass);
+            removeClass(this.dom.range, this.options.disabledClass);
         }
 
         this.setPosition(this.position, triggerSlide);
     };
 
-    Plugin.prototype.handleDown = function(e) {
-        this.$document.on(this.moveEvent, this.handleMove);
-        this.$document.on(this.endEvent, this.handleEnd);
+    /**
+     * Fired when window is resized
+     *
+     * @return {void}
+     */
+    Rangeslider.prototype.handleResize = function() {
+        this.update(false, false);
+    };
+
+    /**
+     * Fired when mouse/pointer is down
+     *
+     * @param  {Object} e
+     * @return {void}
+     */
+    Rangeslider.prototype.handleDown = function(e) {
+        // Check if element is disabled and the correct mouse button is pressed
+        if (this.dom.el.disabled ||
+            (e.type === 'mousedown' && e.which !== 1)) {
+            return;
+        }
+
+        this.isDown = true;
 
         // If we click on the handle don't set the new position
-        if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
+        if (hasClass(e.target, this.options.handleClass)) {
             return;
         }
 
         var pos         = this.getRelativePosition(e),
-            rangePos    = this.$range[0].getBoundingClientRect()[this.DIRECTION],
-            handlePos   = this.getPositionFromNode(this.$handle[0]) - rangePos,
-            setPos      = (this.orientation === 'vertical') ? (this.maxHandlePos - (pos - this.grabPos)) : (pos - this.grabPos);
+            rangePos    = this.dom.range.getBoundingClientRect()[this.DIRECTION],
+            handlePos   = this.getPositionFromNode(this.dom.handle) - rangePos,
+            setPos      = (this.options.orientation === 'vertical') ? (this.maxHandlePos - (pos - this.grabPos)) : (pos - this.grabPos);
 
         this.setPosition(setPos);
 
@@ -334,59 +480,89 @@
         }
     };
 
-    Plugin.prototype.handleMove = function(e) {
-        e.preventDefault();
-        var pos = this.getRelativePosition(e);
-        var setPos = (this.orientation === 'vertical') ? (this.maxHandlePos - (pos - this.grabPos)) : (pos - this.grabPos);
-        this.setPosition(setPos);
-    };
-
-    Plugin.prototype.handleEnd = function(e) {
-        e.preventDefault();
-        this.$document.off(this.moveEvent, this.handleMove);
-        this.$document.off(this.endEvent, this.handleEnd);
-
-        // Ok we're done fire the change event
-        this.$element.trigger('change', { origin: this.identifier });
-
-        if (this.onSlideEnd && typeof this.onSlideEnd === 'function') {
-            this.onSlideEnd(this.position, this.value);
+    /**
+     * Fired when mouse/pointer is moving
+     *
+     * @param  {Object} e
+     * @return {void}
+     */
+    Rangeslider.prototype.handleMove = function(e) {
+        if (this.isDown) {
+            e.preventDefault();
+            var pos = this.getRelativePosition(e);
+            var setPos = (this.options.orientation === 'vertical') ? (this.maxHandlePos - (pos - this.grabPos)) : (pos - this.grabPos);
+            this.setPosition(setPos);
         }
     };
 
-    Plugin.prototype.cap = function(pos, min, max) {
+    /**
+     * Fired when mouse/pointer is up
+     *
+     * @param  {Object} e
+     * @return {void}
+     */
+    Rangeslider.prototype.handleEnd = function(e) {
+        if (this.isDown) {
+            e.preventDefault();
+
+            this.isDown = false;
+
+            // Ok we're done, fire the change event
+            triggerEvent(this.dom.el, 'change');
+
+            if (this.options.onSlideEnd && typeof this.options.onSlideEnd === 'function') {
+                this.options.onSlideEnd.call(this, this.position, this.value);
+            }
+        }
+    };
+
+    /**
+     * @param  {Number} pos
+     * @param  {Number} min
+     * @param  {Number} max
+     * @return {Number}
+     */
+    Rangeslider.prototype.cap = function(pos, min, max) {
         if (pos < min) { return min; }
         if (pos > max) { return max; }
         return pos;
     };
 
-    Plugin.prototype.setPosition = function(pos, triggerSlide) {
-        var value, newPos;
+    /**
+     * @param  {Number}  pos
+     * @param  {Boolean} [triggerSlide=true]
+     * @return {void}
+     */
+    Rangeslider.prototype.setPosition = function(pos, triggerSlide) {
+        triggerSlide = triggerSlide === undefined ? true : triggerSlide;
 
-        if (triggerSlide === undefined) {
-            triggerSlide = true;
-        }
+        var value, newPos;
 
         // Snapping steps
         value = this.getValueFromPosition(this.cap(pos, 0, this.maxHandlePos));
         newPos = this.getPositionFromValue(value);
 
         // Update ui
-        this.$fill[0].style[this.DIMENSION] = (newPos + this.grabPos) + 'px';
-        this.$handle[0].style[this.DIRECTION_STYLE] = newPos + 'px';
+        this.dom.fill.style[this.DIMENSION] = (newPos + this.grabPos) + 'px';
+        this.dom.handle.style[this.DIRECTION_STYLE] = newPos + 'px';
         this.setValue(value);
 
         // Update globals
         this.position = newPos;
         this.value = value;
 
-        if (triggerSlide && this.onSlide && typeof this.onSlide === 'function') {
-            this.onSlide(newPos, value);
+        if (triggerSlide && this.options.onSlide && typeof this.options.onSlide === 'function') {
+            this.options.onSlide.call(this, newPos, value);
         }
     };
 
-    // Returns element position relative to the parent
-    Plugin.prototype.getPositionFromNode = function(node) {
+    /**
+     * Returns element position relative to the parent node
+     *
+     * @param  {Element} node
+     * @return {Number}
+     */
+    Rangeslider.prototype.getPositionFromNode = function(node) {
         var i = 0;
         while (node !== null) {
             i += node.offsetLeft;
@@ -395,90 +571,122 @@
         return i;
     };
 
-    Plugin.prototype.getRelativePosition = function(e) {
+    /**
+     * @param  {Object} e
+     * @return {Number}
+     */
+    Rangeslider.prototype.getRelativePosition = function(e) {
         // Get the offset DIRECTION relative to the viewport
         var ucCoordinate = ucfirst(this.COORDINATE),
-            rangePos = this.$range[0].getBoundingClientRect()[this.DIRECTION],
+            rangePos = this.dom.range.getBoundingClientRect()[this.DIRECTION],
             pageCoordinate = 0;
 
-        if (typeof e['page' + ucCoordinate] !== 'undefined') {
+        if ('pointers' in e) {
+            pageCoordinate = e.pointers[0]['client' + ucCoordinate];
+        } else if ('touches' in e) {
+            pageCoordinate = e.touches[0]['client' + ucCoordinate];
+        } else {
             pageCoordinate = e['client' + ucCoordinate];
-        }
-        else if (typeof e.originalEvent['client' + ucCoordinate] !== 'undefined') {
-            pageCoordinate = e.originalEvent['client' + ucCoordinate];
-        }
-        else if (e.originalEvent.touches && e.originalEvent.touches[0] && typeof e.originalEvent.touches[0]['client' + ucCoordinate] !== 'undefined') {
-            pageCoordinate = e.originalEvent.touches[0]['client' + ucCoordinate];
-        }
-        else if(e.currentPoint && typeof e.currentPoint[this.COORDINATE] !== 'undefined') {
-            pageCoordinate = e.currentPoint[this.COORDINATE];
         }
 
         return pageCoordinate - rangePos;
     };
 
-    Plugin.prototype.getPositionFromValue = function(value) {
+    /**
+     * @param  {Number} value
+     * @return {Number} pos
+     */
+    Rangeslider.prototype.getPositionFromValue = function(value) {
         var percentage, pos;
         percentage = (value - this.min)/(this.max - this.min);
         pos = (!Number.isNaN(percentage)) ? percentage * this.maxHandlePos : 0;
         return pos;
     };
 
-    Plugin.prototype.getValueFromPosition = function(pos) {
+    /**
+     * @param  {Number} pos
+     * @return {Number} value
+     */
+    Rangeslider.prototype.getValueFromPosition = function(pos) {
         var percentage, value;
         percentage = ((pos) / (this.maxHandlePos || 1));
         value = this.step * Math.round(percentage * (this.max - this.min) / this.step) + this.min;
         return Number((value).toFixed(this.toFixed));
     };
 
-    Plugin.prototype.setValue = function(value) {
-        if (value === this.value && this.$element[0].value !== '') {
+    /**
+     * Set a slider value
+     *
+     * @param  {Number} value
+     * @return {void}
+     */
+    Rangeslider.prototype.setValue = function(value) {
+        if (value === this.value && this.dom.el.value !== '') {
             return;
         }
 
         // Set the new value and fire the `input` event
-        this.$element
-            .val(value)
-            .trigger('input', { origin: this.identifier });
+        this.dom.el.value = value;
+
+        triggerEvent(this.dom.el, 'input');
     };
 
-    Plugin.prototype.destroy = function() {
-        this.$document.off('.' + this.identifier);
-        this.$window.off('.' + this.identifier);
+    /**
+     * Destroy `Rangeslider` instance
+     *
+     * @return {void}
+     */
+    Rangeslider.prototype.destroy = function() {
+        var i;
 
-        this.$element
-            .off('.' + this.identifier)
-            .removeAttr('style')
-            .removeData('plugin_' + pluginName);
+        for (i = 0; i < this.options.startEvent.length; i++) {
+            this.dom.range.removeEventListener(
+                this.options.startEvent[i], this.bind.start
+            );
+        }
+
+        for (i = 0; i < this.options.moveEvent.length; i++) {
+            document.documentElement.removeEventListener(
+                this.options.moveEvent[i], this.bind.move
+            );
+        }
+
+        for (i = 0; i < this.options.endEvent.length; i++) {
+            document.documentElement.removeEventListener(
+                this.options.endEvent[i], this.bind.end
+            );
+        }
+
+        window.removeEventListener('resize', this.bind.resize);
+
+        this.dom.el.removeAttribute('style');
 
         // Remove the generated markup
-        if (this.$range && this.$range.length) {
-            this.$range[0].parentNode.removeChild(this.$range[0]);
+        if (this.dom.range) {
+            this.dom.range.parentNode.removeChild(this.dom.range);
         }
     };
 
     // A really lightweight plugin wrapper around the constructor,
     // preventing against multiple instantiations
-    $.fn[pluginName] = function(options) {
-        var args = Array.prototype.slice.call(arguments, 1);
+    if (window.jQuery) {
+        jQuery.fn.rangeslider = function(options) {
+            var args = Array.prototype.slice.call(arguments, 1);
 
-        return this.each(function() {
-            var $this = $(this),
-                data  = $this.data('plugin_' + pluginName);
+            return this.each(function() {
+                var $this = jQuery(this),
+                    data  = $this.data('rangeslider');
 
-            // Create a new instance.
-            if (!data) {
-                $this.data('plugin_' + pluginName, (data = new Plugin(this, options)));
-            }
+                $this.data('rangeslider', new Rangeslider(this, options));
 
-            // Make it possible to access methods from public.
-            // e.g `$element.rangeslider('method');`
-            if (typeof options === 'string') {
-                data[options].apply(data, args);
-            }
-        });
-    };
+                // Make it possible to access methods from public,
+                // e.g `$element.Rangeslider('method');`
+                if (typeof options === 'string') {
+                    data[options].apply(data, args);
+                }
+            });
+        };
+    }
 
-    return 'rangeslider.js is available in jQuery context e.g $(selector).rangeslider(options);';
-
+    return Rangeslider;
 }));
