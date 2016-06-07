@@ -265,7 +265,7 @@
         // Example functionality to demonstrate destroy functionality
         $document
             .on('click', '#js-example-destroy button[data-behaviour="destroy"]', function(e) {
-                $(selector, e.target.parentNode).rangeslider('destroy').removeData('rangeslider');
+                $(selector, e.target.parentNode).rangeslider('destroy');
             })
             .on('click', '#js-example-destroy button[data-behaviour="initialize"]', function(e) {
                 $(selector, e.target.parentNode).rangeslider({ polyfill: false });

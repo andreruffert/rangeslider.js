@@ -581,13 +581,12 @@
             rangePos = this.dom.range.getBoundingClientRect()[this.DIRECTION],
             pageCoordinate = 0;
 
-        if (typeof e['client' + ucCoordinate] !== 'undefined' ||
-            typeof e['page' + ucCoordinate] !== 'undefined') {
-            pageCoordinate = e['client' + ucCoordinate];
-        } else if (e.touches && e.touches[0] && typeof e.touches[0]['client' + ucCoordinate] !== 'undefined') {
+        if ('pointers' in e) {
+            pageCoordinate = e.pointers[0]['client' + ucCoordinate];
+        } else if ('touches' in e) {
             pageCoordinate = e.touches[0]['client' + ucCoordinate];
-        } else if(e.currentPoint && typeof e.currentPoint[this.COORDINATE] !== 'undefined') {
-            pageCoordinate = e.currentPoint[this.COORDINATE];
+        } else {
+            pageCoordinate = e['client' + ucCoordinate];
         }
 
         return pageCoordinate - rangePos;
@@ -678,9 +677,7 @@
                 var $this = jQuery(this),
                     data  = $this.data('rangeslider');
 
-                if (!data) {
-                    $this.data('rangeslider', new Rangeslider(this, options));
-                }
+                $this.data('rangeslider', new Rangeslider(this, options));
 
                 // Make it possible to access methods from public,
                 // e.g `$element.Rangeslider('method');`
