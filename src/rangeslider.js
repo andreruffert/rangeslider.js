@@ -402,13 +402,14 @@
             pageCoordinate = 0;
 
         if (typeof e['page' + ucCoordinate] !== 'undefined') {
-            pageCoordinate = e['client' + ucCoordinate];
+            pageCoordinate = e['page' + ucCoordinate];
         }
+        // IE8 support :)
         else if (typeof e.originalEvent['client' + ucCoordinate] !== 'undefined') {
             pageCoordinate = e.originalEvent['client' + ucCoordinate];
         }
-        else if (e.originalEvent.touches && e.originalEvent.touches[0] && typeof e.originalEvent.touches[0]['client' + ucCoordinate] !== 'undefined') {
-            pageCoordinate = e.originalEvent.touches[0]['client' + ucCoordinate];
+        else if (e.originalEvent.touches && e.originalEvent.touches[0] && typeof e.originalEvent.touches[0]['page' + ucCoordinate] !== 'undefined') {
+            pageCoordinate = e.originalEvent.touches[0]['page' + ucCoordinate];
         }
         else if(e.currentPoint && typeof e.currentPoint[this.COORDINATE] !== 'undefined') {
             pageCoordinate = e.currentPoint[this.COORDINATE];
