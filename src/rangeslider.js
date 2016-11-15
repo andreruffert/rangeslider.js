@@ -1,3 +1,4 @@
+/*! rangeslider.js - v2.2.1 | (c) 2016 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function(factory) {
     'use strict';
 
@@ -35,6 +36,7 @@
         hasInputRangeSupport = supportsRange(),
         defaults = {
             polyfill: true,
+            a11y: { active: false, label: undefined },
             orientation: 'horizontal',
             rangeClass: 'rangeslider',
             disabledClass: 'rangeslider--disabled',
@@ -169,6 +171,7 @@
                 hiddenParentNodes[i].style.height = '0';
                 hiddenParentNodes[i].style.overflow = 'hidden';
                 hiddenParentNodes[i].style.visibility = 'hidden';
+
                 toggleOpenProperty(hiddenParentNodes[i]);
             }
 
@@ -238,10 +241,36 @@
         this.moveEvent  = this.options.moveEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.endEvent   = this.options.endEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.toFixed    = (this.step + '').replace('.', '').length - 1;
-        this.$fill      = $('<div class="' + this.options.fillClass + '" />');
-        this.$handle    = $('<div class="' + this.options.handleClass + '" />');
+
+        // These concats are used to add a11y attrs
+        this.sHandle    = '<';
+        this.sFill      = '<div class="' + this.options.fillClass + '"';
+        if( this.options.a11y.active ) {
+            this.sHandle    += 'button class="' + this.options.handleClass + '"';
+            this.sHandle    += ' role="slider" tabindex="-1"';
+            this.sHandle    += ' aria-valuemin="' + this.$element.attr('min') + '"';
+            this.sHandle    += ' aria-valuemax="' + this.$element.attr('max') + '"';
+            this.sHandle    += ' aria-valuenow="0"';
+            if( this.options.a11y.label !== undefined ) {
+                // Add title context for screen readers, by referencing label id
+                this.sHandle    += ' aria-labelledby="' + this.options.a11y.label + '"';
+            }
+            this.sHandle    += ' />';
+            this.sFill      += ' aria-hidden="true"';
+        } else {
+            this.sHandle += 'div class="' + this.options.handleClass + '" />';
+        }
+        this.sFill += ' />';
+
+        this.$fill      = $( this.sFill );
+        this.$handle    = $( this.sHandle );
         this.$range     = $('<div class="' + this.options.rangeClass + ' ' + this.options[this.orientation + 'Class'] + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
 
+        // For accessibility range input aria-hidden need to be true
+        // In pratical this element should be displayed to none, but this hurt original input track for updates
+        if( this.options.a11y.active ) {
+            this.$element.attr( 'aria-hidden', true );
+        }
         // visually hide the input
         this.$element.css({
             'position': 'absolute',
@@ -250,6 +279,7 @@
             'overflow': 'hidden',
             'opacity': '0'
         });
+        
 
         // Store context
         this.handleDown = $.proxy(this.handleDown, this);
@@ -383,6 +413,11 @@
         if (triggerSlide && this.onSlide && typeof this.onSlide === 'function') {
             this.onSlide(newPos, value);
         }
+
+        if( this.options.a11y.active ) {
+            // setAttributes rules to IE8
+            this.$handle[0].setAttribute('aria-valuenow', this.value);
+        }
     };
 
     // Returns element position relative to the parent
@@ -451,6 +486,10 @@
             .off('.' + this.identifier)
             .removeAttr('style')
             .removeData('plugin_' + pluginName);
+
+        if( this.options.a11y.active ) {
+            this.$element.removeAttr('aria-hidden');
+        }
 
         // Remove the generated markup
         if (this.$range && this.$range.length) {
