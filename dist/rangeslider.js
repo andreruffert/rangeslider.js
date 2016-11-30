@@ -403,7 +403,6 @@
             pageCoordinate = 0;
 
         if (typeof e.originalEvent['client' + ucCoordinate] !== 'undefined') {
-            console.log('client' + ucCoordinate);
             pageCoordinate = e.originalEvent['client' + ucCoordinate];
         }
         else if (
