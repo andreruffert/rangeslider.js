@@ -39,6 +39,7 @@
             orientation: 'horizontal',
             rangeClass: 'rangeslider',
             disabledClass: 'rangeslider--disabled',
+            activeClass: 'rangeslider--active',
             horizontalClass: 'rangeslider--horizontal',
             verticalClass: 'rangeslider--vertical',
             fillClass: 'rangeslider__fill',
@@ -315,8 +316,13 @@
     };
 
     Plugin.prototype.handleDown = function(e) {
+        e.preventDefault();
         this.$document.on(this.moveEvent, this.handleMove);
         this.$document.on(this.endEvent, this.handleEnd);
+
+        // add active class because Firefox is ignoring
+        // the handle:active pseudo selector because of `e.preventDefault();`
+        this.$range.addClass(this.options.activeClass);
 
         // If we click on the handle don't set the new position
         if ((' ' + e.target.className + ' ').replace(/[\n\t]/g, ' ').indexOf(this.options.handleClass) > -1) {
@@ -346,6 +352,8 @@
         e.preventDefault();
         this.$document.off(this.moveEvent, this.handleMove);
         this.$document.off(this.endEvent, this.handleEnd);
+
+        this.$range.removeClass(this.options.activeClass);
 
         // Ok we're done fire the change event
         this.$element.trigger('change', { origin: this.identifier });

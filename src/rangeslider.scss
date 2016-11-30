@@ -4,6 +4,7 @@ $rangeslider:               ".rangeslider";
 $rangeslider--horizontal:   ".rangeslider--horizontal";
 $rangeslider--vertical:     ".rangeslider--vertical";
 $rangeslider--disabled:     ".rangeslider--disabled";
+$rangeslider--active:       ".rangeslider--active";
 $rangeslider__fill:         ".rangeslider__fill";
 $rangeslider__handle:       ".rangeslider__handle";
 
@@ -76,7 +77,8 @@ $rangeslider__handle:       ".rangeslider__handle";
         @include border-radius(50%);
     }
 
-    &:active {
+    &:active,
+    #{$rangeslider--active} & {
         @include background-image(linear-gradient(rgba(black, .10), rgba(black, .12)));
     }
 
