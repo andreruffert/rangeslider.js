@@ -223,6 +223,7 @@
         this.onInit             = this.options.onInit;
         this.onSlide            = this.options.onSlide;
         this.onSlideEnd         = this.options.onSlideEnd;
+        this.onResize           = this.options.onResize;
         this.DIMENSION          = constants.orientation[this.orientation].dimension;
         this.DIRECTION          = constants.orientation[this.orientation].direction;
         this.DIRECTION_STYLE    = constants.orientation[this.orientation].directionStyle;
@@ -312,6 +313,10 @@
         }
 
         this.setPosition(this.position, triggerSlide);
+
+        if (this.onResize && typeof this.onResize === 'function') {
+            this.onResize(this.position, this.value);
+        }
     };
 
     Plugin.prototype.handleDown = function(e) {
