@@ -11,7 +11,7 @@
         // Browser globals
         factory(jQuery);
     }
-}(function($) {
+})(function($) {
     'use strict';
 
     // Polyfill Number.isNaN(value)
@@ -149,9 +149,9 @@
             dimension               = element[key];
 
         // Used for native `<details>` elements
-        function toggleOpenProperty(element) {
-            if (typeof element.open !== 'undefined') {
-                element.open = (element.open) ? false : true;
+        function toggleOpenProperty(_element) {
+            if (typeof _element.open !== 'undefined') {
+                _element.open = _element.open ? false : true;
             }
         }
 
@@ -234,7 +234,7 @@
             if (hasInputRangeSupport) { return false; }
         }
 
-        this.identifier = 'js-' + pluginName + '-' +(pluginIdentifier++);
+        this.identifier = 'js-' + pluginName + '-' + pluginIdentifier++;
         this.startEvent = this.options.startEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.moveEvent  = this.options.moveEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.endEvent   = this.options.endEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
@@ -331,7 +331,7 @@
         var pos         = this.getRelativePosition(e),
             rangePos    = this.$range[0].getBoundingClientRect()[this.DIRECTION],
             handlePos   = this.getPositionFromNode(this.$handle[0]) - rangePos,
-            setPos      = (this.orientation === 'vertical') ? (this.maxHandlePos - (pos - this.grabPos)) : (pos - this.grabPos);
+            setPos      = this.orientation === 'vertical' ? this.maxHandlePos - (pos - this.grabPos) : pos - this.grabPos;
 
         this.setPosition(setPos);
 
@@ -343,7 +343,7 @@
     Plugin.prototype.handleMove = function(e) {
         e.preventDefault();
         var pos = this.getRelativePosition(e);
-        var setPos = (this.orientation === 'vertical') ? (this.maxHandlePos - (pos - this.grabPos)) : (pos - this.grabPos);
+        var setPos = this.orientation === 'vertical' ? this.maxHandlePos - (pos - this.grabPos) : pos - this.grabPos;
         this.setPosition(setPos);
     };
 
@@ -380,7 +380,7 @@
         newPos = this.getPositionFromValue(value);
 
         // Update ui
-        this.$fill[0].style[this.DIMENSION] = (newPos + this.grabPos) + 'px';
+        this.$fill[0].style[this.DIMENSION] = newPos + this.grabPos + 'px';
         this.$handle[0].style[this.DIRECTION_STYLE] = newPos + 'px';
         this.setValue(value);
 
@@ -429,15 +429,15 @@
     Plugin.prototype.getPositionFromValue = function(value) {
         var percentage, pos;
         percentage = (value - this.min)/(this.max - this.min);
-        pos = (!Number.isNaN(percentage)) ? percentage * this.maxHandlePos : 0;
+        pos = !Number.isNaN(percentage) ? percentage * this.maxHandlePos : 0;
         return pos;
     };
 
     Plugin.prototype.getValueFromPosition = function(pos) {
         var percentage, value;
-        percentage = ((pos) / (this.maxHandlePos || 1));
+        percentage = pos / (this.maxHandlePos || 1);
         value = this.step * Math.round(percentage * (this.max - this.min) / this.step) + this.min;
-        return Number((value).toFixed(this.toFixed));
+        return Number(value.toFixed(this.toFixed));
     };
 
     Plugin.prototype.setValue = function(value) {
@@ -477,7 +477,7 @@
 
             // Create a new instance.
             if (!data) {
-                $this.data('plugin_' + pluginName, (data = new Plugin(this, options)));
+                $this.data('plugin_' + pluginName, data = new Plugin(this, options));
             }
 
             // Make it possible to access methods from public.
@@ -490,4 +490,4 @@
 
     return 'rangeslider.js is available in jQuery context e.g $(selector).rangeslider(options);';
 
-}));
+});
