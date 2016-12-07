@@ -465,6 +465,18 @@
             this.$range[0].parentNode.removeChild(this.$range[0]);
         }
     };
+	 
+	 /**
+	 * 
+	 * @returns {undefined} Used when user update max or min values on input field. Sets new min and max values on plugin.
+	 * Calculates new value and call update method on plugin.
+	 */
+	Plugin.prototype.updateOptions = function () {
+		this.min = parseFloat(this.$element[0].getAttribute('min') || 0);
+		this.max = parseFloat(this.$element[0].getAttribute('max') || 100);
+		this.value = parseFloat(this.$element[0].value || this.min + (this.max - this.min) / 2);
+		this.update();
+	};
 
     // A really lightweight plugin wrapper around the constructor,
     // preventing against multiple instantiations
