@@ -7,6 +7,7 @@ $rangeslider--disabled:     ".rangeslider--disabled";
 $rangeslider--active:       ".rangeslider--active";
 $rangeslider__fill:         ".rangeslider__fill";
 $rangeslider__handle:       ".rangeslider__handle";
+$rangeslider-rtl:           ".rangeslider-rtl";
 
 #{$rangeslider},
 #{$rangeslider__fill} {
@@ -19,7 +20,9 @@ $rangeslider__handle:       ".rangeslider__handle";
     background: #e6e6e6;
     position: relative;
 }
-
+#{$rangeslider-rtl} {
+    direction: rtl;
+}
 #{$rangeslider--horizontal} {
     height: 20px;
     width: 100%;
