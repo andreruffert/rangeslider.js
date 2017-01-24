@@ -36,12 +36,13 @@
         defaults = {
             polyfill: true,
             orientation: 'horizontal',
-            isRTL:false,//RTL
             rangeClass: 'rangeslider',
             disabledClass: 'rangeslider--disabled',
             activeClass: 'rangeslider--active',
             horizontalClass: 'rangeslider--horizontal',
             verticalClass: 'rangeslider--vertical',
+            dirRTLClass:'rangeslider__rtl',
+            dirTTBClass:'rangeslider__ttb',
             fillClass: 'rangeslider__fill',
             handleClass: 'rangeslider__handle',
             startEvent: ['mousedown', 'touchstart', 'pointerdown'],
@@ -52,14 +53,26 @@
             orientation: {
                 horizontal: {
                     dimension: 'width',
-                    direction: 'left',
-                    directionStyle: 'left',
+                    direction: {
+                        ltr: 'left',
+                        rtl: 'right'
+                    },
+                    directionStyle: {
+                        ltr: 'left',
+                        rtl: 'right'
+                    },
                     coordinate: 'x'
                 },
                 vertical: {
                     dimension: 'height',
-                    direction: 'top',
-                    directionStyle: 'bottom',
+                    direction: {
+                        btt:'top',
+                        ttb:'bottom'
+                    },
+                    directionStyle: {
+                        btt:'bottom',
+                        ttb:'top'
+                    },
                     coordinate: 'y'
                 }
             }
@@ -208,7 +221,20 @@
     function ucfirst(str) {
         return str.charAt(0).toUpperCase() + str.substr(1);
     }
+    /**
+     * return direction rtl,ltr,btt,ttb
+     * @param {String} element
+     * @param {String} orientation
+    */
+    function getDirection(element,orientation){
+        var direction=element[0].getAttribute('data-direction')||(orientation==='vertical'?'btt':'ltr')
 
+        if(constants.orientation[orientation].direction[direction]){
+            return direction;
+        }else{
+           return orientation==='vertical'?'btt':'ltr';
+        }
+    }
     /**
      * Plugin
      * @param {String} element
@@ -221,12 +247,13 @@
         this.options            = $.extend( {}, defaults, options );
         this.polyfill           = this.options.polyfill;
         this.orientation        = this.$element[0].getAttribute('data-orientation') || this.options.orientation;
+        this.dir                = getDirection(this.$element,this.orientation);
         this.onInit             = this.options.onInit;
         this.onSlide            = this.options.onSlide;
         this.onSlideEnd         = this.options.onSlideEnd;
         this.DIMENSION          = constants.orientation[this.orientation].dimension;
-        this.DIRECTION          = this.options.isRTL ? 'right' : 'left';
-        this.DIRECTION_STYLE    = this.options.isRTL ? 'right' : 'left';
+        this.DIRECTION          = constants.orientation[this.orientation].direction[this.dir];
+        this.DIRECTION_STYLE    = constants.orientation[this.orientation].directionStyle[this.dir];
         this.COORDINATE         = constants.orientation[this.orientation].coordinate;
 
         // Plugin should only be used as a polyfill
@@ -240,10 +267,9 @@
         this.moveEvent  = this.options.moveEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.endEvent   = this.options.endEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.toFixed    = (this.step + '').replace('.', '').length - 1;
-        this.$fill      = $('<div class="' + this.options.fillClass + '" />');
+        this.$fill      = $('<div class="' + this.options.fillClass +' '+(this.dir==='ttb'&&this.orientation==='vertical'? this.options.dirTTBClass: '') +'" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
-        this.$range     = $('<div class="' + this.options.rangeClass + (this.options.isRTL?' rangeslider-rtl ':'')+' '+ this.options[this.orientation + 'Class'] + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
-
+        this.$range     = $('<div class="' + this.options.rangeClass +' ' +(this.dir==='rtl'&&this.orientation==='horizontal'? this.options.dirRTLClass: '') + ' ' + this.options[this.orientation + 'Class'] + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
         // visually hide the input
         this.$element.css({
             'position': 'absolute',
@@ -424,7 +450,7 @@
             pageCoordinate = e.currentPoint[this.COORDINATE];
         }
 
-        return this.options.isRTL?rangePos-pageCoordinate:pageCoordinate-rangePos;
+         return (this.dir==='rtl'||this.dir==='ttb') ? rangePos - pageCoordinate:pageCoordinate - rangePos;
     };
 
     Plugin.prototype.getPositionFromValue = function(value) {
