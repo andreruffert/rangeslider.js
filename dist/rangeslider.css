@@ -29,7 +29,6 @@
 /*top-to-bottom*/
 .rangeslider__ttb {
     top: 0;
-    bottom: initial;
 }
 .rangeslider--disabled {
     filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=40);
