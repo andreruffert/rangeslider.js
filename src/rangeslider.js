@@ -41,8 +41,8 @@
             activeClass: 'rangeslider--active',
             horizontalClass: 'rangeslider--horizontal',
             verticalClass: 'rangeslider--vertical',
-            dirRTLClass:'rangeslider__rtl',
-            dirTTBClass:'rangeslider__ttb',
+            dirRTLClass: 'rangeslider__rtl',
+            dirTTBClass: 'rangeslider__ttb',
             fillClass: 'rangeslider__fill',
             handleClass: 'rangeslider__handle',
             startEvent: ['mousedown', 'touchstart', 'pointerdown'],
@@ -216,11 +216,12 @@
      * @param {String} orientation
      */
     function getDirection(element,orientation){
-        var direction=element[0].getAttribute('data-direction')||(orientation==='vertical'?'btt':'ltr');
-        if(constants.orientation[orientation].direction[direction]){
+        var direction = element[0].getAttribute('data-direction') || (orientation === 'vertical' ? 'btt' : 'ltr');
+        
+        if (constants.orientation[orientation].direction[direction]) {
             return direction;
-        }else{
-           return orientation==='vertical'?'btt':'ltr';
+        } else {
+            return orientation === 'vertical' ? 'btt' : 'ltr';
         }
     }
 
@@ -256,9 +257,9 @@
         this.moveEvent  = this.options.moveEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.endEvent   = this.options.endEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.toFixed    = (this.step + '').replace('.', '').length - 1;
-        this.$fill      = $('<div class="' + this.options.fillClass +' '+(this.dir==='ttb'&&this.orientation==='vertical'? this.options.dirTTBClass: '') +'" />');
+        this.$fill      = $('<div class="' + this.options.fillClass + ' ' +(this.dir === 'ttb' && this.orientation === 'vertical' ? this.options.dirTTBClass : '') +'" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
-        this.$range     = $('<div class="' + this.options.rangeClass +' ' +(this.dir==='rtl'&&this.orientation==='horizontal'? this.options.dirRTLClass: '') + ' ' + this.options[this.orientation + 'Class'] + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
+        this.$range     = $('<div class="' + this.options.rangeClass +' ' +(this.dir === 'rtl' && this.orientation === 'horizontal' ? this.options.dirRTLClass : '') + ' ' + this.options[this.orientation + 'Class'] + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
 
         // visually hide the input
         this.$element.css({
@@ -440,7 +441,7 @@
             pageCoordinate = e.currentPoint[this.COORDINATE];
         }
 
-        return (this.dir==='rtl'||this.dir==='ttb') ? rangePos - pageCoordinate:pageCoordinate - rangePos;
+        return (this.dir === 'rtl' || this.dir === 'ttb') ? rangePos - pageCoordinate : pageCoordinate - rangePos;
     };
 
     Plugin.prototype.getPositionFromValue = function(value) {
