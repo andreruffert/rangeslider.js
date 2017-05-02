@@ -284,7 +284,7 @@
         this.update(true, false);
 
         if (this.onInit && typeof this.onInit === 'function') {
-            this.onInit();
+            this.onInit(this);
         }
     };
 
@@ -358,7 +358,7 @@
         this.$element.trigger('change', { origin: this.identifier });
 
         if (this.onSlideEnd && typeof this.onSlideEnd === 'function') {
-            this.onSlideEnd(this.position, this.value);
+            this.onSlideEnd(this.position, this.value, this);
         }
     };
 
@@ -389,7 +389,7 @@
         this.value = value;
 
         if (triggerSlide && this.onSlide && typeof this.onSlide === 'function') {
-            this.onSlide(newPos, value);
+            this.onSlide(newPos, value, this);
         }
     };
 
