@@ -23,6 +23,7 @@
   width: 20px;
   min-height: 150px;
   max-height: 100%;
+  height: 100%;
 }
 
 .rangeslider--disabled {
