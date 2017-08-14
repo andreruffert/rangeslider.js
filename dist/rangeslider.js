@@ -1,4 +1,4 @@
-/*! rangeslider.js - v2.3.1 | (c) 2017 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v2.3.0 | (c) 2016 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function(factory) {
     'use strict';
 
@@ -36,6 +36,7 @@
         hasInputRangeSupport = supportsRange(),
         defaults = {
             polyfill: true,
+            hideinput: true,
             orientation: 'horizontal',
             rangeClass: 'rangeslider',
             disabledClass: 'rangeslider--disabled',
@@ -220,6 +221,7 @@
         this.$element           = $(element);
         this.options            = $.extend( {}, defaults, options );
         this.polyfill           = this.options.polyfill;
+        this.hideinput         = this.options.hideinput;
         this.orientation        = this.$element[0].getAttribute('data-orientation') || this.options.orientation;
         this.onInit             = this.options.onInit;
         this.onSlide            = this.options.onSlide;
@@ -242,16 +244,18 @@
         this.toFixed    = (this.step + '').replace('.', '').length - 1;
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
-        this.$range     = $('<div class="' + this.options.rangeClass + ' ' + this.options[this.orientation + 'Class'] + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
+        this.$range     = $('<div class="' + this.options.rangeClass + ' ' + this.options[this.orientation + 'Class'] + '" id="' + this.identifier + '" />').insertBefore(this.$element).prepend(this.$fill, this.$handle);
 
         // visually hide the input
-        this.$element.css({
-            'position': 'absolute',
-            'width': '1px',
-            'height': '1px',
-            'overflow': 'hidden',
-            'opacity': '0'
-        });
+        if (this.hideinput) {
+            this.$element.css({
+                'position': 'absolute',
+                'width': '1px',
+                'height': '1px',
+                'overflow': 'hidden',
+                'opacity': '0'
+            });
+        }
 
         // Store context
         this.handleDown = $.proxy(this.handleDown, this);
