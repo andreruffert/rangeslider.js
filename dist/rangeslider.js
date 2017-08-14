@@ -221,7 +221,7 @@
         this.$element           = $(element);
         this.options            = $.extend( {}, defaults, options );
         this.polyfill           = this.options.polyfill;
-        this.hideinput         = this.options.hideinput;
+        this.hideinput          = this.options.hideinput;
         this.orientation        = this.$element[0].getAttribute('data-orientation') || this.options.orientation;
         this.onInit             = this.options.onInit;
         this.onSlide            = this.options.onSlide;
