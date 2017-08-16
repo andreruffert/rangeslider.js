@@ -215,13 +215,13 @@
      * @param {String} element
      * @param {String} orientation
      */
-    function getDirection(element,orientation){
-        var direction=element[0].getAttribute('data-direction')||(orientation==='vertical'?'btt':'ltr')
-
-        if(constants.orientation[orientation].direction[direction]){
+    function getDirection(element, orientation){
+        var direction = element[0].getAttribute('data-direction') || (orientation === 'vertical' ? 'btt' : 'ltr');
+        
+        if (constants.orientation[orientation].direction[direction]) {
             return direction;
-        }else{
-           return orientation==='vertical'?'btt':'ltr';
+        } else {
+            return orientation === 'vertical' ? 'btt' : 'ltr';
         }
     }
 
