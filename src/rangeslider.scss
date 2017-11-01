@@ -3,6 +3,8 @@
 $rangeslider:               ".rangeslider";
 $rangeslider--horizontal:   ".rangeslider--horizontal";
 $rangeslider--vertical:     ".rangeslider--vertical";
+$rangeslider__rtl:          ".rangeslider__rtl";
+$rangeslider__ttb:          ".rangeslider__ttb";
 $rangeslider--disabled:     ".rangeslider--disabled";
 $rangeslider--active:       ".rangeslider--active";
 $rangeslider__fill:         ".rangeslider__fill";
@@ -30,6 +32,14 @@ $rangeslider__handle:       ".rangeslider__handle";
     min-height: 150px;
     max-height: 100%;
     height: 100%;
+}
+
+#{$rangeslider__rtl} {
+    direction: rtl;
+}
+
+#{$rangeslider__ttb} {
+    top: 0;
 }
 
 #{$rangeslider--disabled} {
