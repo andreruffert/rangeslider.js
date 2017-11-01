@@ -220,7 +220,7 @@
      */
     function isDefaultDirection(orientation, direction) {
       return (direction === 'btt' && orientation === 'vertical') ||
-        (direction === 'ltr' && orientation === 'horizontal')
+        (direction === 'ltr' && orientation === 'horizontal');
     }
 
     /**
@@ -334,8 +334,10 @@
         e.preventDefault();
         
         // Only respond to mouse main button clicks (usually the left button)
-        if (e.button && e.button !== 0) return;
-        
+        if (e.button && e.button !== 0) {
+          return;
+        }
+
         this.$document.on(this.moveEvent, this.handleMove);
         this.$document.on(this.endEvent, this.handleEnd);
 
