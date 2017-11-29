@@ -1,12 +1,12 @@
 @import "compass/css3";
 
 $rangeslider:               ".rangeslider";
-$rangeslider--horizontal:   ".rangeslider--horizontal";
-$rangeslider--vertical:     ".rangeslider--vertical";
-$rangeslider--disabled:     ".rangeslider--disabled";
-$rangeslider--active:       ".rangeslider--active";
-$rangeslider__fill:         ".rangeslider__fill";
-$rangeslider__handle:       ".rangeslider__handle";
+$rangeslider--horizontal:   "#{$rangeslider}--horizontal";
+$rangeslider--vertical:     "#{$rangeslider}--vertical";
+$rangeslider--disabled:     "#{$rangeslider}--disabled";
+$rangeslider--active:       "#{$rangeslider}--active";
+$rangeslider__fill:         "#{$rangeslider}__fill";
+$rangeslider__handle:       "#{$rangeslider}__handle";
 
 #{$rangeslider},
 #{$rangeslider__fill} {
