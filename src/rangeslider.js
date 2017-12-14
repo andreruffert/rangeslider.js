@@ -277,6 +277,10 @@
             var value = e.target.value,
                 pos = _this.getPositionFromValue(value);
             _this.setPosition(pos);
+
+            if (_this.onSlideEnd && typeof _this.onSlideEnd === 'function') {
+                _this.onSlideEnd(pos, _this.value);
+            }
         });
     }
 
