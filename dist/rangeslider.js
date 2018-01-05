@@ -1,4 +1,4 @@
-/*! rangeslider.js - v2.3.1 | (c) 2017 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
+/*! rangeslider.js - v2.3.2 | (c) 2018 @andreruffert | MIT license | https://github.com/andreruffert/rangeslider.js */
 (function(factory) {
     'use strict';
 
@@ -317,6 +317,10 @@
 
     Plugin.prototype.handleDown = function(e) {
         e.preventDefault();
+
+        // Only respond to mouse main button clicks (usually the left button)
+        if (e.button && e.button !== 0) { return; }
+
         this.$document.on(this.moveEvent, this.handleMove);
         this.$document.on(this.endEvent, this.handleEnd);
 
