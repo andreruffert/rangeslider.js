@@ -215,19 +215,21 @@
      * @param {Object} options
      */
     function Plugin(element, options) {
-        this.$window            = $(window);
-        this.$document          = $(document);
-        this.$element           = $(element);
-        this.options            = $.extend( {}, defaults, options );
-        this.polyfill           = this.options.polyfill;
-        this.orientation        = this.$element[0].getAttribute('data-orientation') || this.options.orientation;
-        this.onInit             = this.options.onInit;
-        this.onSlide            = this.options.onSlide;
-        this.onSlideEnd         = this.options.onSlideEnd;
-        this.DIMENSION          = constants.orientation[this.orientation].dimension;
-        this.DIRECTION          = constants.orientation[this.orientation].direction;
-        this.DIRECTION_STYLE    = constants.orientation[this.orientation].directionStyle;
-        this.COORDINATE         = constants.orientation[this.orientation].coordinate;
+        this.$window             = $(window);
+        this.$document           = $(document);
+        this.$element            = $(element);
+        this.options             = $.extend( {}, defaults, options );
+        this.polyfill            = this.options.polyfill;
+        this.orientation         = this.$element[0].getAttribute('data-orientation') || this.options.orientation;
+        this.onInit              = this.options.onInit;
+        this.onHandleMove        = this.options.onHandleMove;
+        this.onRangeClick        = this.options.onRangeClick;
+        this.onSlide             = this.options.onSlide;
+        this.onSlideEnd          = this.options.onSlideEnd;
+        this.DIMENSION           = constants.orientation[this.orientation].dimension;
+        this.DIRECTION           = constants.orientation[this.orientation].direction;
+        this.DIRECTION_STYLE     = constants.orientation[this.orientation].directionStyle;
+        this.COORDINATE          = constants.orientation[this.orientation].coordinate;
 
         // Plugin should only be used as a polyfill
         if (this.polyfill) {
@@ -338,6 +340,10 @@
             handlePos   = this.getPositionFromNode(this.$handle[0]) - rangePos,
             setPos      = (this.orientation === 'vertical') ? (this.maxHandlePos - (pos - this.grabPos)) : (pos - this.grabPos);
 
+        if (this.onRangeClick && typeof this.onRangeClick === 'function') {
+            this.onRangeClick(setPos, this.getValueFromPosition(setPos));
+        }
+
         this.setPosition(setPos);
 
         if (pos >= handlePos && pos < handlePos + this.handleDimension) {
@@ -350,6 +356,10 @@
         var pos = this.getRelativePosition(e);
         var setPos = (this.orientation === 'vertical') ? (this.maxHandlePos - (pos - this.grabPos)) : (pos - this.grabPos);
         this.setPosition(setPos);
+
+        if (this.onHandleMove && typeof this.onHandleMove === 'function') {
+            this.onHandleMove(this.position, this.value);
+        }
     };
 
     Plugin.prototype.handleEnd = function(e) {

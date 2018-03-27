@@ -296,6 +296,18 @@
             },
 
             // Callback function
+            onRangeClick: function(position, value) {
+                console.log('onRangeClick');
+                console.log('position: ' + position, 'value: ' + value);
+            },
+
+            // Callback function
+            onHandleMove: function(position, value) {
+                console.log('onHandleMove');
+                console.log('position: ' + position, 'value: ' + value);
+            },
+
+            // Callback function
             onSlideEnd: function(position, value) {
                 console.log('onSlideEnd');
                 console.log('position: ' + position, 'value: ' + value);
