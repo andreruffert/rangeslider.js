@@ -23,6 +23,10 @@ Check out the [examples](http://rangeslider.js.org/).
 - File a [bug report](https://github.com/andreruffert/rangeslider.js/issues) for anything rangeslider.js related.
 - Ask a question such as "How do I …?". Open a [StackOverflow](https://stackoverflow.com/search?q=rangeslider.js) question with rangeslider.js tag or ask in the [Gitter chat room](https://gitter.im/andreruffert/rangeslider.js).
 
+## Quick Start
+
+See the [Minimum example](example/minimum-example.html) and [More examples](example/index.html) to start using [rangeslider.js](http://rangeslider.js.org/) quickly.
+
 ## License
 MIT © [André Ruffert](http://andreruffert.com)
 
