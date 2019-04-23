@@ -16,14 +16,8 @@
   background-color: hsl(0, 0%, 98%);
   font-size: var(--font-size);
   line-height: 1.5;
-
-  @media only screen and (min-width: 1300px) {
-    margin-top: 0;
-    position: absolute;
-    top: 1em;
-    right: 1em;
-  }
 }
+
 
 #carbonads a {
   color: inherit;
@@ -69,6 +63,15 @@
   font-weight: 600;
   font-size: 9px;
   line-height: 0;
+}
+
+@media only screen and (min-width: 1300px) {
+  #carbonads {
+    margin-top: 0;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+  }
 }
 
 @media only screen and (min-width: 320px) and (max-width: 759px) {
