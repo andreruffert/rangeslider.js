@@ -1,7 +1,7 @@
 {
   "name": "rangeslider.js",
   "title": "rangeslider.js",
-  "description": "Simple, small and fast JavaScript/jQuery polyfill for the HTML5 <input type=\"range\"> slider element",
+  "description": "Simple, small and fast jQuery polyfill for the HTML5 <input type=\"range\"> slider element",
   "version": "2.3.2",
   "codename": "Navy Blue",
   "main": "dist/rangeslider.js",
