@@ -402,7 +402,7 @@
                 fillDimension = zeroPos - newPos - this.grabPos;
             }
         } else {
-            fillDimension = zeroPos;
+            fillDimension = newPos + this.grabPos;
             fillDirection = 0;
         }
 
