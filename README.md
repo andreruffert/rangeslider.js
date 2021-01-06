@@ -19,7 +19,7 @@ Check out the [examples](http://rangeslider.js.org/).
 ## Further Reading
 - Understand how [rangeslider.js](http://rangeslider.js.org/) works in general.
 - File a [bug report](https://github.com/andreruffert/rangeslider.js/issues) for anything rangeslider.js related.
-- Ask a question such as "How do I …?". Open a [new discussion]().
+- Ask a question such as "How do I …?". Open a [new discussion](https://github.com/andreruffert/rangeslider.js/discussions/new).
 
 ## Related
 - [range-slider-element](https://github.com/andreruffert/range-slider-element) - A custom range slider element
