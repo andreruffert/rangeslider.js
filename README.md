@@ -16,8 +16,6 @@ Check out the [examples](http://rangeslider.js.org/).
 ## Install
 [📦](https://www.npmjs.org/): ``npm install --save rangeslider.js``                                          
 
-[🐧](http://bower.io/): ``bower install --save rangeslider.js``
-
 ## Further Reading
 - Understand how [rangeslider.js](http://rangeslider.js.org/) works in general.
 - File a [bug report](https://github.com/andreruffert/rangeslider.js/issues) for anything rangeslider.js related.
