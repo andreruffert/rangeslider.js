@@ -1,8 +1,9 @@
 # <img src="http://rangeslider.js.org/rangeslider.js.png" width="50" valign="middle"> rangeslider.js
 
 [![Build Status](https://travis-ci.org/andreruffert/rangeslider.js.svg?branch=develop)](https://travis-ci.org/andreruffert/rangeslider.js)
+[![npm version](https://img.shields.io/npm/v/rangeslider.js.svg)](https://www.npmjs.com/package/rangeslider.js)
 [![jsDelivr Hits](https://data.jsdelivr.com/v1/package/npm/rangeslider.js/badge?style=rounded)](https://www.jsdelivr.com/package/npm/rangeslider.js) 
-[![npm downloads](https://img.shields.io/npm/dm/rangeslider.js?logo=npm)](https://www.npmjs.com/package/rangeslider.js) [![npm version](https://img.shields.io/npm/v/rangeslider.js.svg)](https://www.npmjs.com/package/rangeslider.js)
+[![npm downloads](https://img.shields.io/npm/dm/rangeslider.js?logo=npm)](https://www.npmjs.com/package/rangeslider.js)
 
 > Simple, small and fast jQuery [polyfill](https://remysharp.com/2010/10/08/what-is-a-polyfill) for the HTML5 `<input type="range">` slider element.
 
