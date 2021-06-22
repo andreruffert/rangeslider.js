@@ -23,7 +23,7 @@ Check out the [examples](http://rangeslider.js.org/).
 - Ask a question such as "How do I …?". Open a [new discussion](https://github.com/andreruffert/rangeslider.js/discussions/new).
 
 ## Related
-- [range-slider-element](https://github.com/andreruffert/range-slider-element) - A custom range slider element
+- [range-slider-element](https://github.com/andreruffert/range-slider-element) - A rewrite as a range slider custom element
 
 ## License
 MIT © [André Ruffert](http://andreruffert.com)
