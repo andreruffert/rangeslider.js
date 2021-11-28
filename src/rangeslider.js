@@ -45,7 +45,9 @@
             handleClass: 'rangeslider__handle',
             startEvent: ['mousedown', 'touchstart', 'pointerdown'],
             moveEvent: ['mousemove', 'touchmove', 'pointermove'],
-            endEvent: ['mouseup', 'touchend', 'pointerup']
+            endEvent: ['mouseup', 'touchend', 'pointerup'],
+            wheelEvent: ['wheel'],
+            wheelSelector: null
         },
         constants = {
             orientation: {
@@ -238,11 +240,18 @@
         this.startEvent = this.options.startEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.moveEvent  = this.options.moveEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.endEvent   = this.options.endEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
+        this.wheelEvent = this.options.wheelEvent.join('.' + this.identifier + ' ') + '.' + this.identifier;
         this.toFixed    = (this.step + '').replace('.', '').length - 1;
         this.$fill      = $('<div class="' + this.options.fillClass + '" />');
         this.$handle    = $('<div class="' + this.options.handleClass + '" />');
         this.$range     = $('<div class="' + this.options.rangeClass + ' ' + this.options[this.orientation + 'Class'] + '" id="' + this.identifier + '" />').insertAfter(this.$element).prepend(this.$fill, this.$handle);
-
+        
+        if (this.options.wheelSelector) {
+            this.wheelSelector = this.options.wheelSelector;
+        } else {
+            this.wheelSelector = '#' + this.identifier + ':not(.' + this.options.disabledClass + ')';
+        }
+        
         // visually hide the input
         this.$element.css({
             'position': 'absolute',
@@ -256,6 +265,7 @@
         this.handleDown = $.proxy(this.handleDown, this);
         this.handleMove = $.proxy(this.handleMove, this);
         this.handleEnd  = $.proxy(this.handleEnd, this);
+        this.handleWheel = $.proxy(this.handleWheel, this);
 
         this.init();
 
@@ -267,6 +277,7 @@
         }, 20));
 
         this.$document.on(this.startEvent, '#' + this.identifier + ':not(.' + this.options.disabledClass + ')', this.handleDown);
+        this.$document.on(this.wheelEvent, this.wheelSelector, this.handleWheel);
 
         // Listen to programmatic value changes
         this.$element.on('change.' + this.identifier, function(e, data) {
@@ -312,6 +323,14 @@
         }
 
         this.setPosition(this.position, triggerSlide);
+    };
+
+    Plugin.prototype.handleWheel = function(e) {
+        e.preventDefault();
+        var old_value = this.value;
+        var new_value = old_value + ((e.originalEvent.deltaY > 0) ? -1: 1);
+        console.log("[slider.wheel] " + old_value + " => " + new_value);
+        this.setPosition(this.getPositionFromValue(new_value));
     };
 
     Plugin.prototype.handleDown = function(e) {
