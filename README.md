@@ -25,6 +25,10 @@ Check out the [examples](http://rangeslider.js.org/).
 ## Related
 - [range-slider-element](https://github.com/andreruffert/range-slider-element) - A rewrite as a range slider custom element
 
+## Quick Start
+
+See the [Minimum example](example/minimum-example.html) and [More examples](example/index.html) to start using [rangeslider.js](http://rangeslider.js.org/) quickly.
+
 ## License
 MIT © [André Ruffert](http://andreruffert.com)
 
