@@ -42,6 +42,7 @@
             horizontalClass: 'rangeslider--horizontal',
             verticalClass: 'rangeslider--vertical',
             fillClass: 'rangeslider__fill',
+            fillBeginsAtZero: false,
             handleClass: 'rangeslider__handle',
             startEvent: ['mousedown', 'touchstart', 'pointerdown'],
             moveEvent: ['mousemove', 'touchmove', 'pointermove'],
@@ -383,8 +384,31 @@
         value = this.getValueFromPosition(this.cap(pos, 0, this.maxHandlePos));
         newPos = this.getPositionFromValue(value);
 
+        // Fill style
+        var fillDimension, fillDirection;
+        if (this.options.fillBeginsAtZero === true && 0 >= this.min && 0 <= this.max) {
+            var zeroPos = this.getPositionFromValue(0) + this.grabPos;
+            if (this.orientation === 'horizontal' && value >= 0) {
+                fillDirection = zeroPos;
+                fillDimension = newPos - zeroPos + this.grabPos;
+            } else if (this.orientation === 'horizontal' && value < 0) {
+                fillDirection = newPos + this.grabPos;
+                fillDimension = zeroPos - newPos - this.grabPos;
+            } else if (this.orientation === 'vertical' && value >= 0) {
+                fillDirection = zeroPos;
+                fillDimension = newPos - zeroPos + this.grabPos;
+            } else {
+                fillDirection = newPos + this.grabPos;
+                fillDimension = zeroPos - newPos - this.grabPos;
+            }
+        } else {
+            fillDimension = newPos + this.grabPos;
+            fillDirection = 0;
+        }
+
         // Update ui
-        this.$fill[0].style[this.DIMENSION] = (newPos + this.grabPos) + 'px';
+        this.$fill[0].style[this.DIMENSION] = fillDimension + 'px';
+        this.$fill[0].style[this.DIRECTION_STYLE] = fillDirection + 'px';
         this.$handle[0].style[this.DIRECTION_STYLE] = newPos + 'px';
         this.setValue(value);
 
