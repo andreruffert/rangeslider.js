@@ -274,9 +274,8 @@
                 return;
             }
 
-            var value = e.target.value,
-                pos = _this.getPositionFromValue(value);
-            _this.setPosition(pos);
+            var value = e.target.value;
+            _this.setPositionByValue(value);
         });
     }
 
@@ -310,8 +309,7 @@
         } else {
             this.$range.removeClass(this.options.disabledClass);
         }
-
-        this.setPosition(this.position, triggerSlide);
+        this.setPositionByValue(this.value, triggerSlide);
     };
 
     Plugin.prototype.handleDown = function(e) {
@@ -381,6 +379,30 @@
 
         // Snapping steps
         value = this.getValueFromPosition(this.cap(pos, 0, this.maxHandlePos));
+        newPos = this.getPositionFromValue(value);
+
+        // Update ui
+        this.$fill[0].style[this.DIMENSION] = (newPos + this.grabPos) + 'px';
+        this.$handle[0].style[this.DIRECTION_STYLE] = newPos + 'px';
+        this.setValue(value);
+
+        // Update globals
+        this.position = newPos;
+        this.value = value;
+
+        if (triggerSlide && this.onSlide && typeof this.onSlide === 'function') {
+            this.onSlide(newPos, value);
+        }
+    };
+
+    Plugin.prototype.setPositionByValue = function(value, triggerSlide) {
+        var newPos;
+
+        if (triggerSlide === undefined) {
+            triggerSlide = true;
+        }
+
+        // Snapping steps
         newPos = this.getPositionFromValue(value);
 
         // Update ui
