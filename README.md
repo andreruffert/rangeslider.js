@@ -1,3 +1,6 @@
+> [!TIP]
+> You should probably consider using [range-slider-element](https://github.com/andreruffert/range-slider-element). A modern, lightweight and accessible rewrite with no dependencies.
+
 # <img src="http://rangeslider.js.org/rangeslider.js.png" width="50" valign="middle"> rangeslider.js
 
 [![Build Status](https://travis-ci.org/andreruffert/rangeslider.js.svg?branch=develop)](https://travis-ci.org/andreruffert/rangeslider.js)
@@ -23,7 +26,7 @@ Check out the [examples](http://rangeslider.js.org/).
 - Ask a question such as "How do I …?". Open a [new discussion](https://github.com/andreruffert/rangeslider.js/discussions/new).
 
 ## Related
-- [range-slider-element](https://github.com/andreruffert/range-slider-element) - A rewrite as a range slider custom element
+- [range-slider-element](https://github.com/andreruffert/range-slider-element) - A modern, lightweight and accessible rewrite with no dependencies.
 
 ## License
 MIT © [André Ruffert](http://andreruffert.com)
