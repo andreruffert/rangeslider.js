@@ -26,6 +26,14 @@
   height: 100%;
 }
 
+.rangeslider__rtl {
+  direction: rtl;
+}
+
+.rangeslider__ttb {
+  top: 0;
+}
+
 .rangeslider--disabled {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
   opacity: 0.4;
